@@ -1,6 +1,6 @@
 ---
-name: "[KPT]"
-about: KPT 회고
+name: KPT 회고 이슈카드 마크다운 템플릿
+about: KPT 회고 이슈카드 마크다운 템플릿
 title: ''
 labels: KPT
 assignees: Dzeko9
