@@ -37,4 +37,5 @@
 
 💡 [Team Notion]
 
-💡 [Wiki](https://github.com/codestates/WalkingDogs/wiki](https://github.com/2021-SMHRD-KDT-BigData-17/MindHelpler/wiki)
+💡 [Wiki](https://github.com/2021-SMHRD-KDT-BigData-17/MindHelpler/wiki)
+
