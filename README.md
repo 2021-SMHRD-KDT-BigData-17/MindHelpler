@@ -1,4 +1,4 @@
-# MindHelpler
+# Mind Helper
 우울증 감정 분석 서비스
 
 # 서비스 소개
