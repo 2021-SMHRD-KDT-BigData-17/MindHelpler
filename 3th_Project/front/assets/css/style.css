@@ -1735,7 +1735,6 @@ header {
 }
 .emotion_Diary_details .emotion_Diary {
   position: relative;
-  display: grid;
   min-height: 500px;
   background: var(--white);
   padding: 20px;
@@ -1779,4 +1778,23 @@ header {
 .emotion_Diary_bottom h2 {
   font-weight: 600;
   color: var(--blue);
+}
+.diary_form {
+  margin-top: 50px;
+  padding: 0;
+}
+textarea {
+  width: 800px;
+  font-size: 20px;
+  margin-bottom: 20px;
+  border: 0;
+  background-color: var(--body-color);
+  border-radius: 5px;
+  resize: none;
+}
+textarea::placeholder {
+  padding: 20px;
+}
+textarea::-webkit-scrollbar {
+  display: none;
 }
