@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.smhrd.mapper.UserMapper">
+
+	<insert id="insertUser" parameterType="kr.smhrd.domain.T_USER">
+	    INSERT INTO T_USER VALUES (#{userId}, #{userName}, #{userEmail}, #{userPw}, #{userBirthdate}, #{userGender}, #{userPhone}, #{adminYn})
+	</insert>
+    
+    <select id="userLogin" parameterType="kr.smhrd.domain.T_USER" resultType="kr.smhrd.domain.T_USER">
+       	SELECT * FROM T_USER WHERE userId=#{userId} and userPw=#{userPw}
+    </select>
+    
+    <update id="updateUser" parameterType="kr.smhrd.domain.T_USER">
+        UPDATE T_USER SET userId=#{userId}, userName=#{userName}, userEmail=#{userEmail}, userPw=#{userPw}, userBirthdate=#{userBirthdate}, userGender=#{userGender}, userPhone=#{userPhone}
+    </update>
+    
+    <delete id="deleteUser" parameterType="String">
+        DELETE FROM T_USER WHERE userId=#{userId}
+    </delete>
+ 	
+</mapper>

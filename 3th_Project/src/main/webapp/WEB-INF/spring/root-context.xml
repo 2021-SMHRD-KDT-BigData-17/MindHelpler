@@ -9,10 +9,8 @@
 
 	<!-- com.zaxxer.hikari.HikariConfig.class -->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-		<property name="driverClassName"
-			value="com.mysql.jdbc.Driver" />
-		<property name="jdbcUrl"
-			value="jdbc:mysql://project-db-stu.ddns.net:3303/smhrd?useSSL=false&amp;serverTimezone=UTC" />
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://project-db-stu.ddns.net:3307/smhrd?useSSL=false&amp;serverTimezone=UTC" />
 		<property name="username" value="smhrd" />
 		<property name="password" value="1234" />
 	</bean>
@@ -30,6 +28,6 @@
 	</bean>
 
 	<!-- BoardMapper interface들을 메모리에 올림(scan) -->
-	<mybatis-spring:scan base-package="kr.board.mapper" />
+	<mybatis-spring:scan base-package="kr.smhrd.mapper" />
 
 </beans>
