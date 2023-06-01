@@ -263,8 +263,8 @@ a {
 
 .details .cardHeader {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+
+  align-items: center;
 }
 .cardHeader h2 {
   font-weight: 600;
@@ -280,6 +280,7 @@ a {
 }
 .details table thead td {
   font-weight: 600;
+  font-size: 18px;
 }
 .details .recentOrders table tr {
   color: var(--black1);

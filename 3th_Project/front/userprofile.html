@@ -113,11 +113,23 @@
                   <li>회원 정보 수정</li>
                 </ul>
               </div>
+              <button
+                id="move"
+                class="status pending"
+                style="
+                  width: 100px;
+                  height: 60px;
+                  border: none;
+                  cursor: pointer;
+                "
+              >
+                이동하기
+              </button>
             </div>
             <table id="Analysis_List">
               <thead>
                 <tr>
-                  <td style="width: 230px">이미지/감정일기 분석결과</td>
+                  <td style="width: 240px">이미지/감정일기 분석결과</td>
                   <td>분석일자</td>
                   <td>설문테스트 분석결과</td>
                   <td>분석일자</td>
@@ -280,6 +292,7 @@
         const selected = dropdown.querySelector(".selected");
         const analysisList = document.getElementById("Analysis_List");
         const editFormBox = document.getElementById("edit_form-box");
+        const moveButton = document.getElementById("move");
 
         // Hide the edit_form-box initially
         editFormBox.style.display = "none";
@@ -302,14 +315,19 @@
             option.classList.add("active");
 
             // Check which option is selected and show/hide the corresponding content
-            if (option.innerText === "분석내역") {
-              analysisList.style.display = "inline-table";
-              editFormBox.style.display = "none";
-            } else if (option.innerText === "회원 정보 수정") {
-              analysisList.style.display = "none";
-              editFormBox.style.display = "block";
-            }
           });
+        });
+
+        moveButton.addEventListener("click", () => {
+          const selectedOption = dropdown.querySelector(".menu li.active");
+          if (selectedOption.innerText === "회원 정보 수정") {
+            analysisList.style.display = "none";
+            editFormBox.style.display = "block";
+          }
+          if (selectedOption.innerText === "분석내역") {
+            analysisList.style.display = "table";
+            editFormBox.style.display = "none";
+          }
         });
       });
     </script>
