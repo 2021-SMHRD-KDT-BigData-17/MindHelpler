@@ -98,13 +98,65 @@
             <p><span>Admin</span>님 환영합니다.</p>
           </div>
         </div>
+        <!-- ===================설문시작========================== -->
+        <div id="channel-introduce">
+          <img src="./assets/img/UFXURTRJHA5K6RKPEGCZDZFTO4.jpg" />
+          <h3 id="channel-introduce-title">
+            신뢰성 높은 마인드 헬퍼의 우울 감정 테스트<br />
+            <p>당신의 우울 감정 지수는 몇 점 ?</p>
+          </h3>
+          <button id="start-channel">(우울 감정 자가진단) 검사 시작하기</button>
+        </div>
+        <div id="channel-question" style="display: none">
+          <div class="progress-bar">
+            <div class="progress-bar-line"></div>
+          </div>
+
+          <h1 id="question-title"></h1>
+          <ul id="question-answer">
+            <li class="question"></li>
+            <li class="question"></li>
+            <li class="question"></li>
+            <li class="question"></li>
+          </ul>
+        </div>
+        <div id="channel-finish" style="display: none">
+          <img
+            src="https://assets.trost.co.kr/images/service/emoji/happy.gif"
+            id="finish-image"
+          />
+          <div class="finish-point-guide">
+            <p id="finish-title">
+              우울증 자가진단 테스트 결과<br />나의 우울증 지수
+            </p>
+            <p id="finish-point"><span>2</span>점</p>
+            <p id="finish-point-content">0 ~ 9점: 우울하지 않은 상태</p>
+            <p id="finish-content">
+              <strong>우울한 게 뭐죠?!</strong> 와우! 축하해요!<br />당신은 보기
+              드물게 ‘전혀 우울하지 않은’ 사람!! :D<br />자존감, 스트레스,
+              불안….요즘 내 마음이 더 궁금하다면 지금 무료로 테스트해보세요!
+            </p>
+          </div>
+
+          <!--    <div id="finish-program-content"></div>-->
+
+          <p id="finish-guide">
+            본 우울증 자가진단 검사는 주 1회 평가를 권장하며, 결과에서 ‘심한
+            우울 상태'에 대한 염려가 2주 이상 나올 경우 전문가와의 상의를
+            권장합니다. 입시와 같이 환경적으로 부정적인 상황에 처한 경우 테스트
+            결과가 상향되어 나올 수 있습니다.
+          </p>
+          <button class="re" onclick="location.href = './survey.html'">
+            검사 다시하기
+          </button>
+        </div>
       </div>
     </div>
     <div id="progress">
       <span id="progress-value"><i class="fa-solid fa-arrow-turn-up"></i></span>
     </div>
     <!-- =========== Scripts =========  -->
-    <script src="assets/js/main.js"></script>
+    <script src="./assets/js/main.js"></script>
 
     <!-- ====== ionicons ======= -->
     <script
@@ -115,5 +167,273 @@
       nomodule
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
     ></script>
+    <script
+      src="https://kit.fontawesome.com/369266d994.js"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      // 설문 테스트
+      document
+        .getElementById("start-channel")
+        .addEventListener("click", function () {
+          document.getElementById("channel-introduce").style.display = "none";
+          document.getElementById("channel-question").style.display = "block";
+        });
+      const progressBarLine = document.querySelector(".progress-bar-line");
+      const answerItems = document.querySelectorAll("#question-answer li");
+      const questionTitle = document.getElementById("question-title");
+
+      const questionList = [
+        {
+          question: "요즘 슬픈 기분인가요",
+          answers: [
+            { text: "답변1", score: 0 },
+            { text: "답변2", score: 1 },
+            { text: "답변3", score: 2 },
+            { text: "답변4", score: 3 },
+          ],
+        },
+        {
+          question: "다른 사람들과 소통하기 어려운가요",
+          answers: [
+            { text: "답변1", score: 0 },
+            { text: "답변2", score: 1 },
+            { text: "답변3", score: 2 },
+            { text: "답변4", score: 3 },
+          ],
+        },
+        {
+          question: "에너지가 없어서 무기력한가요",
+          answers: [
+            { text: "답변1", score: 0 },
+            { text: "답변2", score: 1 },
+            { text: "답변3", score: 2 },
+            { text: "답변4", score: 3 },
+          ],
+        },
+        {
+          question: "자주 우울한 생각이 드나요",
+          answers: [
+            { text: "답변1", score: 0 },
+            { text: "답변2", score: 1 },
+            { text: "답변3", score: 2 },
+            { text: "답변4", score: 3 },
+          ],
+        },
+        {
+          question: "테스트 문항5",
+          answers: [
+            { text: "답변1", score: 0 },
+            { text: "답변2", score: 1 },
+            { text: "답변3", score: 2 },
+            { text: "답변4", score: 3 },
+          ],
+        },
+        {
+          question: "테스트 문항6",
+          answers: [
+            { text: "답변1", score: 0 },
+            { text: "답변2", score: 1 },
+            { text: "답변3", score: 2 },
+            { text: "답변4", score: 3 },
+          ],
+        },
+        {
+          question: "테스트 문항7",
+          answers: [
+            { text: "답변1", score: 0 },
+            { text: "답변2", score: 1 },
+            { text: "답변3", score: 2 },
+            { text: "답변4", score: 3 },
+          ],
+        },
+        {
+          question: "테스트 문항8",
+          answers: [
+            { text: "답변1", score: 0 },
+            { text: "답변2", score: 1 },
+            { text: "답변3", score: 2 },
+            { text: "답변4", score: 3 },
+          ],
+        },
+        {
+          question: "테스트 문항9",
+          answers: [
+            { text: "답변1", score: 0 },
+            { text: "답변2", score: 1 },
+            { text: "답변3", score: 2 },
+            { text: "답변4", score: 3 },
+          ],
+        },
+        {
+          question: "테스트 문항10",
+          answers: [
+            { text: "답변1", score: 0 },
+            { text: "답변2", score: 1 },
+            { text: "답변3", score: 2 },
+            { text: "답변4", score: 3 },
+          ],
+        },
+        {
+          question: "테스트 문항11",
+          answers: [
+            { text: "답변1", score: 0 },
+            { text: "답변2", score: 1 },
+            { text: "답변3", score: 2 },
+            { text: "답변4", score: 3 },
+          ],
+        },
+        {
+          question: "테스트 문항12",
+          answers: [
+            { text: "답변1", score: 0 },
+            { text: "답변2", score: 1 },
+            { text: "답변3", score: 2 },
+            { text: "답변4", score: 3 },
+          ],
+        },
+        {
+          question: "테스트 문항13",
+          answers: [
+            { text: "답변1", score: 0 },
+            { text: "답변2", score: 1 },
+            { text: "답변3", score: 2 },
+            { text: "답변4", score: 3 },
+          ],
+        },
+        {
+          question: "테스트 문항14",
+          answers: [
+            { text: "답변1", score: 0 },
+            { text: "답변2", score: 1 },
+            { text: "답변3", score: 2 },
+            { text: "답변4", score: 3 },
+          ],
+        },
+        {
+          question: "테스트 문항15",
+          answers: [
+            { text: "답변1", score: 0 },
+            { text: "답변2", score: 1 },
+            { text: "답변3", score: 2 },
+            { text: "답변4", score: 3 },
+          ],
+        },
+        {
+          question: "테스트 문항16",
+          answers: [
+            { text: "답변1", score: 0 },
+            { text: "답변2", score: 1 },
+            { text: "답변3", score: 2 },
+            { text: "답변4", score: 3 },
+          ],
+        },
+        {
+          question: "테스트 문항17",
+          answers: [
+            { text: "답변1", score: 0 },
+            { text: "답변2", score: 1 },
+            { text: "답변3", score: 2 },
+            { text: "답변4", score: 3 },
+          ],
+        },
+        {
+          question: "테스트 문항18",
+          answers: [
+            { text: "답변1", score: 0 },
+            { text: "답변2", score: 1 },
+            { text: "답변3", score: 2 },
+            { text: "답변4", score: 3 },
+          ],
+        },
+        {
+          question: "테스트 문항19",
+          answers: [
+            { text: "답변1", score: 0 },
+            { text: "답변2", score: 1 },
+            { text: "답변3", score: 2 },
+            { text: "답변4", score: 3 },
+          ],
+        },
+        {
+          question: "테스트 문항20",
+          answers: [
+            { text: "답변1", score: 0 },
+            { text: "답변2", score: 1 },
+            { text: "답변3", score: 2 },
+            { text: "답변4", score: 3 },
+          ],
+        },
+      ];
+
+      let currentQuestionIndex = 0;
+      let totalScore = 0;
+
+      function updateQuestion() {
+        const currentQuestion = questionList[currentQuestionIndex];
+
+        questionTitle.textContent = currentQuestion.question;
+
+        const answerList = document.getElementById("question-answer");
+        answerList.innerHTML = "";
+
+        currentQuestion.answers.forEach((answer, index) => {
+          const listItem = document.createElement("li");
+          listItem.classList.add(
+            "question",
+            `question_${currentQuestionIndex + 1}`,
+            index + 1
+          );
+          listItem.textContent = answer.text;
+
+          listItem.addEventListener("click", () => {
+            answerItems.forEach((item) => {
+              item.classList.remove("active");
+            });
+
+            listItem.classList.add("active");
+
+            totalScore += answer.score;
+
+            if (currentQuestionIndex < questionList.length - 1) {
+              currentQuestionIndex++;
+              updateProgress();
+              updateQuestion();
+            } else {
+              progressBarLine.style.width = "100%";
+              showResultButton();
+            }
+          });
+
+          answerList.appendChild(listItem);
+        });
+      }
+
+      function updateProgress() {
+        const progressWidth =
+          ((currentQuestionIndex + 1) / questionList.length) * 100;
+        progressBarLine.style.width = `${progressWidth}%`;
+      }
+
+      function showResultButton() {
+        const answerList = document.getElementById("question-answer");
+        const resultButton = document.createElement("button");
+        resultButton.textContent = "View Results";
+        resultButton.addEventListener("click", () => {
+          const channelQuestionDiv =
+            document.getElementById("channel-question");
+          const channelFinishDiv = document.getElementById("channel-finish");
+          const finishPoint = document.getElementById("finish-point");
+
+          channelQuestionDiv.style.display = "none";
+          channelFinishDiv.style.display = "block";
+          finishPoint.innerHTML = `<span>${totalScore}</span>점`;
+        });
+        answerList.insertAdjacentElement("afterend", resultButton);
+        console.log(totalScore);
+      }
+
+      updateQuestion();
+    </script>
   </body>
 </html>
