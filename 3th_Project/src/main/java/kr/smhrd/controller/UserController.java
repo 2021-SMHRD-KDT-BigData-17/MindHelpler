@@ -16,10 +16,20 @@ import kr.smhrd.mapper.UserMapper;
 
 @Controller
 public class UserController {
-
+	
 	@Autowired
 	private UserMapper usermapper;
 
+	@RequestMapping("/Main")
+	public String Main() {
+		return "Main";
+	}
+	
+	@GetMapping("/survey")
+	public String showSurveyPage() {
+		return "survey";
+	}
+	
 	// 회원가입
 	@PostMapping("/SignUp")
 	public String SignUp(T_USER user) {
@@ -46,7 +56,7 @@ public class UserController {
 	public String Update(T_USER user) {
 		System.out.println("Controller Update : " + user.getUserId());
 		usermapper.updateUser(user);
-		return "redirect:/";
+		return "redirect:/Login";
 	}
 
 	// 로그아웃
