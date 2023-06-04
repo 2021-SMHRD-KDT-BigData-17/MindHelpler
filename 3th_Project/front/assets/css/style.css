@@ -1999,43 +1999,21 @@ textarea::-webkit-scrollbar {
 #channel-finish p#finish-point-content {
   margin-bottom: 4px;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 26px;
+
   text-align: center;
 }
 
-#channel-finish p#finish-content {
+#channel-finish #finish-content {
   margin-top: 10px;
   font-size: 14px;
-  line-height: 24px;
+  line-height: 40px;
   text-align: center;
 }
-
-#channel-finish p#finish-content strong {
-  font-size: 16px;
+#channel-finish #finish-content strong {
+  font-size: 18px;
 }
 
-#channel-finish #finish-program-content {
-  width: 90%;
-  border-radius: 30px;
-  background-color: #ffffff;
-  margin: 16px auto 0;
-  padding: 25px 16px 1px 16px;
-  display: none;
-}
-
-#channel-finish #finish-program-content p {
-  font-size: 14px;
-  line-height: 24px;
-  margin-bottom: 24px;
-}
-
-#channel-finish p#finish-guide {
-  color: #fff;
-  width: 80%;
-  margin: 24px auto 40px;
-  line-height: 24px;
-  font-size: 14px;
-}
 #channel-finish button.re {
   cursor: pointer;
   display: block;

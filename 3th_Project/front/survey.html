@@ -129,23 +129,12 @@
             <p id="finish-title">
               우울증 자가진단 테스트 결과<br />나의 우울증 지수
             </p>
-            <p id="finish-point"><span>2</span>점</p>
-            <p id="finish-point-content">0 ~ 9점: 우울하지 않은 상태</p>
-            <p id="finish-content">
-              <strong>우울한 게 뭐죠?!</strong> 와우! 축하해요!<br />당신은 보기
-              드물게 ‘전혀 우울하지 않은’ 사람!! :D<br />자존감, 스트레스,
-              불안….요즘 내 마음이 더 궁금하다면 지금 무료로 테스트해보세요!
-            </p>
+            <p id="finish-point"><span></span>점</p>
+            <p id="finish-point-content"></p>
+            <p id="finish-content"></p>
           </div>
 
           <!--    <div id="finish-program-content"></div>-->
-
-          <p id="finish-guide">
-            본 우울증 자가진단 검사는 주 1회 평가를 권장하며, 결과에서 ‘심한
-            우울 상태'에 대한 염려가 2주 이상 나올 경우 전문가와의 상의를
-            권장합니다. 입시와 같이 환경적으로 부정적인 상황에 처한 경우 테스트
-            결과가 상향되어 나올 수 있습니다.
-          </p>
           <button class="re" onclick="location.href = './survey.html'">
             검사 다시하기
           </button>
@@ -375,6 +364,36 @@
         },
       ];
 
+      const scoreRanges = [
+        {
+          minScore: 0,
+          maxScore: 10,
+          status: "우울하지 않은 상태",
+          message:
+            "우울한 게 뭐죠?!<br> 와우! 축하해요! <br>당신은 보기 드물게<strong> ‘전혀 우울하지 않은’ </strong>사람!! :D",
+        },
+        {
+          minScore: 11,
+          maxScore: 15,
+          status: "가벼운 우울 상태",
+          message:
+            "나도 모르게 요즘 좀 우울... 전혀 우울하지 않은~<br>약간 우울한~ 상당히 우울한~<br>심각하게 우울한 상태 중에서 당신은 <strong>‘약간 우울한 상태’예요.</strong>  <br>혹시 조금씩 지쳐가는 요즘, 이 정도는 별일 아니라며 그냥 지나치고 있나요?",
+        },
+        {
+          minScore: 16,
+          maxScore: 23,
+          status: "중한 우울 상태",
+          message:
+            "괜찮은 듯 그러나 괜찮지 않은... 전혀 우울하지 않은~<br>약간 우울한~상당히 우울한~<br>심각하게 우울한 상태 중에서 당신은 <strong>‘상당히 우울한 상태’</strong>입니다.<br> 혹시 공허하거나 무기력하고 혼자 이런 감정을 해결하기 어렵다면 심리상담으로 전문적인 도움을 받아보는 게 좋아요.",
+        },
+        {
+          minScore: 24,
+          maxScore: Infinity,
+          status: "심한 우울 상태",
+          message:
+            "누군가의 전문적인 도움이 필요해요! <br>네..지금 당신은 우울증 지수에서 가장 높은 단계에 속하는<strong> ‘심각하게 우울한 상태’</strong>입니다. <br>책읽기, 산책 등 일상적인 노력으로는 극복하지 못했다면 꼭 심리상담으로 전문적인 도움을 받으시길 추천해요.",
+        },
+      ];
       let currentQuestionIndex = 0;
       let totalScore = 0;
 
@@ -427,19 +446,67 @@
       function showResultButton() {
         const answerList = document.getElementById("question-answer");
         const resultButton = document.createElement("button");
-        resultButton.textContent = "View Results";
+        resultButton.classList.add("book__now");
+        resultButton.textContent = "결과 확인하기";
         resultButton.addEventListener("click", () => {
           const channelQuestionDiv =
             document.getElementById("channel-question");
           const channelFinishDiv = document.getElementById("channel-finish");
           const finishPoint = document.getElementById("finish-point");
+          const finishPoint_status = document.getElementById(
+            "finish-point-content"
+          );
+          const finishContent = document.getElementById("finish-content");
 
           channelQuestionDiv.style.display = "none";
           channelFinishDiv.style.display = "block";
+
+          const status = getStatusFromScore(totalScore);
           finishPoint.innerHTML = `<span>${totalScore}</span>점`;
+          finishPoint_status.textContent = status.status;
+          finishContent.innerHTML = getMessageFromStatus(status.status);
+
+          if (
+            status.status === "중한 우울 상태" ||
+            status.status === "심한 우울 상태"
+          ) {
+            const counselingButton = document.createElement("button");
+            counselingButton.classList.add("book__now");
+            counselingButton.textContent = "상담사와 채팅하기";
+            counselingButton.onclick = function () {
+              location.href = "./survey.html";
+            };
+
+            // 상담사와 채팅하기 버튼을 가운데로 정렬하기
+            const centerDiv = document.createElement("div");
+            centerDiv.style.textAlign = "center";
+            centerDiv.style.marginTop = "20px";
+            centerDiv.appendChild(counselingButton);
+            finishContent.insertAdjacentElement("afterend", centerDiv);
+          }
         });
+
         answerList.insertAdjacentElement("afterend", resultButton);
-        console.log(totalScore);
+      }
+
+      function getStatusFromScore(score) {
+        for (let i = 0; i < scoreRanges.length; i++) {
+          const range = scoreRanges[i];
+          if (score >= range.minScore && score <= range.maxScore) {
+            return range;
+          }
+        }
+        return null;
+      }
+
+      function getMessageFromStatus(status) {
+        for (let i = 0; i < scoreRanges.length; i++) {
+          const range = scoreRanges[i];
+          if (range.status === status) {
+            return range.message;
+          }
+        }
+        return "";
       }
 
       updateQuestion();
