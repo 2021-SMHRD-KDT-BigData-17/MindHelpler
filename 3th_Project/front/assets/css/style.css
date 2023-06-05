@@ -2025,3 +2025,117 @@ textarea::-webkit-scrollbar {
   font-size: 16px;
   color: black;
 }
+/* 이미지 분석 페이지 */
+.emotion_header {
+  justify-content: center;
+  display: grid;
+  text-align: center;
+  padding: 50px;
+}
+.emotion_header p {
+  margin-top: 20px;
+  line-height: 50px;
+}
+.wrapper {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.upload {
+  background-color: var(--body-color);
+  border-radius: 10px;
+  box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+  width: 340px;
+  min-height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.upload-info p {
+  opacity: 0.6;
+  font-weight: 600;
+  margin-top: 50px;
+}
+.upload-wrapper {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.upload-img {
+  max-height: 300px;
+  overflow-y: scroll;
+}
+.upload-img::-webkit-scrollbar-track {
+  box-shadow: inset 6px var(--color-text);
+  border-radius: 5px;
+}
+.upload-img::-webkit-scrollbar-thumb {
+  background-color: var(--black2);
+  border-radius: 5px;
+}
+.upload-img::-webkit-scrollbar {
+  width: 5px;
+}
+.upload-area {
+  padding: 20px;
+  border: 2px dashed var(--color-text);
+  border-radius: 8px;
+  margin-top: 50px;
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
+}
+.upload-area:hover {
+  background-color: rgba(176, 196, 246, 0.1);
+}
+.upload-area-img {
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
+}
+.upload-area-img img {
+  max-width: 80px;
+}
+.upload-area-text {
+  font-weight: 700;
+  color: var(--black2);
+}
+.upload-area-text span {
+  color: var(--black1);
+}
+.visually-hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+.upload-img {
+  width: 340px;
+}
+.uploaded-img {
+  padding: 4px 0;
+  position: relative;
+}
+
+/* remove image button */
+.remove-btn {
+  width: 22px;
+  height: 22px;
+  background-color: var(--white-color);
+  border: 1px solid var(--primary-color);
+  border-radius: 50%;
+  color: var(--primary-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: -5px;
+  right: -8px;
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
+}
+.remove-btn:hover {
+  background-color: var(--primary-color-dark);
+  color: var(--white-color);
+}

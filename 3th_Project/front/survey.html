@@ -405,17 +405,17 @@
         const answerList = document.getElementById("question-answer");
         answerList.innerHTML = "";
 
-        currentQuestion.answers.forEach((answer, index) => {
+        currentQuestion.answers.forEach(function (answer, index) {
           const listItem = document.createElement("li");
           listItem.classList.add(
             "question",
-            `question_${currentQuestionIndex + 1}`,
+            "question_" + (currentQuestionIndex + 1),
             index + 1
           );
           listItem.textContent = answer.text;
 
-          listItem.addEventListener("click", () => {
-            answerItems.forEach((item) => {
+          listItem.addEventListener("click", function () {
+            answerItems.forEach(function (item) {
               item.classList.remove("active");
             });
 
@@ -440,7 +440,7 @@
       function updateProgress() {
         const progressWidth =
           ((currentQuestionIndex + 1) / questionList.length) * 100;
-        progressBarLine.style.width = `${progressWidth}%`;
+        progressBarLine.style.width = progressWidth + "%";
       }
 
       function showResultButton() {
@@ -448,7 +448,7 @@
         const resultButton = document.createElement("button");
         resultButton.classList.add("book__now");
         resultButton.textContent = "결과 확인하기";
-        resultButton.addEventListener("click", () => {
+        resultButton.addEventListener("click", function () {
           const channelQuestionDiv =
             document.getElementById("channel-question");
           const channelFinishDiv = document.getElementById("channel-finish");
@@ -462,7 +462,7 @@
           channelFinishDiv.style.display = "block";
 
           const status = getStatusFromScore(totalScore);
-          finishPoint.innerHTML = `<span>${totalScore}</span>점`;
+          finishPoint.innerHTML = "<span>" + totalScore + "</span>점";
           finishPoint_status.textContent = status.status;
           finishContent.innerHTML = getMessageFromStatus(status.status);
 
