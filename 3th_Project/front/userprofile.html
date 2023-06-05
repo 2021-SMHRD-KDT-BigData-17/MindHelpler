@@ -300,29 +300,29 @@
         // Hide the edit_form-box initially
         editFormBox.style.display = "none";
 
-        select.addEventListener("click", () => {
+        select.addEventListener("click", function () {
           select.classList.toggle("select-clicked");
           caret.classList.toggle("caret-rotate");
           menu.classList.toggle("menu-open");
         });
 
         options.forEach((option) => {
-          option.addEventListener("click", () => {
+          option.addEventListener("click", function () {
             selected.innerText = option.innerText;
             select.classList.remove("select-clicked");
             caret.classList.remove("caret-rotate");
             menu.classList.remove("menu-open");
             options.forEach((option) => {
-              option.classList.remove("active");
+              option.classList.remove("drop_active");
             });
-            option.classList.add("active");
+            option.classList.add("drop_active");
 
             // Check which option is selected and show/hide the corresponding content
           });
         });
 
-        moveButton.addEventListener("click", () => {
-          const selectedOption = dropdown.querySelector(".menu li.active");
+        moveButton.addEventListener("click", function () {
+          const selectedOption = dropdown.querySelector(".menu li.drop_active");
           if (selectedOption.innerText === "회원 정보 수정") {
             analysisList.style.display = "none";
             editFormBox.style.display = "block";
