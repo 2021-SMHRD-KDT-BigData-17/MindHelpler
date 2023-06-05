@@ -2139,3 +2139,48 @@ textarea::-webkit-scrollbar {
   background-color: var(--primary-color-dark);
   color: var(--white-color);
 }
+
+/* 이미지 분석 결과 */
+.res_emotion_contents {
+  gap: 30px;
+  align-items: center;
+  margin: 40px 10px;
+  display: grid;
+  grid-template-columns: 50% auto;
+}
+.res_img img {
+  border-radius: 10px;
+}
+#chart {
+  display: grid;
+  justify-content: center;
+}
+.chart_header {
+  display: flex;
+  justify-content: center;
+}
+.emotion_img_right_content .header {
+  margin-top: 20px;
+  font-size: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+.emotion_img_right_content .header span {
+  font-size: 24px;
+  font-weight: bolder;
+  display: flex;
+  justify-content: center;
+}
+.emotion_img_right_content .res_contents_text {
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  font-size: 1.5rem;
+}
+.emotion_img_right_content .res_contents_text_total {
+  margin-top: 20px;
+  text-align: center;
+  line-height: 40px;
+  font-size: var(--fs-sm);
+}

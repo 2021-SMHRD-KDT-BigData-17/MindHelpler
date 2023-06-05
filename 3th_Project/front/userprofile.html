@@ -262,7 +262,12 @@
           </div>
         </div>
         <div class="details">
-          <div class="recentOrders"></div>
+          <div class="recentOrders">
+            <div class="cardHeader">
+              <h2>감정일기 월간 분석 리포트</h2>
+            </div>
+            <canvas id="myChart"></canvas>
+          </div>
         </div>
       </div>
     </div>
@@ -333,6 +338,87 @@
           }
         });
       });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      const ctx = document.getElementById("myChart");
+      const DATA_COUNT = 7;
+      const NUMBER_CFG = { count: DATA_COUNT, min: -10, max: 10 };
+
+      function getMonthLabels(count) {
+        const monthNames = [
+          "1월",
+          "2월",
+          "3월",
+          "4월",
+          "5월",
+          "6월",
+          "7월",
+          "8월",
+          "9월",
+          "10월",
+          "11월",
+          "12월",
+        ];
+
+        const currentDate = new Date();
+        const currentYear = currentDate.getFullYear();
+        const labels = [];
+
+        for (let i = count - 1; i >= 0; i--) {
+          const month = currentDate.getMonth() - i;
+          const year = month < 0 ? currentYear - 1 : currentYear;
+          labels.push(`${year}년  ${monthNames[(month + 12) % 12]}`);
+        }
+
+        return labels;
+      }
+
+      function generateRandomNumbers(count, min, max) {
+        const numbers = [];
+
+        for (let i = 0; i < count; i++) {
+          const randomNumber =
+            Math.floor(Math.random() * (max - min + 1)) + min;
+          numbers.push(randomNumber);
+        }
+
+        return numbers;
+      }
+
+      const labels = getMonthLabels(DATA_COUNT);
+      const data = {
+        labels: labels,
+        datasets: [
+          {
+            label: "긍정",
+            data: generateRandomNumbers(DATA_COUNT, 0, 10),
+            borderColor: "red",
+            backgroundColor: "rgba(255, 0, 0, 0.5)",
+          },
+          {
+            label: "부정",
+            data: generateRandomNumbers(DATA_COUNT, -10, 0),
+            borderColor: "blue",
+            backgroundColor: "rgba(0, 0, 255, 0.5)",
+          },
+        ],
+      };
+
+      const config = {
+        type: "bar",
+        data: data,
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: "top",
+            },
+          },
+        },
+      };
+
+      new Chart(ctx, config);
     </script>
   </body>
 </html>
