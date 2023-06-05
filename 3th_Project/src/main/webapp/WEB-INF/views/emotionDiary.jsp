@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -176,8 +179,8 @@
 	<script src="https://kit.fontawesome.com/369266d994.js"
 		crossorigin="anonymous"></script>
 
-	<!-- ë¬ë ¥ ìë°ì¤í¬ë¦½í¸ -->
-	<script>
+    <!-- 달력 자바스크립트 -->
+    <script>
       const calendar = document.querySelector(".calendar"),
         date = document.querySelector(".date"),
         daysContainer = document.querySelector(".days"),
@@ -203,45 +206,28 @@
       let year = today.getFullYear();
 
       const months = [
-          "1월",
-          "2월",
-          "3월",
-          "4월",
-          "5월",
-          "6월",
-          "7월",
-          "8월",
-          "9월",
-          "10월",
-          "11월",
-          "12월",
+        "1월",
+        "2월",
+        "3월",
+        "4월",
+        "5월",
+        "6월",
+        "7월",
+        "8월",
+        "9월",
+        "10월",
+        "11월",
+        "12월",
       ];
       const dayNames = [
-          "일요일",
-          "월요일",
-          "화요일",
-          "수요일",
-          "목요일",
-          "금요일",
-          "토요일",
+        "일요일",
+        "월요일",
+        "화요일",
+        "수요일",
+        "목요일",
+        "금요일",
+        "토요일",
       ];
-      // const eventsArr = [
-      //   {
-      //     day: 13,
-      //     month: 11,
-      //     year: 2022,
-      //     events: [
-      //       {
-      //         title: "Event 1 lorem ipsun dolar sit genfa tersd dsad ",
-      //         time: "10:00 AM",
-      //       },
-      //       {
-      //         title: "Event 2",
-      //         time: "11:00 AM",
-      //       },
-      //     ],
-      //   },
-      // ];
 
       const eventsArr = [];
       getEvents();
@@ -331,6 +317,7 @@
       initCalendar();
 
       //function to add active on day
+      // function to add active on day
       function addListner() {
         const days = document.querySelectorAll(".day");
         days.forEach((day) => {
@@ -338,48 +325,59 @@
             getActiveDay(e.target.innerHTML);
             updateEvents(Number(e.target.innerHTML));
             activeDay = Number(e.target.innerHTML);
-            //remove active
+            // remove active
             days.forEach((day) => {
               day.classList.remove("active");
             });
-            //if clicked prev-date or next-date switch to that month
+            // if clicked prev-date or next-date switch to that month
             if (e.target.classList.contains("prev-date")) {
               prevMonth();
-              //add active to clicked day afte month is change
+              // add active to clicked day after month is changed
               setTimeout(() => {
-                //add active where no prev-date or next-date
+                // add active where no prev-date or next-date
                 const days = document.querySelectorAll(".day");
                 days.forEach((day) => {
                   if (
                     !day.classList.contains("prev-date") &&
-                    day.innerHTML === e.target.innerHTML
-                  ) {
-                    day.classList.add("active");
-                  }
-                });
-              }, 100);
-            } else if (e.target.classList.contains("next-date")) {
-              nextMonth();
-              //add active to clicked day afte month is changed
-              setTimeout(() => {
-                const days = document.querySelectorAll(".day");
-                days.forEach((day) => {
-                  if (
                     !day.classList.contains("next-date") &&
                     day.innerHTML === e.target.innerHTML
                   ) {
                     day.classList.add("active");
                   }
                 });
+                updateEventDate();
+              }, 100);
+            } else if (e.target.classList.contains("next-date")) {
+              nextMonth();
+              // add active to clicked day after month is changed
+              setTimeout(() => {
+                const days = document.querySelectorAll(".day");
+                days.forEach((day) => {
+                  if (
+                    !day.classList.contains("prev-date") &&
+                    !day.classList.contains("next-date") &&
+                    day.innerHTML === e.target.innerHTML
+                  ) {
+                    day.classList.add("active");
+                  }
+                });
+                updateEventDate();
               }, 100);
             } else {
               e.target.classList.add("active");
+              updateEventDate();
             }
           });
         });
       }
 
-      todayBtn.addEventListener("click", () => {
+      // function to update event date
+      function updateEventDate() {
+        eventDate.innerHTML =
+          year + "년" + " " + months[month] + " " + activeDay + "일";
+      }
+
+      todayBtn.addEventListener("click", function () {
         today = new Date();
         month = today.getMonth();
         year = today.getFullYear();
@@ -424,7 +422,7 @@
         const dayName = dayNames[dayIndex];
         eventDay.innerHTML = dayName;
         eventDate.innerHTML =
-          year + "년" + " " + months[month] + " " + date + "일";
+          year + "년" + " " + months[month] + " " + date + "일";
       }
 
       //function update events when a day is active
@@ -451,7 +449,7 @@
         });
         if (events === "") {
           events = `<div class="no-event">
-            <h3>ì¼ì  ìì</h3>
+            <h3>일정 없음</h3>
         </div>`;
         }
         eventsContainer.innerHTML = events;
@@ -459,11 +457,11 @@
       }
 
       //function to add event
-      addEventBtn.addEventListener("click", () => {
+      addEventBtn.addEventListener("click", function () {
         addEventWrapper.classList.toggle("active");
       });
 
-      addEventCloseBtn.addEventListener("click", () => {
+      addEventCloseBtn.addEventListener("click", function () {
         addEventWrapper.classList.remove("active");
       });
 
@@ -500,7 +498,7 @@
       });
 
       //function to add event to eventsArr
-      addEventSubmit.addEventListener("click", () => {
+      addEventSubmit.addEventListener("click", function () {
         const eventTitle = addEventTitle.value;
         const eventTimeFrom = addEventFrom.value;
         const eventTimeTo = addEventTo.value;
@@ -645,6 +643,6 @@
         return time;
       }
     </script>
-	<!-- 달력 자바스크립트 -->
+    <!-- 달력 자바스크립트 -->
 </body>
 </html>

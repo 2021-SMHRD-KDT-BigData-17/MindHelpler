@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="cpath" value="${pageContext.request.contextPath}" />
 
 <!DOCTYPE html>
 <html lang="en">
@@ -30,31 +31,31 @@
 					</div>
 				</li>
 
-				<li><a href="index.jsp"> <span class="icon"> <ion-icon
+				<li><a href="Main"> <span class="icon"> <ion-icon
 								name="home-outline"></ion-icon>
 					</span> <span class="title">서비스 소개</span>
 				</a></li>
 
-				<li style="display: none"><a href="survey.jsp"> <span
+				<li style="display: none"><a href="survey"> <span
 						class="icon"> <ion-icon name="people-outline"></ion-icon>
 					</span> <span class="title">설문 진단</span>
 				</a></li>
 
-				<li style="display: none"><a href="emotion.jsp"> <span
+				<li style="display: none"><a href="emotion"> <span
 						class="icon"> <ion-icon name="chatbubble-outline"></ion-icon>
 					</span> <span class="title">표정 진단</span>
 				</a></li>
 
-				<li style="display: none"><a href="emotionDiary.jsp"> <span
+				<li style="display: none"><a href="emotionDiary"> <span
 						class="icon"> <ion-icon name="help-outline"></ion-icon>
 					</span> <span class="title">감성 일기</span>
 				</a></li>
 
-				<li style="display: none"><a href="userprofile.jsp"> <span
+				<li style="display: none"><a href="userprofile"> <span
 						class="icon"> <ion-icon name="settings-outline"></ion-icon>
 					</span> <span class="title">마이페이지</span>
 				</a></li>
-				<li style="display: none"><a href="Counselorfile.jsp"> <span
+				<li style="display: none"><a href="Counselorfile"> <span
 						class="icon"> <ion-icon name="settings-outline"></ion-icon>
 					</span> <span class="title">상담사 전용 마이페이지</span>
 				</a></li>
@@ -76,14 +77,14 @@
 				<div class="login_container">
 					<div class="forms-container">
 						<div class="signin-signup">
-							<form action="" class="sign-in-form">
+							<form action="${cpath}/Login" class="sign-in-form">
 								<div class="input-field">
 									<i class="fas fa-user"></i> <input type="text"
-										placeholder="Username" />
+										id="userId" name="userId" placeholder="Username" />
 								</div>
 								<div class="input-field">
 									<i class="fas fa-lock"></i> <input type="password"
-										placeholder="Password" />
+										id="userPw" name="userPw" placeholder="Password" />
 								</div>
 								<input type="submit" value="로그인" class="btn solid"
 									style="background-color: wheat" />
@@ -98,26 +99,26 @@
 									</a>
 								</div>
 							</form>
-							<form action="#" class="sign-up-form">
+							<form action="${cpath}/SignUp" class="sign-up-form" method="post">
 								<div class="input-field">
 									<i class="fas fa-user"></i> <input type="text"
-										placeholder="Username" />
+										id="userId" name="userId" placeholder="Username" />
 								</div>
 								<div class="input-field">
 									<i class="fas fa-envelope"></i> <input type="email"
-										placeholder="Email" />
+										id="userEmail" name="userEmail" placeholder="Email" />
 								</div>
 								<div class="input-field">
 									<i class="fas fa-lock"></i> <input type="password"
-										placeholder="Password" />
+										id="userPw" name="userPw" placeholder="Password" />
 								</div>
 								<div class="input-field">
-									<i class="fa-solid fa-cake-candles"></i> <input type="date" />
+									<i class="fa-solid fa-cake-candles"></i> <input type="date" id="userBirthdate" name="userBirthdate" />
 								</div>
 								<fieldset class="checkbox-group">
 									<div class="checkbox">
 										<label class="checkbox-wrapper"> <input
-											type="checkbox" class="checkbox-input" /> <span
+											type="checkbox" class="checkbox-input" id="userGender" name="userGender" /> <span
 											class="checkbox-tile"> <span class="checkbox-icon">
 													<i class="fa-solid fa-person" style="font-size: 30px"></i>
 											</span> <span class="checkbox-label" style="margin-top: 5px">남</span>
@@ -126,7 +127,7 @@
 									</div>
 									<div class="checkbox">
 										<label class="checkbox-wrapper"> <input
-											type="checkbox" class="checkbox-input" /> <span
+											type="checkbox" class="checkbox-input" id="userGender" name="userGender" /> <span
 											class="checkbox-tile"> <span class="checkbox-icon"
 												style="font-size: 20px"> <i
 													class="fa-solid fa-person-dress" style="font-size: 30px"></i>
@@ -157,7 +158,6 @@
 								<h3>환영합니다.</h3>
 								<p>저희 마인드 헬퍼가 처음이신가요?</p>
 								<p>회원가입을 통해 마인드헬퍼만의 분석 서비스를 이용해보세요</p>
-
 								<button class="btn transparent" id="sign-up-btn">
 									회원가입</button>
 							</div>

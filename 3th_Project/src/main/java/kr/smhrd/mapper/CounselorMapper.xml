@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.smhrd.mapper.CounselorMapper">
+
+	<insert id="insertCounselor" parameterType="kr.smhrd.domain.T_COUNSELOR">
+		INSERT INTO T_COUNSELOR (counselorEmail, counselorPw, counselorName, counselorExpertise) VALUES (#{counselorEmail}, #{counselorPw}, #{counselorName}, #{counselorExpertise})
+	</insert>
+
+	<select id="counselorLogin" parameterType="kr.smhrd.domain.T_COUNSELOR"
+		resultType="kr.smhrd.domain.T_USER">
+		SELECT * FROM T_COUNSELOR WHERE counselorEmail=#{counselorEmail} AND counselorPw=#{counselorPw}
+	</select>
+
+</mapper>

@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import kr.smhrd.domain.T_USER;
 import kr.smhrd.mapper.UserMapper;
@@ -19,23 +18,13 @@ public class UserController {
 	
 	@Autowired
 	private UserMapper usermapper;
-
-	@RequestMapping("/Main")
-	public String Main() {
-		return "Main";
-	}
-	
-	@GetMapping("/survey")
-	public String showSurveyPage() {
-		return "survey";
-	}
 	
 	// 회원가입
 	@PostMapping("/SignUp")
 	public String SignUp(T_USER user) {
 		System.out.println("Controller SignUp : " + user.toString());
 		usermapper.insertUser(user);
-		return "redirect:/";
+		return "redirect:/login";
 	}
 	
 	// 로그인

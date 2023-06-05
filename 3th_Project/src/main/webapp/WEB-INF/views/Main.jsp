@@ -18,6 +18,12 @@
 </head>
 
 <body>
+
+    <%-- 로그인한 사용자의 세션 정보 가져오기 --%>
+    <%@page import="kr.smhrd.domain.T_USER"%>
+    <% T_USER loginUser = (T_USER) session.getAttribute("loginUser"); %>
+    
+
 	<!-- =============== Navigation ================ -->
 	<div class="container">
 		<div class="navigation">
@@ -32,36 +38,39 @@
 					</div>
 				</li>
 
-				<li><a href="index.jsp"> <span class="icon"> <ion-icon name="home-outline"></ion-icon></span> 
+				<li><a href="Main"> <span class="icon"> <ion-icon name="home-outline"></ion-icon></span> 
 					<span class="title">서비스 소개</span>
 				</a></li>
 
-				<li style="display: none"><a href="${cpath}/survey.jsp"> <span class="icon"> <ion-icon name="people-outline"></ion-icon></span> 
+				<li style="display: none"><a href="survey"> <span class="icon"> <ion-icon name="people-outline"></ion-icon></span> 
 					<span class="title">간편 설문 테스트</span>
 				</a></li>
 
-				<li style="display: none"><a href="emotion.jsp"> <span
+				<li style="display: none"><a href="emotion"> <span
 						class="icon"> <ion-icon name="chatbubble-outline"></ion-icon>
 					</span> <span class="title">간편 이미지 표정 테스트</span>
 				</a></li>
 
-				<li style="display: none"><a href="emotionDiary.jsp"> <span
+				<li style="display: none"><a href="emotionDiary"> <span
 						class="icon"> <ion-icon name="help-outline"></ion-icon>
 					</span> <span class="title">감정일기</span>
 				</a></li>
 
-				<li style="display: none"><a href="userprofile.jsp"> <span
+				<li style="display: none"><a href="userprofile"> <span
 						class="icon"> <ion-icon name="settings-outline"></ion-icon>
 					</span> <span class="title">마이페이지</span>
 				</a></li>
-				<li><a href="login_Counselor.jsp"> <span class="icon">
+				
+				<li><a href="loginCounselor"> <span class="icon">
 							<ion-icon name="settings-outline"></ion-icon>
 					</span> <span class="title"> 상담사 전용페이지</span>
 				</a></li>
-				<li><a href="login.jsp"> <span class="icon"> <ion-icon
+				
+				<li><a href="login"> <span class="icon"> <ion-icon
 								name="log-in-outline"></ion-icon>
 					</span> <span class="title">Sign in</span>
 				</a></li>
+				
 				<li style="display: none"><a href="#"> <span class="icon">
 							<ion-icon name="log-out-outline"></ion-icon>
 					</span> <span class="title">Sign Out</span>
@@ -74,7 +83,7 @@
 			<div class="topbar">
 				<div class="user">
 					<p>
-						<span>Admin</span>님 환영합니다.
+						<span><c:if test="${not empty loginUser}">${loginUser.userId}</c:if></span>님 환영합니다.
 					</p>
 				</div>
 			</div>
@@ -142,8 +151,9 @@
 							<div class="trip__details">
 								<p>간편 설문</p>
 								<div class="booking__price">
-									<a href="survey.jsp"><button class="book__now">간편
+									<a href="survey"><button class="book__now">간편
 											설문 하러 가기</button></a>
+											
 								</div>
 							</div>
 						</div>
@@ -153,7 +163,7 @@
 							<div class="trip__details">
 								<p>이미지 표정 분석</p>
 								<div class="booking__price">
-									<a href="emotion.jsp">
+									<a href="emotion">
 										<button class="book__now">표정 분석하러 가기</button>
 									</a>
 								</div>
@@ -165,7 +175,7 @@
 							<div class="trip__details">
 								<p>감성일기</p>
 								<div class="booking__price">
-									<a href="emotionDiary.jsp">
+									<a href="emotionDiary">
 										<button class="book__now">오늘의 일기 쓰러 가기</button>
 									</a>
 								</div>

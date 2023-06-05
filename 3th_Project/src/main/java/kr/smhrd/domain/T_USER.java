@@ -90,5 +90,12 @@ public class T_USER {
 	public T_USER() {
 		
 	}
+
+	@Override
+	public String toString() {
+		return "T_USER [userId=" + userId + ", userName=" + userName + ", userEmail=" + userEmail + ", userPw=" + userPw
+				+ ", userBirthdate=" + userBirthdate + ", userGender=" + userGender + ", userPhone=" + userPhone
+				+ ", adminYn=" + adminYn + "]";
+	}
 	
 }

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="cpath" value="${pageContext.request.contextPath}" />
 
 <!DOCTYPE html>
 <html>
@@ -29,31 +30,31 @@
 					</div>
 				</li>
 
-				<li><a href="index.jsp"> <span class="icon"> <ion-icon
+				<li><a href="Main"> <span class="icon"> <ion-icon
 								name="home-outline"></ion-icon>
 					</span> <span class="title">서비스 소개</span>
 				</a></li>
 
-				<li style="display: none"><a href="survey.jsp"> <span
+				<li style="display: none"><a href="survey"> <span
 						class="icon"> <ion-icon name="people-outline"></ion-icon>
 					</span> <span class="title">설문 진단</span>
 				</a></li>
 
-				<li style="display: none"><a href="emotion.jsp"> <span
+				<li style="display: none"><a href="emotion"> <span
 						class="icon"> <ion-icon name="chatbubble-outline"></ion-icon>
 					</span> <span class="title">표정 진단</span>
 				</a></li>
 
-				<li style="display: none"><a href="emotionDiary.jsp"> <span
+				<li style="display: none"><a href="emotionDiary"> <span
 						class="icon"> <ion-icon name="help-outline"></ion-icon>
 					</span> <span class="title">감성 일기</span>
 				</a></li>
 
-				<li style="display: none"><a href="userprofile.jsp"> <span
+				<li style="display: none"><a href="userprofile"> <span
 						class="icon"> <ion-icon name="settings-outline"></ion-icon>
 					</span> <span class="title">마이페이지</span>
 				</a></li>
-				<li style="display: none"><a href="Counselorfile.jsp"> <span
+				<li style="display: none"><a href="Counselorfile"> <span
 						class="icon"> <ion-icon name="settings-outline"></ion-icon>
 					</span> <span class="title">상담사 전용 마이페이지</span>
 				</a></li>
@@ -70,21 +71,21 @@
 
 		<!-- ========================= Main ==================== -->
 		<div class="main">
-			<!-- ================ login ìì ================= -->
+			<!-- ================ login ================= -->
 			<section id="Auth">
 				<div class="login_container">
 					<div class="forms-container">
 						<div class="signin-signup">
-							<form action="" class="sign-in-form">
+							<form action="${cpath}/CounLogin" class="sign-in-form">
 								<div class="input-field">
 									<i class="fas fa-user"></i> <input type="text"
-										placeholder="Username" />
+										id="counselorEmail" name="counselorEmail" placeholder="Username" />
 								</div>
 								<div class="input-field">
 									<i class="fas fa-lock"></i> <input type="password"
-										placeholder="Password" />
+										id="counselorPw" name="counselorPw" placeholder="Password" />
 								</div>
-								<input type="submit" value="ë¡ê·¸ì¸" class="btn solid"
+								<input type="submit" value="로그인" class="btn solid"
 									style="background-color: wheat" />
 								<p class="social-text">소셜계정으로 로그인</p>
 								<div class="social-media">
@@ -97,22 +98,22 @@
 									</a>
 								</div>
 							</form>
-							<form action="#" class="sign-up-form">
+							<form action="${cpath}/CounSignUp" class="sign-up-form" method="post">
 								<div class="input-field">
 									<i class="fas fa-user"></i> <input type="text"
-										placeholder="Username" />
+										id="counselorName" name="counselorName" placeholder="Username" />
 								</div>
 								<div class="input-field">
 									<i class="fas fa-envelope"></i> <input type="email"
-										placeholder="Email" />
+										id="counselorEmail" name="counselorEmail" placeholder="Email" />
 								</div>
 								<div class="input-field">
 									<i class="fas fa-lock"></i> <input type="password"
-										placeholder="Password" />
+										id="counselorPw" name="counselorPw" placeholder="Password" />
 								</div>
 								<div class="input-field">
 									<i class="fa-solid fa-splotch"></i> <input type="text"
-										placeholder="specialized field" />
+										id="counselorExpertise" name="counselorExpertise" placeholder="specialized field" />
 								</div>
 								<input type="submit" class="btn" value="로그인"
 									style="background-color: wheat" />
