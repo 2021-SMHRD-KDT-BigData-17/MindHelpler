@@ -29,33 +29,33 @@
 					</div>
 				</li>
 
-				<li><a href="index.jsp"> <span class="icon"> <ion-icon
+				<li><a href="Main"> <span class="icon"> <ion-icon
 								name="home-outline"></ion-icon>
-					</span> <span class="title">서비스 소개</span>
+					</span> <span class="title">서비스 소개</span>
 				</a></li>
 
-				<li><a href="survey.jsp"> <span class="icon"> <ion-icon
+				<li><a href="survey"> <span class="icon"> <ion-icon
 								name="people-outline"></ion-icon>
 					</span> <span class="title">간편 설문 테스트</span>
 				</a></li>
 
-				<li><a href="emotion.jsp"> <span class="icon"> <ion-icon
+				<li><a href="emotion"> <span class="icon"> <ion-icon
 								name="chatbubble-outline"></ion-icon>
 					</span> <span class="title">간편 이미지 표정 테스트</span>
 				</a></li>
 
-				<li><a href="emotionDiary.jsp"> <span class="icon">
-							<ion-icon name="help-outline"></ion-icon>
+				<li><a href="emotionDiary"> <span class="icon"> <ion-icon
+								name="help-outline"></ion-icon>
 					</span> <span class="title">감정일기</span>
 				</a></li>
 
-				<li><a href="userprofile.jsp"> <span class="icon">
-							<ion-icon name="settings-outline"></ion-icon>
+				<li><a href="userprofile"> <span class="icon"> <ion-icon
+								name="settings-outline"></ion-icon>
 					</span> <span class="title">마이페이지</span>
 				</a></li>
-				<li style="display: none"><a href="Counselorfile.jsp"> <span
+				<li style="display: none"><a href="Counselorfile"> <span
 						class="icon"> <ion-icon name="settings-outline"></ion-icon>
-					</span> <span class="title">상담사 전용 마이페이지</span>
+					</span> <span class="title"> 상담사 전용 마이페이지</span>
 				</a></li>
 
 				<li><a href="#"> <span class="icon"> <ion-icon
@@ -86,7 +86,7 @@
 							</div>
 							<ul class="menu">
 								<li class="active">분석내역</li>
-								<li>회원 정보 수정</li>
+								<li>회원 정보 수정</li>
 							</ul>
 						</div>
 						<button id="move" class="status pending"
@@ -97,15 +97,15 @@
 						<thead>
 							<tr>
 								<td style="width: 240px">이미지/감정일기 분석결과</td>
-								<td>분석일자</td>
+								<td>분석일자</td>
 								<td>설문테스트 분석결과</td>
-								<td>분석일자</td>
+								<td>분석일자</td>
 							</tr>
 						</thead>
 
 						<tbody>
 							<tr>
-								<td>긍정</td>
+								<td>긍정</td>
 								<td>2023/05/29</td>
 								<td>부정</td>
 								<td>2023/05/29</td>
@@ -114,28 +114,28 @@
 							<tr>
 								<td>긍정</td>
 								<td>2023/05/30</td>
-								<td>부정</td>
+								<td>부정</td>
 								<td>2023/05/30</td>
 							</tr>
 
 							<tr>
-								<td>긍정</td>
+								<td>긍정</td>
 								<td>2023/05/31</td>
-								<td>부정</td>
+								<td>부정</td>
 								<td>2023/05/31</td>
 							</tr>
 
 							<tr>
-								<td>긍정</td>
+								<td>긍정</td>
 								<td>2023/06/01</td>
 								<td>부정</td>
 								<td>2023/06/01</td>
 							</tr>
 
 							<tr>
-								<td>긍정</td>
+								<td>긍정</td>
 								<td>2023/06/01</td>
-								<td>부정</td>
+								<td>부정</td>
 								<td>2023/06/01</td>
 							</tr>
 						</tbody>
@@ -155,10 +155,10 @@
 								<i class="fas fa-lock"></i> <input type="password"
 									placeholder="Password" />
 							</div>
-							<input type="submit" value="회원정보수정" class="book__now"
+							<input type="submit" value="회원정보수정" class="book__now"
 								style="width: 50%; margin-top: 20px" />
 							<p style="margin-top: 40px; font-size: small; color: gray">
-								저희 Mind Helper의 서비스를 더이상 원하시지 않으신다면<a
+								저희 Mind Helper의 서비스를 더이상 원하시지 않으신다면 <a
 									style="text-decoration: none; color: #000" href="">&nbsp;<span><b>회원탈퇴</b></span></a>
 							</p>
 						</form>
@@ -180,7 +180,7 @@
 							</td>
 							<td class="counselor_list">
 								<h4>
-									올리비아 <br /> <span>Italy</span>
+									올리비아 <br /> <span>Italy</span>
 								</h4>
 								<div class="book__now">채팅하러가기</div>
 							</td>
@@ -194,7 +194,7 @@
 							</td>
 							<td class="counselor_list">
 								<h4>
-									올리비아 <br /> <span>India</span>
+									올리비아 <br /> <span>India</span>
 								</h4>
 								<div class="book__now">채팅하러가기</div>
 							</td>
@@ -208,13 +208,16 @@
 							</td>
 							<td class="counselor_list">
 								<h4>
-									올리비아<br /> <span>Italy</span>
+									올리비아 <br /> <span>Italy</span>
 								</h4>
 								<div class="book__now">채팅하러가기</div>
 							</td>
 						</tr>
 					</table>
 				</div>
+			</div>
+			<div class="details">
+				<div class="recentOrders"></div>
 			</div>
 		</div>
 	</div>
@@ -229,8 +232,7 @@
 		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 	<script src="https://kit.fontawesome.com/369266d994.js"
 		crossorigin="anonymous"></script>
-
-	<!-- ëë¡­ë¤ì´ ë©ë´ -->
+	<!-- 드롭다운 메뉴 -->
 	<script>
       const dropdowns = document.querySelectorAll(".dropdown");
 
@@ -247,34 +249,34 @@
         // Hide the edit_form-box initially
         editFormBox.style.display = "none";
 
-        select.addEventListener("click", () => {
+        select.addEventListener("click", function () {
           select.classList.toggle("select-clicked");
           caret.classList.toggle("caret-rotate");
           menu.classList.toggle("menu-open");
         });
 
         options.forEach((option) => {
-          option.addEventListener("click", () => {
+          option.addEventListener("click", function () {
             selected.innerText = option.innerText;
             select.classList.remove("select-clicked");
             caret.classList.remove("caret-rotate");
             menu.classList.remove("menu-open");
             options.forEach((option) => {
-              option.classList.remove("active");
+              option.classList.remove("drop_active");
             });
-            option.classList.add("active");
+            option.classList.add("drop_active");
 
             // Check which option is selected and show/hide the corresponding content
           });
         });
 
-        moveButton.addEventListener("click", () => {
-          const selectedOption = dropdown.querySelector(".menu li.active");
-          if (selectedOption.innerText === "íì ì ë³´ ìì ") {
+        moveButton.addEventListener("click", function () {
+          const selectedOption = dropdown.querySelector(".menu li.drop_active");
+          if (selectedOption.innerText === "회원 정보 수정") {
             analysisList.style.display = "none";
             editFormBox.style.display = "block";
           }
-          if (selectedOption.innerText === "ë¶ìë´ì­") {
+          if (selectedOption.innerText === "분석내역") {
             analysisList.style.display = "table";
             editFormBox.style.display = "none";
           }

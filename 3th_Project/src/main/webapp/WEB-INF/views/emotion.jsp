@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,8 +23,7 @@
 						<img src="resources/assets/img/logo.png" class="nav__img" alt="" />
 						<p class="logo_title">
 							<span style="color: #9dc3e6">M</span><span style="color: #767171">IND</span><br />
-							<span style="color: #ffd966">H</span><span
-								style="color: #767171">ELPER</span>
+							<span style="color: #ffd966">H</span><span style="color: #767171">ELPER</span>
 						</p>
 					</div>
 				</li>
@@ -46,8 +48,8 @@
 					</span> <span class="title">감정일기</span>
 				</a></li>
 
-				<li><a href="userprofile.jsp"> <span class="icon">
-							<ion-icon name="settings-outline"></ion-icon>
+				<li><a href="userprofile.jsp"> <span class="icon"> <ion-icon
+								name="settings-outline"></ion-icon>
 					</span> <span class="title">마이페이지</span>
 				</a></li>
 				<li style="display: none"><a href="Counselorfile.jsp"> <span
@@ -86,5 +88,52 @@
 		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 	<script nomodule
 		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+	<script src="https://kit.fontawesome.com/369266d994.js"
+		crossorigin="anonymous"></script>
+	<!-- JQuery -->
+	<script src="https://code.jquery.com/jquery-3.7.0.js"
+		integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+		crossorigin="anonymous"></script>
+	<!-- 이미지 업로드 코드 -->
+	<script>
+      $(document).ready(function () {
+        $(".upload-area").click(function () {
+          $("#upload-input").trigger("click");
+        });
+
+        $("#upload-input").change((event) => {
+          if (event.target.files) {
+            let filesAmount = event.target.files.length;
+
+            for (let i = 0; i < filesAmount; i++) {
+              let reader = new FileReader();
+              reader.onload = function (event) {
+                let html = `<div class="uploaded-img"> <img src="${event.target.result}"> 
+                <button type="button" class="remove-btn"> <i class="fas fa-times"></i>
+              </button>
+            </div>
+          `;
+                $(".upload-img").append(html);
+
+                let totalFilesAmount = $(".upload-img .uploaded-img").length;
+                $(".upload-info-value").text(totalFilesAmount);
+                $(".upload-img").css("padding", "20px");
+              };
+              reader.readAsDataURL(event.target.files[i]);
+            }
+          }
+        });
+
+        $(document).on("click", ".remove-btn", function () {
+          $(this).parent().remove();
+          let totalFilesAmount = $(".upload-img .uploaded-img").length;
+          $(".upload-info-value").text(totalFilesAmount);
+
+          if (totalFilesAmount === 0) {
+            $(".upload-img").css("padding", "0");
+          }
+        });
+      });
+      </script>
 </body>
 </html>

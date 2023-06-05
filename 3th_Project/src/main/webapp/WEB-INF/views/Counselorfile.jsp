@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,31 +28,31 @@
 					</div>
 				</li>
 
-				<li><a href="index.jsp"> <span class="icon"> <ion-icon
+				<li><a href="Main"> <span class="icon"> <ion-icon
 								name="home-outline"></ion-icon>
 					</span> <span class="title">서비스 소개</span>
 				</a></li>
 
-				<li style="display: none"><a href="survey.jsp"> <span
+				<li style="display: none"><a href="survey"> <span
 						class="icon"> <ion-icon name="people-outline"></ion-icon>
 					</span> <span class="title">간편 설문 테스트</span>
 				</a></li>
 
-				<li style="display: none"><a href="emotion.jsp"> <span
+				<li style="display: none"><a href="emotion"> <span
 						class="icon"> <ion-icon name="chatbubble-outline"></ion-icon>
 					</span> <span class="title">간편 이미지 표정 테스트</span>
 				</a></li>
 
-				<li style="display: none"><a href="emotionDiary.jsp"> <span
+				<li style="display: none"><a href="emotionDiary"> <span
 						class="icon"> <ion-icon name="help-outline"></ion-icon>
 					</span> <span class="title">감정일기</span>
 				</a></li>
 
-				<li style="display: none"><a href="userprofile.jsp"> <span
+				<li style="display: none"><a href="userprofile"> <span
 						class="icon"> <ion-icon name="settings-outline"></ion-icon>
 					</span> <span class="title">마이페이지</span>
 				</a></li>
-				<li style="display: none"><a href="Counselorfile.jsp"> <span
+				<li style="display: none"><a href="Counselorfile"> <span
 						class="icon"> <ion-icon name="settings-outline"></ion-icon>
 					</span> <span class="title">상담사 전용 마이페이지</span>
 				</a></li>
@@ -253,54 +256,54 @@
 		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 	<!-- ëë¡­ë¤ì´ ë©ë´ -->
 	<script>
-      const dropdowns = document.querySelectorAll(".dropdown");
+    const dropdowns = document.querySelectorAll(".dropdown");
 
-      dropdowns.forEach((dropdown) => {
-        const select = dropdown.querySelector(".select");
-        const caret = dropdown.querySelector(".caret");
-        const menu = dropdown.querySelector(".menu");
-        const options = dropdown.querySelectorAll(".menu li");
-        const selected = dropdown.querySelector(".selected");
-        const analysisList = document.getElementById("Analysis_List");
-        const editFormBox = document.getElementById("edit_form-box");
-        const moveButton = document.getElementById("move");
+    dropdowns.forEach((dropdown) => {
+      const select = dropdown.querySelector(".select");
+      const caret = dropdown.querySelector(".caret");
+      const menu = dropdown.querySelector(".menu");
+      const options = dropdown.querySelectorAll(".menu li");
+      const selected = dropdown.querySelector(".selected");
+      const analysisList = document.getElementById("Analysis_List");
+      const editFormBox = document.getElementById("edit_form-box");
+      const moveButton = document.getElementById("move");
 
-        // Hide the edit_form-box initially
-        editFormBox.style.display = "none";
+      // Hide the edit_form-box initially
+      editFormBox.style.display = "none";
 
-        select.addEventListener("click", () => {
-          select.classList.toggle("select-clicked");
-          caret.classList.toggle("caret-rotate");
-          menu.classList.toggle("menu-open");
-        });
+      select.addEventListener("click", function () {
+        select.classList.toggle("select-clicked");
+        caret.classList.toggle("caret-rotate");
+        menu.classList.toggle("menu-open");
+      });
 
-        options.forEach((option) => {
-          option.addEventListener("click", () => {
-            selected.innerText = option.innerText;
-            select.classList.remove("select-clicked");
-            caret.classList.remove("caret-rotate");
-            menu.classList.remove("menu-open");
-            options.forEach((option) => {
-              option.classList.remove("active");
-            });
-            option.classList.add("active");
-
-            // Check which option is selected and show/hide the corresponding content
+      options.forEach((option) => {
+        option.addEventListener("click", function () {
+          selected.innerText = option.innerText;
+          select.classList.remove("select-clicked");
+          caret.classList.remove("caret-rotate");
+          menu.classList.remove("menu-open");
+          options.forEach((option) => {
+            option.classList.remove("drop_active");
           });
-        });
+          option.classList.add("drop_active");
 
-        moveButton.addEventListener("click", () => {
-          const selectedOption = dropdown.querySelector(".menu li.active");
-          if (selectedOption.innerText === "íì ì ë³´ ìì ") {
-            analysisList.style.display = "none";
-            editFormBox.style.display = "block";
-          }
-          if (selectedOption.innerText === "ìë´ë´ì­") {
-            analysisList.style.display = "table";
-            editFormBox.style.display = "none";
-          }
+          // Check which option is selected and show/hide the corresponding content
         });
       });
+
+      moveButton.addEventListener("click", function () {
+        const selectedOption = dropdown.querySelector(".menu li.drop_active");
+        if (selectedOption.innerText === "회원 정보 수정") {
+          analysisList.style.display = "none";
+          editFormBox.style.display = "block";
+        }
+        if (selectedOption.innerText === "상담내역") {
+          analysisList.style.display = "table";
+          editFormBox.style.display = "none";
+        }
+      });
+    });
     </script>
 </body>
 </html>
