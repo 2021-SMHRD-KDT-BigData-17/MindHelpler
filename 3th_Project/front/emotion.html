@@ -109,7 +109,7 @@
         </div>
         <div class="wrapper">
           <div class="upload">
-            <form action="">
+            <form action="#res_emotion">
               <div class="upload-wrapper">
                 <div class="upload-img">
                   <!-- image here -->
@@ -246,6 +246,34 @@
             $(".upload-img").css("padding", "0");
           }
         });
+      });
+    </script>
+
+    <script>
+      const uploadButton = document.querySelector(".btn");
+      const uploadWrapper = document.querySelector(".wrapper");
+      const resEmotion = document.getElementById("res_emotion");
+      const uploadImgContainer = document.querySelector(".upload-img");
+      const resImgContainer = document.querySelector(".res_img");
+
+      uploadButton.addEventListener("click", function (event) {
+        event.preventDefault();
+        uploadWrapper.style.display = "none";
+        resEmotion.style.display = "";
+
+        // Get the uploaded file from the input element
+        const fileInput = document.getElementById("upload-input");
+        const file = fileInput.files[0];
+
+        // Display the uploaded image
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          const img = document.createElement("img");
+          img.src = e.target.result;
+          resImgContainer.innerHTML = ""; // Clear the existing content
+          resImgContainer.appendChild(img);
+        };
+        reader.readAsDataURL(file);
       });
     </script>
     <!-- 차트 코드 -->
