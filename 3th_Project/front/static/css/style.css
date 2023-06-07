@@ -2183,13 +2183,55 @@ textarea::-webkit-scrollbar {
   line-height: 40px;
   font-size: var(--fs-sm);
 }
-[contenteditable="false"]:empty:before {
-  content: attr(placeholder);
-  display: block; /* For Firefox */
+.chatbot_container {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
 }
-div[contenteditable="false"] {
-  color: #333;
-  font-size: 12px;
-  width: 300px;
-  padding: 5px;
+
+.chatbot_img {
+  margin-left: 20px;
+  margin-right: 10px;
+}
+
+/* Rest of the CSS styles */
+
+.chatbot_contents {
+  width: 100%;
+  position: relative;
+}
+
+#placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  color: var(--color-text);
+  font-size: 20px;
+  padding: 15px;
+}
+
+.chatbot_contents.empty #placeholder {
+  display: block;
+}
+
+.chatbot_contents.empty #response {
+  display: none;
+}
+
+#response {
+  color: var(--black1);
+  font-size: 20px;
+  padding: 20px;
+}
+
+.chatbot_img {
+  display: flex;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.chatbot_img img {
+  width: 100%;
 }

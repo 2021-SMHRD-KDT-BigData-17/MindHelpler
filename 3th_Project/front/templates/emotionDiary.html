@@ -64,7 +64,7 @@
           <li>
             <a href="{{ url_for('emotionDiary') }}">
               <span class="icon">
-                <ion-icon name="help-outline"></ion-icon>
+                <i class="fa-solid fa-book-heart"></i>
               </span>
               <span class="title">감정일기</span>
             </a>
@@ -191,26 +191,20 @@
                 <div class="emotion_Diary_subHeader">
                   <h4>오늘 당신의 하루는 어땠나요?</h4>
                 </div>
-                <div
-                  id="chatbot_contents"
-                  style="
-                    padding: 15px;
-                    height: 100px;
-                    margin-top: 15px;
-                    width: 100%;
-                    font-size: 20px;
-                    background: var(--body-color);
-                    border-radius: 5px;
-                  "
-                  contenteditable="false"
-                  placeholder="여기에 글자를 입력해주세요."
-                ></div>
+                <div class="chatbot_container">
+                  <div class="chatbot_img">
+                    <img src="../static/img/kero.png" alt="" />
+                  </div>
+                  <div class="chatbot_contents" contenteditable="false">
+                    <div id="response"></div>
+                    <div id="placeholder">
+                      마인드 헬퍼의 챗봇 '아쿠아'가 드리는 위로의 한마디
+                    </div>
+                  </div>
+                </div>
+
                 <div class="emotion_Diary_content">
-                  <form
-                    action="#chatbot_contents"
-                    method="post"
-                    class="diary_form"
-                  >
+                  <form action="#response" method="post" class="diary_form">
                     <textarea
                       name="user_input"
                       id=""
@@ -781,10 +775,24 @@
         var form = $(this);
         $.ajax({
           type: form.attr("method"),
-          url: "/chatbot", // Update the URL to match the Flask route
+          url: "/chatbot",
           data: form.serialize(),
           success: function (response) {
-            $("#chatbot_contents").text(response); // Update the chatbot response within the specified div
+            var sentences = response.split(".");
+            var formattedResponse = sentences
+              .map(function (sentence) {
+                return "<span>" + sentence.trim() + "</span>";
+              })
+              .join("<br>");
+
+            if (formattedResponse.trim() === "") {
+              $(".chatbot_contents").addClass("empty");
+              $("#placeholder").css("display", "block");
+            } else {
+              $("#response").html(formattedResponse);
+              $(".chatbot_contents").removeClass("empty");
+              $("#placeholder").css("display", "none");
+            }
           },
         });
       });
