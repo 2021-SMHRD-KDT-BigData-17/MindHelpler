@@ -191,7 +191,20 @@
                 <div class="emotion_Diary_subHeader">
                   <h4>오늘 당신의 하루는 어땠나요?</h4>
                 </div>
-                <div id="chatbot_contents"></div>
+                <div
+                  id="chatbot_contents"
+                  style="
+                    padding: 15px;
+                    height: 100px;
+                    margin-top: 15px;
+                    width: 100%;
+                    font-size: 20px;
+                    background: var(--body-color);
+                    border-radius: 5px;
+                  "
+                  contenteditable="false"
+                  placeholder="여기에 글자를 입력해주세요."
+                ></div>
                 <div class="emotion_Diary_content">
                   <form
                     action="#chatbot_contents"
@@ -202,7 +215,7 @@
                       name="user_input"
                       id=""
                       cols="30"
-                      rows="10"
+                      rows="5"
                       placeholder="이곳에 당신의 감정을 이곳에 남겨주세요"
                     ></textarea>
                     <input type="submit" value="전송" class="btn" />

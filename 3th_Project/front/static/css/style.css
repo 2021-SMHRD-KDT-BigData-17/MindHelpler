@@ -1773,7 +1773,8 @@ header {
   padding: 0;
 }
 textarea {
-  width: 800px;
+  padding: 20px;
+  width: 100%;
   font-size: 20px;
   margin-bottom: 20px;
   border: 0;
@@ -1781,9 +1782,7 @@ textarea {
   border-radius: 5px;
   resize: none;
 }
-textarea::placeholder {
-  padding: 20px;
-}
+
 textarea::-webkit-scrollbar {
   display: none;
 }
@@ -2183,4 +2182,14 @@ textarea::-webkit-scrollbar {
   text-align: center;
   line-height: 40px;
   font-size: var(--fs-sm);
+}
+[contenteditable="false"]:empty:before {
+  content: attr(placeholder);
+  display: block; /* For Firefox */
+}
+div[contenteditable="false"] {
+  color: #333;
+  font-size: 12px;
+  width: 300px;
+  padding: 5px;
 }
