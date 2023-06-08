@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="javax.servlet.http.HttpSession" %>
+<%@ page import="kr.smhrd.domain.T_USER" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,6 +17,13 @@
 </head>
 
   <body>
+  
+  <%
+  	// 세션 정보 가져오기
+  	HttpSession sessionUser = request.getSession();
+    T_USER loginUser = (T_USER) sessionUser.getAttribute("loginUser");
+  %>
+  
     <!-- =============== Navigation ================ -->
     <div class="container">
       <div class="navigation">
@@ -100,7 +109,14 @@
       <div class="main">
         <div class="topbar">
           <div class="user">
-            <p><span>Admin</span>님 환영합니다.</p>
+             <c:choose>
+			    <c:when test="${not empty loginUser}">
+			      <p><span>${loginUser.userId}</span>님 환영합니다.</p>
+			    </c:when>
+			    <c:otherwise>
+			      <p>로그인 해주세요.</p>
+			    </c:otherwise>
+			 </c:choose>
           </div>
         </div>
 
@@ -171,15 +187,27 @@
               style="margin-top: 90px; margin-bottom: 90px"
             >
               <p class="header">
-                <span>Admin</span>님의 분석결과는 다음과 같습니다.
+	             <c:choose>
+				    <c:when test="${not empty loginUser}">
+				      <p><span style="color:blue">${loginUser.userId}</span>님의 분석결과는 다음과 같습니다.</p>
+				    </c:when>
+				    <c:otherwise>
+				      <p>로그인을 먼저 하고 분석을 진행해주세요.</p>
+				    </c:otherwise>
+				 </c:choose>
               </p>
               <p class="res_contents_text">긍정: <span>40%</span></p>
               <p class="res_contents_text">부정: <span>60%</span></p>
 
               <p class="res_contents_text_total">
-                <span>Admin</span>님은<br /><span style="font-weight: bold"
-                  >부정</span
-                >적인 표정을 가질 확률이 높습니다.
+              	<c:choose>
+              		<c:when test="${not empty loginUser}">
+              			<span style="color:blue">${loginUser.userId}</span>님은<br /><span>부정</span>적인 표정을 가질 확률이 높습니다.
+              		</c:when>
+              		<c:otherwise>
+              			<p>로그인을 먼저 하고 분석을 진행해주세요.</p>
+              		</c:otherwise>
+              	</c:choose>
               </p>
             </div>
           </div>

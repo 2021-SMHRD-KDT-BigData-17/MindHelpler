@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="cpath" value="${pageContext.request.contextPath}" />
 <%@ page import="javax.servlet.http.HttpSession" %>
+<%@ page import="kr.smhrd.domain.T_USER" %>
 
 <!DOCTYPE html>
 <html>
@@ -23,8 +24,9 @@
   <%
   	// 세션 정보 가져오기
   	HttpSession sessionUser = request.getSession();
-    String loginUser = (String) sessionUser.getAttribute("loginUser");
+    T_USER loginUser = (T_USER) sessionUser.getAttribute("loginUser");
   %>
+  
     <!-- =============== Navigation ================ -->
     <div class="container">
       <div class="navigation">
@@ -117,7 +119,14 @@
       <div class="main">
         <div class="topbar">
           <div class="user" style="display: none">
-            <span><c:if test="${not empty loginUser}">${loginUser.userId}</c:if></span>님 환영합니다.
+            <c:choose>
+			    <c:when test="${not empty loginUser}">
+			      <p><span>${loginUser.userId}</span>님 환영합니다.</p>
+			    </c:when>
+			    <c:otherwise>
+			      <p>로그인 해주세요.</p>
+			    </c:otherwise>
+			 </c:choose>
           </div>
         </div>
         <!-- ================ 서비스 소개 시작============= -->

@@ -37,7 +37,7 @@ public class CounselorController {
 			session.setAttribute("loginCoun", loginCoun);
 		}
 		
-		return "redirect:/Counselorfile";
+		return "redirect:/counselorFile";
 	}
 	
 	// 상담사 정보수정
@@ -45,6 +45,6 @@ public class CounselorController {
 	public String Update(T_COUNSELOR coun) {
 		System.out.println("Controller Update : " + coun.getCounselorEmail());
 		counselormapper.updateCounselor(coun);
-		return "redirect:/Counselorfile";
+		return "redirect:/counselorFile";
 	}
 }

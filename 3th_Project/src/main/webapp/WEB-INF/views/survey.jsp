@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="javax.servlet.http.HttpSession" %>
+<%@ page import="kr.smhrd.domain.T_USER" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,6 +17,13 @@
 </head>
 
   <body>
+  
+ <%
+  	// 세션 정보 가져오기
+  	HttpSession sessionUser = request.getSession();
+   	T_USER loginUser = (T_USER) sessionUser.getAttribute("loginUser");
+ %>
+  
     <!-- =============== Navigation ================ -->
     <div class="container">
       <div class="navigation">
@@ -62,7 +71,7 @@
           <li>
             <a href="emotionDiary">
               <span class="icon">
-                <i class="fa-solid fa-book-heart"></i>
+                <ion-icon class="fa-solid fa-book-heart"></ion-icon>
               </span>
               <span class="title">감정일기</span>
             </a>
@@ -100,7 +109,14 @@
       <div class="main">
         <div class="topbar">
           <div class="user">
-            <p><span>Admin</span>님 환영합니다.</p>
+             <c:choose>
+			    <c:when test="${not empty loginUser}">
+			      <p><span>${loginUser.userId}</span>님 환영합니다.</p>
+			    </c:when>
+			    <c:otherwise>
+			      <p>로그인 해주세요.</p>
+			    </c:otherwise>
+			 </c:choose>
           </div>
         </div>
         <!-- ===================설문시작========================== -->
