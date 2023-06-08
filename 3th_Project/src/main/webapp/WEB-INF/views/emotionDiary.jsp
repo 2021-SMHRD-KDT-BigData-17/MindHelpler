@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,171 +14,295 @@
 	href="<c:url value='resources/assets/css/style.css' />" />
 </head>
 
-<body>
-	<!-- =============== Navigation ================ -->
-	<div class="container">
-		<div class="navigation">
-			<ul>
-				<li>
-					<div class="nav__logo">
-						<img src="resources/assets/img/logo.png" class="nav__img" alt="" />
-						<p class="logo_title">
-							<span style="color: #9dc3e6">M</span><span style="color: #767171">IND</span><br />
-							<span style="color: #ffd966">H</span><span
-								style="color: #767171">ELPER</span>
-						</p>
-					</div>
-				</li>
+  <body>
+    <!-- =============== Navigation ================ -->
+    <div class="container">
+      <div class="navigation">
+        <ul>
+          <li>
+            <div class="nav__logo">
+              <img
+                src="{{url_for('static',filename='/img/logo.png')}}"
+                class="nav__img"
+                alt=""
+              />
+              <p class="logo_title">
+                <span style="color: #9dc3e6">M</span
+                ><span style="color: #767171">IND</span><br /><span
+                  style="color: #ffd966"
+                  >H</span
+                ><span style="color: #767171">ELPER</span>
+              </p>
+            </div>
+          </li>
 
-				<li><a href="index.jsp"> <span class="icon"> <ion-icon
-								name="home-outline"></ion-icon>
-					</span> <span class="title">서비스 소개</span>
-				</a></li>
+          <li>
+            <a href="Main">
+              <span class="icon">
+                <ion-icon name="home-outline"></ion-icon>
+              </span>
+              <span class="title">서비스 소개</span>
+            </a>
+          </li>
 
-				<li><a href="survey.jsp"> <span class="icon"> <ion-icon
-								name="people-outline"></ion-icon>
-					</span> <span class="title">간편 설문 테스트</span>
-				</a></li>
+          <li>
+            <a href="survey">
+              <span class="icon">
+                <ion-icon name="people-outline"></ion-icon>
+              </span>
+              <span class="title">간편 설문 테스트</span>
+            </a>
+          </li>
 
-				<li><a href="emotion.jsp"> <span class="icon"> <ion-icon
-								name="chatbubble-outline"></ion-icon>
-					</span> <span class="title">간편 이미지 표정 테스트</span>
-				</a></li>
+          <li>
+            <a href="emotion">
+              <span class="icon">
+                <ion-icon name="chatbubble-outline"></ion-icon>
+              </span>
+              <span class="title">간편 이미지 표정 테스트</span>
+            </a>
+          </li>
 
-				<li><a href="emotionDiary.jsp"> <span class="icon">
-							<ion-icon name="help-outline"></ion-icon>
-					</span> <span class="title">감정일기</span>
-				</a></li>
+          <li>
+            <a href="emotionDiary">
+              <span class="icon">
+                <i class="fa-solid fa-book-heart"></i>
+              </span>
+              <span class="title">감정일기</span>
+            </a>
+          </li>
 
-				<li><a href="userprofile.jsp"> <span class="icon">
-							<ion-icon name="settings-outline"></ion-icon>
-					</span> <span class="title">마이페이지</span>
-				</a></li>
-				<li style="display: none"><a href="Counselorfile.jsp"> <span
-						class="icon"> <ion-icon name="settings-outline"></ion-icon>
-					</span> <span class="title">상담사 전용 마이페이지</span>
-				</a></li>
+          <li>
+            <a href="userprofile">
+              <span class="icon">
+                <ion-icon name="settings-outline"></ion-icon>
+              </span>
+              <span class="title">마이페이지</span>
+            </a>
+          </li>
+          <li style="display: none">
+            <a href="Counselorfile">
+              <span class="icon">
+                <ion-icon name="settings-outline"></ion-icon>
+              </span>
+              <span class="title"> 상담사 전용 마이페이지</span>
+            </a>
+          </li>
 
-				<li><a href="#"> <span class="icon"> <ion-icon
-								name="log-out-outline"></ion-icon>
-					</span> <span class="title">Sign Out</span>
-				</a></li>
-			</ul>
-		</div>
+          <li>
+            <a href="#">
+              <span class="icon">
+                <ion-icon name="log-out-outline"></ion-icon>
+              </span>
+              <span class="title">Sign Out</span>
+            </a>
+          </li>
+        </ul>
+      </div>
 
-		<!-- ========================= Main ==================== -->
-		<div class="main">
-			<div class="topbar">
-				<div class="user">
-					<p>
-						<span>Admin</span>님 환영합니다.
-					</p>
-				</div>
-			</div>
-			<div class="grid_emotion">
-				<!-- ========================ë¬ë ¥======================================== -->
-				<div class="cal_container">
-					<div class="left">
-						<div class="calendar">
-							<div class="month">
-								<i class="fas fa-angle-left prev"></i>
-								<div class="date"></div>
-								<i class="fas fa-angle-right next"></i>
-							</div>
-							<div class="weekdays">
-								<div>일</div>
-								<div>월</div>
-								<div>화</div>
-								<div>수</div>
-								<div>목</div>
-								<div>금</div>
-								<div>토</div>
-							</div>
-							<div class="days"></div>
-							<div class="goto-today">
-								<div class="goto">
-									<input type="text" placeholder="mm/yyyy" class="date-input" />
-									<button class="goto-btn">Go</button>
-								</div>
-								<button class="today-btn">Today</button>
-							</div>
-						</div>
-					</div>
-					<div class="right">
-						<div class="today-date">
-							<div class="event-day">wed</div>
-							<div class="event-date">12th december 2022</div>
-						</div>
-						<div class="events"></div>
-						<div class="add-event-wrapper">
-							<div class="add-event-header">
-								<div class="title">Add Event</div>
-								<i class="fas fa-times close"></i>
-							</div>
-							<div class="add-event-body">
-								<div class="add-event-input">
-									<input type="text" placeholder="Event Name" class="event-name" />
-								</div>
-								<div class="add-event-input">
-									<input type="text" placeholder="Event Time From"
-										class="event-time-from" />
-								</div>
-								<div class="add-event-input">
-									<input type="text" placeholder="Event Time To"
-										class="event-time-to" />
-								</div>
-							</div>
-							<div class="add-event-footer">
-								<button class="add-event-btn">Add Event</button>
-							</div>
-						</div>
-					</div>
-					<button class="add-event">
-						<i class="fas fa-plus"></i>
-					</button>
-				</div>
-				<!-- ========================ê¸ì°ë ë¶ë¶======================================== -->
-				<div class="row_grid_emotion">
-					<div class="emotion_Diary_details">
-						<div class="emotion_Diary">
-							<div class="emotion_Diary_Header">
-								<h2>감정일기</h2>
-							</div>
-							<div class="emotion_Diary_subHeader">
-								<h4>오늘 당신의 하루는 어땠나요?</h4>
-							</div>
-							<div class="emotion_Diary_content">
-								<form action="" class="diary_form">
-									<textarea name="" id="" cols="50" rows="10"
-										placeholder="여기에 오늘의 하루를 정리해 보세요"></textarea>
-									<button class="btn">일기 전송하기</button>
-								</form>
-							</div>
-						</div>
-					</div>
-					<div class="emotion_Diary_bottom">
-						<div class="emotion_Diary">
-							<div class="emotion_Diary_Header">
-								<h2>분석 결과</h2>
-							</div>
-							<p>분석 결과입니다.</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+      <!-- ========================= Main ==================== -->
+      <div class="main">
+        <div class="topbar">
+          <div class="user">
+            <p><span>Admin</span>님 환영합니다.</p>
+          </div>
+        </div>
+        <div class="grid_emotion">
+          <!-- ========================달력======================================== -->
+          <div class="cal_container">
+            <div class="left">
+              <div class="calendar">
+                <div class="month">
+                  <i class="fas fa-angle-left prev"></i>
+                  <div class="date"></div>
+                  <i class="fas fa-angle-right next"></i>
+                </div>
+                <div class="weekdays">
+                  <div>일</div>
+                  <div>월</div>
+                  <div>화</div>
+                  <div>수</div>
+                  <div>목</div>
+                  <div>금</div>
+                  <div>토</div>
+                </div>
+                <div class="days"></div>
+                <div class="goto-today">
+                  <div class="goto">
+                    <input
+                      type="text"
+                      placeholder="mm/yyyy"
+                      class="date-input"
+                    />
+                    <button class="goto-btn">Go</button>
+                  </div>
+                  <button class="today-btn">Today</button>
+                </div>
+              </div>
+            </div>
+            <div class="right">
+              <div class="today-date">
+                <div class="event-day">wed</div>
+                <div class="event-date">12th december 2022</div>
+              </div>
+              <div class="events"></div>
+              <div class="add-event-wrapper">
+                <div class="add-event-header">
+                  <div class="title">Add Event</div>
+                  <i class="fas fa-times close"></i>
+                </div>
+                <div class="add-event-body">
+                  <div class="add-event-input">
+                    <input
+                      type="text"
+                      placeholder="Event Name"
+                      class="event-name"
+                    />
+                  </div>
+                  <div class="add-event-input">
+                    <input
+                      type="text"
+                      placeholder="Event Time From"
+                      class="event-time-from"
+                    />
+                  </div>
+                  <div class="add-event-input">
+                    <input
+                      type="text"
+                      placeholder="Event Time To"
+                      class="event-time-to"
+                    />
+                  </div>
+                </div>
+                <div class="add-event-footer">
+                  <button class="add-event-btn">Add Event</button>
+                </div>
+              </div>
+            </div>
+            <button class="add-event">
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
+          <!-- ========================글쓰는 부분======================================== -->
+          <div class="row_grid_emotion">
+            <div class="emotion_Diary_details">
+              <div class="emotion_Diary">
+                <div class="emotion_Diary_Header">
+                  <h2>감정일기</h2>
+                </div>
+                <div class="emotion_Diary_subHeader">
+                  <h4>오늘 당신의 하루는 어땠나요?</h4>
+                </div>
+                <div class="chatbot_container">
+                  <div class="chatbot_img">
+                    <img src="resources/assets/img/kero.png" alt="" />
+                  </div>
+                  <div class="chatbot_contents" contenteditable="false">
+                    <div id="response"></div>
+                    <div id="placeholder">
+                      마인드 헬퍼의 챗봇 '아쿠아'가 드리는 위로의 한마디
+                    </div>
+                  </div>
+                </div>
 
-	<!-- =========== Scripts =========  -->
-	<script src="<c:url value='resources/assets/js/main.js'/>"></script>
+                <div class="emotion_Diary_content">
+                  <form action="#response" method="post" class="diary_form">
+                    <textarea
+                      name="user_input"
+                      id=""
+                      cols="30"
+                      rows="5"
+                      placeholder="이곳에 당신의 감정을 이곳에 남겨주세요"
+                    ></textarea>
+                    <input type="submit" value="전송" class="btn" />
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="emotion_Diary_bottom">
+              <div class="emotion_Diary">
+                <div class="emotion_Diary_Header">
+                  <h2>분석 결과</h2>
+                </div>
+                <p>분석 결과입니다.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-	<!-- ====== ionicons ======= -->
-	<script type="module"
-		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-	<script nomodule
-		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-	<script src="https://kit.fontawesome.com/369266d994.js"
-		crossorigin="anonymous"></script>
+    <!-- =========== Scripts =========  -->
+    <script>
+      // add hovered class to selected list item
+      let list = document.querySelectorAll(".navigation li");
+
+      function activeLink() {
+        list.forEach((item) => {
+          item.classList.remove("hovered");
+        });
+        this.classList.add("hovered");
+      }
+
+      list.forEach((item) => item.addEventListener("mouseover", activeLink));
+      /*=======================================================================*/
+      let calcScrollValue = () => {
+        let scrollProgress = document.getElementById("progress");
+        let progressValue = document.getElementById("progress-value");
+
+        if (!scrollProgress || !progressValue) {
+          return; // Exit the function if elements are not found
+        }
+
+        let pos = document.documentElement.scrollTop;
+        let calcHeight =
+          document.documentElement.scrollHeight -
+          document.documentElement.clientHeight;
+        let scrollValue = Math.round((pos * 100) / calcHeight);
+
+        if (pos > 100) {
+          scrollProgress.style.display = "grid";
+        } else {
+          scrollProgress.style.display = "none";
+        }
+
+        scrollProgress.addEventListener("click", () => {
+          document.documentElement.scrollTop = 0;
+        });
+
+        scrollProgress.style.background = `conic-gradient(#E3B172 ${scrollValue}%, #d7d7d7 ${scrollValue}% 100%)`;
+      };
+
+      window.addEventListener("scroll", calcScrollValue);
+      window.addEventListener("load", calcScrollValue);
+
+      /* ===================로그인==================================*/
+
+      const sign_in_btn = document.querySelector("#sign-in-btn");
+      const sign_up_btn = document.querySelector("#sign-up-btn");
+      const container = document.querySelector(".login_container");
+
+      sign_up_btn.addEventListener("click", () => {
+        container.classList.add("sign-up-mode");
+      });
+
+      sign_in_btn.addEventListener("click", () => {
+        container.classList.remove("sign-up-mode");
+      });
+    </script>
+    <!-- ====== ionicons ======= -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/369266d994.js"
+      crossorigin="anonymous"
+    ></script>
 
     <!-- 달력 자바스크립트 -->
     <script>
@@ -644,5 +769,35 @@
       }
     </script>
     <!-- 달력 자바스크립트 -->
-</body>
+    <!-- 챗봇 플라스크 영역 -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $("form").submit(function (event) {
+        event.preventDefault();
+        var form = $(this);
+        $.ajax({
+          type: form.attr("method"),
+          url: "/chatbot",
+          data: form.serialize(),
+          success: function (response) {
+            var sentences = response.split(".");
+            var formattedResponse = sentences
+              .map(function (sentence) {
+                return "<span>" + sentence.trim() + "</span>";
+              })
+              .join("<br>");
+
+            if (formattedResponse.trim() === "") {
+              $(".chatbot_contents").addClass("empty");
+              $("#placeholder").css("display", "block");
+            } else {
+              $("#response").html(formattedResponse);
+              $(".chatbot_contents").removeClass("empty");
+              $("#placeholder").css("display", "none");
+            }
+          },
+        });
+      });
+    </script>
+  </body>
 </html>

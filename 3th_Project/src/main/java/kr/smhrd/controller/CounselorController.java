@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 
 import kr.smhrd.domain.T_COUNSELOR;
 import kr.smhrd.mapper.CounselorMapper;
@@ -36,6 +37,14 @@ public class CounselorController {
 			session.setAttribute("loginCoun", loginCoun);
 		}
 		
+		return "redirect:/Counselorfile";
+	}
+	
+	// 상담사 정보수정
+	@PutMapping("/CounUpdate")
+	public String Update(T_COUNSELOR coun) {
+		System.out.println("Controller Update : " + coun.getCounselorEmail());
+		counselormapper.updateCounselor(coun);
 		return "redirect:/Counselorfile";
 	}
 }
