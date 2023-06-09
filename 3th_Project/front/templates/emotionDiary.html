@@ -46,7 +46,7 @@
           <li>
             <a href="{{ url_for('survey') }}">
               <span class="icon">
-                <ion-icon name="people-outline"></ion-icon>
+                <i class="fa-solid fa-list-check"></i>
               </span>
               <span class="title">간편 설문 테스트</span>
             </a>
@@ -55,7 +55,7 @@
           <li>
             <a href="{{ url_for('emotion') }}">
               <span class="icon">
-                <ion-icon name="chatbubble-outline"></ion-icon>
+                <ion-icon name="happy-outline"></ion-icon>
               </span>
               <span class="title">간편 이미지 표정 테스트</span>
             </a>
@@ -64,7 +64,7 @@
           <li>
             <a href="{{ url_for('emotionDiary') }}">
               <span class="icon">
-                <i class="fa-solid fa-book-heart"></i>
+                <ion-icon name="book-outline"></ion-icon>
               </span>
               <span class="title">감정일기</span>
             </a>
@@ -210,7 +210,7 @@
                       id=""
                       cols="30"
                       rows="5"
-                      placeholder="이곳에 당신의 감정을 이곳에 남겨주세요"
+                      placeholder="지금 당신의 감정을 이곳에 남겨주세요"
                     ></textarea>
                     <input type="submit" value="전송" class="btn" />
                   </form>
@@ -807,24 +807,31 @@
           // 사용자 입력 데이터 가져오기
           var user_input = $('textarea[name="user_input"]').val();
 
-          // AJAX 요청 보내기
-          $.ajax({
-            url: "/analyze",
-            type: "POST",
-            contentType: "application/json",
-            data: JSON.stringify({ text: user_input }),
-            success: function (response) {
-              // 예측 결과 출력
-              var predicted_label = response.sentiment;
-              var score = response.score;
+          // "분석 중입니다" 메시지 출력
+          $("#result").text("분석 중입니다...");
 
-              $("#result").text("예측 감정: " + predicted_label);
-              $("#score").text("예측 확률: " + score.toFixed(2));
-            },
-            error: function (error) {
-              alert("오류가 발생했습니다.");
-            },
-          });
+          // 2초 후에 AJAX 요청 보내기
+          setTimeout(function () {
+            $.ajax({
+              url: "/analyze",
+              type: "POST",
+              contentType: "application/json",
+              data: JSON.stringify({ text: user_input }),
+              success: function (response) {
+                // 예측 결과 출력
+                var predicted_label = response.sentiment;
+                var score = response.score;
+
+                $("#result").text(
+                  "마인드 헬퍼가 분석한 오늘 일기의 감정: " + predicted_label
+                );
+                $("#score").text("분석 스코어: " + score.toFixed(2));
+              },
+              error: function (error) {
+                alert("오류가 발생했습니다.");
+              },
+            });
+          }, 2000); // 2초(2000ms) 지연 실행
         });
       });
     </script>

@@ -138,7 +138,7 @@ textAi = tf.keras.models.load_model('./NLP.h5')
 tokenizer = Tokenizer()
 
 # 감정 분류 레이블
-labels = ['Negative', 'Positive']
+labels = ['부정', '긍정']
 
 def remove_stopwords(text):
     words = text.split()
@@ -161,9 +161,9 @@ def analyze_sentiment(text):
     confidence = float(predicted_probs[predicted_index]) 
     
     if confidence > 0.5:
-        predicted_label = 'Positive'
+        predicted_label = '긍정'
     else:
-        predicted_label = 'Negative'
+        predicted_label = '부정'
 
     return predicted_label, confidence
 
