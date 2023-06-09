@@ -110,6 +110,7 @@
                 </div>
                 <ul class="menu">
                   <li class="active">분석내역</li>
+                  <li>감정일기 월간 분석 리포트</li>
                   <li>회원 정보 수정</li>
                 </ul>
               </div>
@@ -173,6 +174,7 @@
                 </tr>
               </tbody>
             </table>
+            <canvas id="myChart"></canvas>
             <div id="edit_form-box">
               <form
                 action=""
@@ -259,14 +261,6 @@
                 </td>
               </tr>
             </table>
-          </div>
-        </div>
-        <div class="details">
-          <div class="recentOrders">
-            <div class="cardHeader">
-              <h2>감정일기 월간 분석 리포트</h2>
-            </div>
-            <canvas id="myChart"></canvas>
           </div>
         </div>
       </div>
@@ -356,10 +350,12 @@
         const selected = dropdown.querySelector(".selected");
         const analysisList = document.getElementById("Analysis_List");
         const editFormBox = document.getElementById("edit_form-box");
+        const chart = document.getElementById("myChart");
         const moveButton = document.getElementById("move");
 
         // Hide the edit_form-box initially
         editFormBox.style.display = "none";
+        chart.style.display = "none";
 
         select.addEventListener("click", function () {
           select.classList.toggle("select-clicked");
@@ -386,11 +382,18 @@
           const selectedOption = dropdown.querySelector(".menu li.drop_active");
           if (selectedOption.innerText === "회원 정보 수정") {
             analysisList.style.display = "none";
+            chart.style.display = "none";
             editFormBox.style.display = "block";
+          }
+          if (selectedOption.innerText === "감정일기 월간 분석 리포트") {
+            analysisList.style.display = "none";
+            editFormBox.style.display = "none";
+            chart.style.display = "block";
           }
           if (selectedOption.innerText === "분석내역") {
             analysisList.style.display = "table";
             editFormBox.style.display = "none";
+            chart.style.display = "none";
           }
         });
       });

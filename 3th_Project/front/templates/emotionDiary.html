@@ -222,7 +222,8 @@
                 <div class="emotion_Diary_Header">
                   <h2>분석 결과</h2>
                 </div>
-                <p>분석 결과입니다.</p>
+                <p id="result"></p>
+                <p id="score"></p>
               </div>
             </div>
           </div>
@@ -794,6 +795,36 @@
               $("#placeholder").css("display", "none");
             }
           },
+        });
+      });
+    </script>
+    <!-- 텍스트 ai 모델 결과값 출력 ajax -->
+    <script>
+      $(document).ready(function () {
+        $(".diary_form").submit(function (event) {
+          event.preventDefault(); // 기본 폼 제출 동작 막기
+
+          // 사용자 입력 데이터 가져오기
+          var user_input = $('textarea[name="user_input"]').val();
+
+          // AJAX 요청 보내기
+          $.ajax({
+            url: "/analyze",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ text: user_input }),
+            success: function (response) {
+              // 예측 결과 출력
+              var predicted_label = response.sentiment;
+              var score = response.score;
+
+              $("#result").text("예측 감정: " + predicted_label);
+              $("#score").text("예측 확률: " + score.toFixed(2));
+            },
+            error: function (error) {
+              alert("오류가 발생했습니다.");
+            },
+          });
         });
       });
     </script>

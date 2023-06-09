@@ -2,6 +2,40 @@
 @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Darumadrop+One&display=swap");
 
+@font-face {
+  font-family: "LINESeedKR-Bd";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2")
+    format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "LINESeedKR-Bd";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2")
+    format("woff2");
+  font-weight: 100;
+  font-style: normal;
+}
+@font-face {
+  font-family: "NanumBarunGothic";
+  font-style: normal;
+  font-weight: 300;
+  src: url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot");
+  src: url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot?#iefix")
+      format("embedded-opentype"),
+    url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.woff")
+      format("woff"),
+    url("//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.ttf")
+      format("truetype");
+}
+@font-face {
+  font-family: "NeoDunggeunmoPro-Regular";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/NeoDunggeunmoPro-Regular.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* =============== Globals ============== */
 * {
   font-family: "Ubuntu", sans-serif;
@@ -63,6 +97,9 @@
   --text-light: #767268;
   --extra-light: #ffffff;
   --max-width: 1200px;
+  --title_font: "LINESeedKR-Bd";
+  --sub_font: "NeoDunggeunmoPro-Regular";
+  --btn_font: "NanumBarunGothic";
 }
 
 body {
@@ -151,6 +188,7 @@ a {
   line-height: 60px;
   text-align: start;
   white-space: nowrap;
+  font-family: "LINESeedKR-Bd";
 }
 .nav__logo {
   display: flex;
@@ -269,6 +307,7 @@ a {
 .cardHeader h2 {
   font-weight: 600;
   color: var(--blue);
+  font-family: var(--title_font);
 }
 #Analysis_List {
   line-height: 3rem;
@@ -296,6 +335,7 @@ a {
 .details .recentOrders table tr td {
   padding: 10px;
   text-align: center;
+  font-family: var(--btn_font);
 }
 .details .recentOrders table tr td:last-child {
   text-align: center;
@@ -600,6 +640,7 @@ form.sign-in-form {
   margin: 10px 0;
   cursor: pointer;
   transition: 0.5s;
+  font-family: "NanumBarunGothic";
 }
 
 .btn:hover {
@@ -992,15 +1033,16 @@ fieldset {
 }
 
 .section__title {
-  font-size: 2rem;
-  font-weight: 600;
+  font-size: 40px;
+  font-weight: 700;
   color: var(--text-dark);
   margin-bottom: 1rem;
+  font-family: var(--title_font);
 }
-
 .section__subtitle {
-  font-size: 1rem;
-  color: var(--text-dark);
+  font-size: 25px;
+  line-height: 4 0px;
+  color: var(--color-text);
   max-width: calc(var(--max-width) / 2);
 }
 
@@ -1082,6 +1124,7 @@ header {
   line-height: 4rem;
   font-weight: 800;
   color: var(--text-dark);
+  font-family: "LINESeedKR-Bd";
 }
 .i_header__image {
   width: 300px;
@@ -1182,6 +1225,7 @@ header {
 .trip__details p {
   display: grid;
   justify-content: center;
+  font-family: "LINESeedKR-Bd";
 }
 .trip_img {
   width: 200px;
@@ -1207,6 +1251,7 @@ header {
   background-color: transparent;
   cursor: pointer;
   transition: 0.3s;
+  font-family: "NanumBarunGothic";
 }
 
 .book__now:hover {
@@ -1767,6 +1812,7 @@ header {
 .emotion_Diary_bottom h2 {
   font-weight: 600;
   color: var(--blue);
+  font-family: var(--title_font);
 }
 .diary_form {
   margin-top: 50px;
@@ -1878,11 +1924,13 @@ textarea::-webkit-scrollbar {
   font-size: 20px;
   line-height: 32px;
   font-weight: 400;
+  font-family: var(--sub_font);
 }
 #channel-introduce-title p {
   margin-top: 1rem;
   font-size: 24px;
   font-weight: bolder;
+  font-family: "LINESeedKR-Bd";
 }
 #start-channel {
   width: 400px;
@@ -1895,6 +1943,7 @@ textarea::-webkit-scrollbar {
   font-weight: bold;
   border: 0;
   cursor: pointer;
+  font-family: "NanumBarunGothic";
 }
 #channel-question {
   width: 100%;
@@ -1916,6 +1965,7 @@ textarea::-webkit-scrollbar {
   font-size: 24px;
   line-height: 32px;
   margin: 16px 24px 48px 24px;
+  font-family: var(--sub_font);
 }
 #channel-question img {
   width: 64px;
@@ -1982,11 +2032,13 @@ textarea::-webkit-scrollbar {
   font-size: 24px;
   line-height: 30px;
   font-weight: bold;
+  font-family: var(--sub_font);
 }
 
 #channel-finish p#finish-point {
   text-align: center;
   margin: 16px 0;
+  font-family: var(--sub_font);
 }
 
 #channel-finish p#finish-point span {
@@ -1999,8 +2051,8 @@ textarea::-webkit-scrollbar {
   margin-bottom: 4px;
   font-weight: bold;
   font-size: 26px;
-
   text-align: center;
+  font-family: var(--sub_font);
 }
 
 #channel-finish #finish-content {
@@ -2008,9 +2060,11 @@ textarea::-webkit-scrollbar {
   font-size: 14px;
   line-height: 40px;
   text-align: center;
+  font-family: var(--sub_font);
 }
 #channel-finish #finish-content strong {
   font-size: 18px;
+  font-family: var(--sub_font);
 }
 
 #channel-finish button.re {
@@ -2023,6 +2077,7 @@ textarea::-webkit-scrollbar {
   width: 280px;
   font-size: 16px;
   color: black;
+  font-family: var(--btn_font);
 }
 /* 이미지 분석 페이지 */
 .emotion_header {
@@ -2030,6 +2085,9 @@ textarea::-webkit-scrollbar {
   display: grid;
   text-align: center;
   padding: 50px;
+}
+.emotion_header h1 {
+  font-family: "LINESeedKR-Bd";
 }
 .emotion_header p {
   margin-top: 20px;
@@ -2158,10 +2216,18 @@ textarea::-webkit-scrollbar {
   display: flex;
   justify-content: center;
 }
+
+.emotion_img_right_content {
+  margin-top: 20px;
+  font-size: 20px;
+  margin-bottom: 10px;
+  display: grid;
+  justify-content: center;
+}
 .emotion_img_right_content .header {
   margin-top: 20px;
   font-size: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
   display: flex;
   justify-content: center;
 }

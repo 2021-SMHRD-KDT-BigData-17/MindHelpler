@@ -161,10 +161,7 @@
               <h2>분석 결과 설명</h2>
             </div>
 
-            <div
-              class="emotion_img_right_content"
-              style="margin-top: 90px; margin-bottom: 90px"
-            >
+            <div class="emotion_img_right_content">
               <p class="header">
                 <span>Admin</span>님의 분석결과는 다음과 같습니다.
               </p>
@@ -172,10 +169,15 @@
               <p class="res_contents_text">부정: <span>60%</span></p>
 
               <p class="res_contents_text_total">
-                <span>Admin</span>님은<br /><span style="font-weight: bold"
-                  >부정</span
-                >적인 표정을 가질 확률이 높습니다.
+                <span>평소 </span
+                ><span style="font-weight: bold">부정</span>적인 표정일 확률이
+                높습니다.
               </p>
+              <a href="{{ url_for('emotion') }}">
+                <button class="btn" style="margin-top: 20px">
+                  검사 다시하기
+                </button>
+              </a>
             </div>
           </div>
         </div>
