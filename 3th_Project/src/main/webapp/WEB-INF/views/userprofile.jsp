@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="cpath" value="${pageContext.request.contextPath}" />
 <%@ page import="javax.servlet.http.HttpSession" %>
 <%@ page import="kr.smhrd.domain.T_USER" %>
 
@@ -53,7 +54,7 @@
           <li>
             <a href="survey">
               <span class="icon">
-                <ion-icon name="people-outline"></ion-icon>
+                <i class="fa-solid fa-list-check"></i>
               </span>
               <span class="title">간편 설문 테스트</span>
             </a>
@@ -62,7 +63,7 @@
           <li>
             <a href="emotion">
               <span class="icon">
-                <ion-icon name="chatbubble-outline"></ion-icon>
+                <ion-icon name="happy-outline"></ion-icon>
               </span>
               <span class="title">간편 이미지 표정 테스트</span>
             </a>
@@ -71,7 +72,7 @@
           <li>
             <a href="emotionDiary">
               <span class="icon">
-                <i class="fa-solid fa-book-heart"></i>
+                <ion-icon name="book-outline"></ion-icon>
               </span>
               <span class="title">감정일기</span>
             </a>
@@ -131,6 +132,7 @@
                 </div>
                 <ul class="menu">
                   <li class="active">분석내역</li>
+                  <li>감정일기 월간 분석 리포트</li>
                   <li>회원 정보 수정</li>
                 </ul>
               </div>
@@ -144,7 +146,7 @@
                   cursor: pointer;
                 "
               >
-                이동하기
+               	 이동하기
               </button>
             </div>
             <table id="Analysis_List">
@@ -194,6 +196,7 @@
                 </tr>
               </tbody>
             </table>
+            <canvas id="myChart"></canvas>
             <div id="edit_form-box">
               <form
                 action="${cpath}/Update"
@@ -206,7 +209,7 @@
                 </div>
                 <div class="input-field">
                   <i class="fas fa-user"></i>
-                  <input type="text" placeholder="Username" id="userName" name="userName" />
+                  <input type="text" placeholder="Name" id="userName" name="userName" />
                 </div>
                 <div class="input-field">
                   <i class="fas fa-lock"></i>
@@ -219,7 +222,7 @@
                   style="width: 50%; margin-top: 20px"
                 />
                 <p style="margin-top: 40px; font-size: small; color: gray">
-                  저희 Mind Helper의 서비스를 더이상 원하시지 않으신다면
+              	    저희 Mind Helper의 서비스를 더이상 원하시지 않으신다면
                   <a style="text-decoration: none; color: #000" href=""
                     >&nbsp;<span><b>회원탈퇴</b></span></a
                   >
@@ -243,7 +246,7 @@
                 </td>
                 <td class="counselor_list">
                   <h4>
-                    올리비아 <br />
+                   	 올리비아 <br />
                     <span>Italy</span>
                   </h4>
                   <div class="book__now">채팅하러가기</div>
@@ -258,7 +261,7 @@
                 </td>
                 <td class="counselor_list">
                   <h4>
-                    올리비아 <br />
+                   	 올리비아 <br />
                     <span>India</span>
                   </h4>
                   <div class="book__now">채팅하러가기</div>
@@ -273,21 +276,13 @@
                 </td>
                 <td class="counselor_list">
                   <h4>
-                    올리비아 <br />
+                   	 올리비아 <br />
                     <span>Italy</span>
                   </h4>
                   <div class="book__now">채팅하러가기</div>
                 </td>
               </tr>
             </table>
-          </div>
-        </div>
-        <div class="details">
-          <div class="recentOrders">
-            <div class="cardHeader">
-              <h2>감정일기 월간 분석 리포트</h2>
-            </div>
-            <canvas id="myChart"></canvas>
           </div>
         </div>
       </div>
@@ -377,10 +372,12 @@
         const selected = dropdown.querySelector(".selected");
         const analysisList = document.getElementById("Analysis_List");
         const editFormBox = document.getElementById("edit_form-box");
+        const chart = document.getElementById("myChart");
         const moveButton = document.getElementById("move");
 
         // Hide the edit_form-box initially
         editFormBox.style.display = "none";
+        chart.style.display = "none";
 
         select.addEventListener("click", function () {
           select.classList.toggle("select-clicked");
@@ -407,11 +404,18 @@
           const selectedOption = dropdown.querySelector(".menu li.drop_active");
           if (selectedOption.innerText === "회원 정보 수정") {
             analysisList.style.display = "none";
+            chart.style.display = "none";
             editFormBox.style.display = "block";
+          }
+          if (selectedOption.innerText === "감정일기 월간 분석 리포트") {
+            analysisList.style.display = "none";
+            editFormBox.style.display = "none";
+            chart.style.display = "block";
           }
           if (selectedOption.innerText === "분석내역") {
             analysisList.style.display = "table";
             editFormBox.style.display = "none";
+            chart.style.display = "none";
           }
         });
       });

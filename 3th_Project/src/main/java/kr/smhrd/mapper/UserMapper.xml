@@ -15,10 +15,7 @@
 	</select>
 
 	<update id="updateUser" parameterType="kr.smhrd.domain.T_USER">
-		UPDATE T_USER SET userId=#{userId}, userName=#{userName},
-		userEmail=#{userEmail}, userPw=#{userPw},
-		userBirthdate=#{userBirthdate}, userGender=#{userGender},
-		userPhone=#{userPhone}
+		UPDATE T_USER SET userEmail=#{userEmail}, userName=#{userName}, userPw=#{userPw} WHERE userId=#{userId}
 	</update>
 
 	<delete id="deleteUser" parameterType="String">
