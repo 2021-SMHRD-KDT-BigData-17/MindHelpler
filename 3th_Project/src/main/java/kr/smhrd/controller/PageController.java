@@ -42,9 +42,9 @@ public class PageController {
 		return "login";
 	}
 	
-	@RequestMapping("/counselorfile")
+	@RequestMapping("/counselorFile")
 	public String Counselorfile() {
-		return "counselorfile";
+		return "counselorFile";
 	}
 	
 }

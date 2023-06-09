@@ -36,8 +36,10 @@ public class UserController {
 		if (loginUser != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
+			return "redirect:/";
+		} else {
+			return "redirect:/login";
 		}
-		return "redirect:/";
 	}
 	
 	// 회원정보수정

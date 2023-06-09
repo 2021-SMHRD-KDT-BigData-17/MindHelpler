@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="javax.servlet.http.HttpSession" %>
+<%@ page import="kr.smhrd.domain.T_USER" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,226 +16,357 @@
 	href="<c:url value='resources/assets/css/style.css' />" />
 </head>
 
-<body>
-	<!-- =============== Navigation ================ -->
-	<div class="container">
-		<div class="navigation">
-			<ul>
-				<li>
-					<div class="nav__logo">
-						<img src="resources/assets/img/logo.png" class="nav__img" alt="" />
-						<p class="logo_title">
-							<span style="color: #9dc3e6">M</span><span style="color: #767171">IND</span><br />
-							<span style="color: #ffd966">H</span><span style="color: #767171">ELPER</span>
-						</p>
-					</div>
-				</li>
+  <body>
+  
+  <%
+  	// 세션 정보 가져오기
+  	HttpSession sessionUser = request.getSession();
+    T_USER loginUser = (T_USER) sessionUser.getAttribute("loginUser");
+  %>
+  
+    <!-- =============== Navigation ================ -->
+    <div class="container">
+      <div class="navigation">
+        <ul>
+          <li>
+            <div class="nav__logo">
+              <img src="resources/assets/img/logo.png" class="nav__img" alt="" />
+              <p class="logo_title">
+                <span style="color: #9dc3e6">M</span
+                ><span style="color: #767171">IND</span><br /><span
+                  style="color: #ffd966"
+                  >H</span
+                ><span style="color: #767171">ELPER</span>
+              </p>
+            </div>
+          </li>
 
-				<li><a href="Main"> <span class="icon"> <ion-icon
-								name="home-outline"></ion-icon>
-					</span> <span class="title">서비스 소개</span>
-				</a></li>
+          <li>
+            <a href="Main">
+              <span class="icon">
+                <ion-icon name="home-outline"></ion-icon>
+              </span>
+              <span class="title">서비스 소개</span>
+            </a>
+          </li>
 
-				<li><a href="survey"> <span class="icon"> <ion-icon
-								name="people-outline"></ion-icon>
-					</span> <span class="title">간편 설문 테스트</span>
-				</a></li>
+          <li>
+            <a href="survey">
+              <span class="icon">
+                <ion-icon name="people-outline"></ion-icon>
+              </span>
+              <span class="title">간편 설문 테스트</span>
+            </a>
+          </li>
 
-				<li><a href="emotion"> <span class="icon"> <ion-icon
-								name="chatbubble-outline"></ion-icon>
-					</span> <span class="title">간편 이미지 표정 테스트</span>
-				</a></li>
+          <li>
+            <a href="emotion">
+              <span class="icon">
+                <ion-icon name="chatbubble-outline"></ion-icon>
+              </span>
+              <span class="title">간편 이미지 표정 테스트</span>
+            </a>
+          </li>
 
-				<li><a href="emotionDiary"> <span class="icon"> <ion-icon
-								name="help-outline"></ion-icon>
-					</span> <span class="title">감정일기</span>
-				</a></li>
+          <li>
+            <a href="emotionDiary">
+              <span class="icon">
+                <i class="fa-solid fa-book-heart"></i>
+              </span>
+              <span class="title">감정일기</span>
+            </a>
+          </li>
 
-				<li><a href="userprofile"> <span class="icon"> <ion-icon
-								name="settings-outline"></ion-icon>
-					</span> <span class="title">마이페이지</span>
-				</a></li>
-				<li style="display: none"><a href="Counselorfile"> <span
-						class="icon"> <ion-icon name="settings-outline"></ion-icon>
-					</span> <span class="title"> 상담사 전용 마이페이지</span>
-				</a></li>
+          <li>
+            <a href="userprofile">
+              <span class="icon">
+                <ion-icon name="settings-outline"></ion-icon>
+              </span>
+              <span class="title">마이페이지</span>
+            </a>
+          </li>
+          <li style="display: none">
+            <a href="Counselorfile">
+              <span class="icon">
+                <ion-icon name="settings-outline"></ion-icon>
+              </span>
+              <span class="title"> 상담사 전용 마이페이지</span>
+            </a>
+          </li>
 
-				<li><a href="#"> <span class="icon"> <ion-icon
-								name="log-out-outline"></ion-icon>
-					</span> <span class="title">Sign Out</span>
-				</a></li>
-			</ul>
-		</div>
+          <li>
+            <a href="#">
+              <span class="icon">
+                <ion-icon name="log-out-outline"></ion-icon>
+              </span>
+              <span class="title">Sign Out</span>
+            </a>
+          </li>
+        </ul>
+      </div>
 
-		<!-- ========================= Main ==================== -->
-		<div class="main">
-			<div class="topbar">
-				<div class="user">
-					<p>
-						<span>Admin</span>님 환영합니다.
-					</p>
-				</div>
-			</div>
+      <!-- ========================= Main ==================== -->
+      <div class="main">
+        <div class="topbar">
+          <div class="user">
+             <c:choose>
+			    <c:when test="${not empty loginUser}">
+			      <p><span>${loginUser.userId}</span>님 환영합니다.</p>
+			    </c:when>
+			    <c:otherwise>
+			      <p>로그인 해주세요.</p>
+			    </c:otherwise>
+			 </c:choose>
+          </div>
+        </div>
 
-			<!-- ================ Order Details List ================= -->
-			<div class="details">
-				<div class="recentOrders">
-					<div class="cardHeader">
-						<div class="dropdown">
-							<div class="select">
-								<span class="selected">분석내역</span>
-								<div class="caret"></div>
-							</div>
-							<ul class="menu">
-								<li class="active">분석내역</li>
-								<li>회원 정보 수정</li>
-							</ul>
-						</div>
-						<button id="move" class="status pending"
-							style="width: 100px; height: 60px; border: none; cursor: pointer;">
-							이동하기</button>
-					</div>
-					<table id="Analysis_List">
-						<thead>
-							<tr>
-								<td style="width: 240px">이미지/감정일기 분석결과</td>
-								<td>분석일자</td>
-								<td>설문테스트 분석결과</td>
-								<td>분석일자</td>
-							</tr>
-						</thead>
+        <!-- ================ Order Details List ================= -->
+        <div class="details">
+          <div class="recentOrders">
+            <div class="cardHeader">
+              <div class="dropdown">
+                <div class="select">
+                  <span class="selected">분석내역</span>
+                  <div class="caret"></div>
+                </div>
+                <ul class="menu">
+                  <li class="active">분석내역</li>
+                  <li>회원 정보 수정</li>
+                </ul>
+              </div>
+              <button
+                id="move"
+                class="status pending"
+                style="
+                  width: 100px;
+                  height: 60px;
+                  border: none;
+                  cursor: pointer;
+                "
+              >
+                이동하기
+              </button>
+            </div>
+            <table id="Analysis_List">
+              <thead>
+                <tr>
+                  <td style="width: 240px">이미지/감정일기 분석결과</td>
+                  <td>분석일자</td>
+                  <td>설문테스트 분석결과</td>
+                  <td>분석일자</td>
+                </tr>
+              </thead>
 
-						<tbody>
-							<tr>
-								<td>긍정</td>
-								<td>2023/05/29</td>
-								<td>부정</td>
-								<td>2023/05/29</td>
-							</tr>
+              <tbody>
+                <tr>
+                  <td>긍정</td>
+                  <td>2023/05/29</td>
+                  <td>부정</td>
+                  <td>2023/05/29</td>
+                </tr>
 
-							<tr>
-								<td>긍정</td>
-								<td>2023/05/30</td>
-								<td>부정</td>
-								<td>2023/05/30</td>
-							</tr>
+                <tr>
+                  <td>긍정</td>
+                  <td>2023/05/30</td>
+                  <td>부정</td>
+                  <td>2023/05/30</td>
+                </tr>
 
-							<tr>
-								<td>긍정</td>
-								<td>2023/05/31</td>
-								<td>부정</td>
-								<td>2023/05/31</td>
-							</tr>
+                <tr>
+                  <td>긍정</td>
+                  <td>2023/05/31</td>
+                  <td>부정</td>
+                  <td>2023/05/31</td>
+                </tr>
 
-							<tr>
-								<td>긍정</td>
-								<td>2023/06/01</td>
-								<td>부정</td>
-								<td>2023/06/01</td>
-							</tr>
+                <tr>
+                  <td>긍정</td>
+                  <td>2023/06/01</td>
+                  <td>부정</td>
+                  <td>2023/06/01</td>
+                </tr>
 
-							<tr>
-								<td>긍정</td>
-								<td>2023/06/01</td>
-								<td>부정</td>
-								<td>2023/06/01</td>
-							</tr>
-						</tbody>
-					</table>
-					<div id="edit_form-box">
-						<form action="" class="sign-in-form"
-							style="margin-top: 30px; gap: 10px">
-							<div class="input-field">
-								<i class="fa-solid fa-envelope"></i> <input type="email"
-									placeholder="Email" />
-							</div>
-							<div class="input-field">
-								<i class="fas fa-user"></i> <input type="text"
-									placeholder="Username" />
-							</div>
-							<div class="input-field">
-								<i class="fas fa-lock"></i> <input type="password"
-									placeholder="Password" />
-							</div>
-							<input type="submit" value="회원정보수정" class="book__now"
-								style="width: 50%; margin-top: 20px" />
-							<p style="margin-top: 40px; font-size: small; color: gray">
-								저희 Mind Helper의 서비스를 더이상 원하시지 않으신다면 <a
-									style="text-decoration: none; color: #000" href="">&nbsp;<span><b>회원탈퇴</b></span></a>
-							</p>
-						</form>
-					</div>
-				</div>
+                <tr>
+                  <td>긍정</td>
+                  <td>2023/06/01</td>
+                  <td>부정</td>
+                  <td>2023/06/01</td>
+                </tr>
+              </tbody>
+            </table>
+            <div id="edit_form-box">
+              <form
+                action="${cpath}/Update"
+                method="post" class="sign-in-form"
+                style="margin-top: 30px; gap: 10px"
+              >
+                <div class="input-field">
+                  <i class="fa-solid fa-envelope"></i>
+                  <input type="email" placeholder="Email" id="userEmail" name="userEmail" />
+                </div>
+                <div class="input-field">
+                  <i class="fas fa-user"></i>
+                  <input type="text" placeholder="Username" id="userName" name="userName" />
+                </div>
+                <div class="input-field">
+                  <i class="fas fa-lock"></i>
+                  <input type="password" placeholder="Password" id="userPw" name="userPw" />
+                </div>
+                <input
+                  type="submit"
+                  value="회원정보수정"
+                  class="book__now"
+                  style="width: 50%; margin-top: 20px"
+                />
+                <p style="margin-top: 40px; font-size: small; color: gray">
+                  저희 Mind Helper의 서비스를 더이상 원하시지 않으신다면
+                  <a style="text-decoration: none; color: #000" href=""
+                    >&nbsp;<span><b>회원탈퇴</b></span></a
+                  >
+                </p>
+              </form>
+            </div>
+          </div>
 
-				<!-- ================= New Customers ================ -->
-				<div class="recentCustomers">
-					<div class="cardHeader">
-						<h2>마인드 헬퍼 전속 상담사 리스트</h2>
-					</div>
+          <!-- ================= New Customers ================ -->
+          <div class="recentCustomers">
+            <div class="cardHeader">
+              <h2>마인드 헬퍼 전속 상담사 리스트</h2>
+            </div>
 
-					<table>
-						<tr>
-							<td width="60px">
-								<div class="imgBx">
-									<img src="resources/assets/imgs/customer02.jpg" alt="" />
-								</div>
-							</td>
-							<td class="counselor_list">
-								<h4>
-									올리비아 <br /> <span>Italy</span>
-								</h4>
-								<div class="book__now">채팅하러가기</div>
-							</td>
-						</tr>
+            <table>
+              <tr>
+                <td width="60px">
+                  <div class="imgBx">
+                    <img src="resources/assets/imgs/customer02.jpg" alt="" />
+                  </div>
+                </td>
+                <td class="counselor_list">
+                  <h4>
+                    올리비아 <br />
+                    <span>Italy</span>
+                  </h4>
+                  <div class="book__now">채팅하러가기</div>
+                </td>
+              </tr>
 
-						<tr>
-							<td width="60px">
-								<div class="imgBx">
-									<img src="resources/assets/imgs/customer01.jpg" alt="" />
-								</div>
-							</td>
-							<td class="counselor_list">
-								<h4>
-									올리비아 <br /> <span>India</span>
-								</h4>
-								<div class="book__now">채팅하러가기</div>
-							</td>
-						</tr>
+              <tr>
+                <td width="60px">
+                  <div class="imgBx">
+                    <img src="resources/assets/imgs/customer01.jpg" alt="" />
+                  </div>
+                </td>
+                <td class="counselor_list">
+                  <h4>
+                    올리비아 <br />
+                    <span>India</span>
+                  </h4>
+                  <div class="book__now">채팅하러가기</div>
+                </td>
+              </tr>
 
-						<tr>
-							<td width="60px">
-								<div class="imgBx">
-									<img src="resources/assets/imgs/customer02.jpg" alt="" />
-								</div>
-							</td>
-							<td class="counselor_list">
-								<h4>
-									올리비아 <br /> <span>Italy</span>
-								</h4>
-								<div class="book__now">채팅하러가기</div>
-							</td>
-						</tr>
-					</table>
-				</div>
-			</div>
-			<div class="details">
-				<div class="recentOrders"></div>
-			</div>
-		</div>
-	</div>
+              <tr>
+                <td width="60px">
+                  <div class="imgBx">
+                    <img src="resources/assets/imgs/customer02.jpg" alt="" />
+                  </div>
+                </td>
+                <td class="counselor_list">
+                  <h4>
+                    올리비아 <br />
+                    <span>Italy</span>
+                  </h4>
+                  <div class="book__now">채팅하러가기</div>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="details">
+          <div class="recentOrders">
+            <div class="cardHeader">
+              <h2>감정일기 월간 분석 리포트</h2>
+            </div>
+            <canvas id="myChart"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
 
-	<!-- =========== Scripts =========  -->
-	<script src="<c:url value='resources/assets/js/main.js'/>"></script>
+    <!-- =========== Scripts =========  -->
+    <script>
+      // add hovered class to selected list item
+      let list = document.querySelectorAll(".navigation li");
 
-	<!-- ====== ionicons ======= -->
-	<script type="module"
-		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-	<script nomodule
-		src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-	<script src="https://kit.fontawesome.com/369266d994.js"
-		crossorigin="anonymous"></script>
-	<!-- 드롭다운 메뉴 -->
-	<script>
+      function activeLink() {
+        list.forEach((item) => {
+          item.classList.remove("hovered");
+        });
+        this.classList.add("hovered");
+      }
+
+      list.forEach((item) => item.addEventListener("mouseover", activeLink));
+      /*=======================================================================*/
+      let calcScrollValue = () => {
+        let scrollProgress = document.getElementById("progress");
+        let progressValue = document.getElementById("progress-value");
+
+        if (!scrollProgress || !progressValue) {
+          return; // Exit the function if elements are not found
+        }
+
+        let pos = document.documentElement.scrollTop;
+        let calcHeight =
+          document.documentElement.scrollHeight -
+          document.documentElement.clientHeight;
+        let scrollValue = Math.round((pos * 100) / calcHeight);
+
+        if (pos > 100) {
+          scrollProgress.style.display = "grid";
+        } else {
+          scrollProgress.style.display = "none";
+        }
+
+        scrollProgress.addEventListener("click", () => {
+          document.documentElement.scrollTop = 0;
+        });
+
+        scrollProgress.style.background = `conic-gradient(#E3B172 ${scrollValue}%, #d7d7d7 ${scrollValue}% 100%)`;
+      };
+
+      window.addEventListener("scroll", calcScrollValue);
+      window.addEventListener("load", calcScrollValue);
+
+      /* ===================로그인==================================*/
+
+      const sign_in_btn = document.querySelector("#sign-in-btn");
+      const sign_up_btn = document.querySelector("#sign-up-btn");
+      const container = document.querySelector(".login_container");
+
+      sign_up_btn.addEventListener("click", () => {
+        container.classList.add("sign-up-mode");
+      });
+
+      sign_in_btn.addEventListener("click", () => {
+        container.classList.remove("sign-up-mode");
+      });
+    </script>
+
+    <!-- ====== ionicons ======= -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
+    ></script>
+    <script
+      src="https://kit.fontawesome.com/369266d994.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- 드롭다운 메뉴 -->
+    <script>
       const dropdowns = document.querySelectorAll(".dropdown");
 
       dropdowns.forEach((dropdown) => {
@@ -283,5 +416,86 @@
         });
       });
     </script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      const ctx = document.getElementById("myChart");
+      const DATA_COUNT = 7;
+      const NUMBER_CFG = { count: DATA_COUNT, min: -10, max: 10 };
+
+      function getMonthLabels(count) {
+        const monthNames = [
+          "1월",
+          "2월",
+          "3월",
+          "4월",
+          "5월",
+          "6월",
+          "7월",
+          "8월",
+          "9월",
+          "10월",
+          "11월",
+          "12월",
+        ];
+
+        const currentDate = new Date();
+        const currentYear = currentDate.getFullYear();
+        const labels = [];
+
+        for (let i = count - 1; i >= 0; i--) {
+          const month = currentDate.getMonth() - i;
+          const year = month < 0 ? currentYear - 1 : currentYear;
+          labels.push(`${year}년  ${monthNames[(month + 12) % 12]}`);
+        }
+
+        return labels;
+      }
+
+      function generateRandomNumbers(count, min, max) {
+        const numbers = [];
+
+        for (let i = 0; i < count; i++) {
+          const randomNumber =
+            Math.floor(Math.random() * (max - min + 1)) + min;
+          numbers.push(randomNumber);
+        }
+
+        return numbers;
+      }
+
+      const labels = getMonthLabels(DATA_COUNT);
+      const data = {
+        labels: labels,
+        datasets: [
+          {
+            label: "긍정",
+            data: generateRandomNumbers(DATA_COUNT, 0, 10),
+            borderColor: "red",
+            backgroundColor: "rgba(255, 0, 0, 0.5)",
+          },
+          {
+            label: "부정",
+            data: generateRandomNumbers(DATA_COUNT, -10, 0),
+            borderColor: "blue",
+            backgroundColor: "rgba(0, 0, 255, 0.5)",
+          },
+        ],
+      };
+
+      const config = {
+        type: "bar",
+        data: data,
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: "top",
+            },
+          },
+        },
+      };
+
+      new Chart(ctx, config);
+    </script>
+  </body>
 </html>
