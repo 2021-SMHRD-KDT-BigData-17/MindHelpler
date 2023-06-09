@@ -161,9 +161,9 @@ def analyze_sentiment(text):
     confidence = float(predicted_probs[predicted_index]) 
     
     if confidence > 0.5:
-        predicted_label = 'Negative'
-    else:
         predicted_label = 'Positive'
+    else:
+        predicted_label = 'Negative'
 
     return predicted_label, confidence
 
