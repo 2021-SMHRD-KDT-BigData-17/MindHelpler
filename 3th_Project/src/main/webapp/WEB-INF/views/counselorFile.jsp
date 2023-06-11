@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="kr.smhrd.domain.T_COUNSELOR" %>
 
@@ -58,7 +56,7 @@
           <li style="display: none">
             <a href="survey">
               <span class="icon">
-                <ion-icon name="people-outline"></ion-icon>
+                <i class="fa-solid fa-list-check"></i>
               </span>
               <span class="title">간편 설문 테스트</span>
             </a>
@@ -67,7 +65,7 @@
           <li style="display: none">
             <a href="emotion">
               <span class="icon">
-                <ion-icon name="chatbubble-outline"></ion-icon>
+                <ion-icon name="happy-outline"></ion-icon>
               </span>
               <span class="title">간편 이미지 표정 테스트</span>
             </a>
@@ -76,7 +74,7 @@
           <li style="display: none">
             <a href="emotionDiary">
               <span class="icon">
-                <i class="fa-solid fa-book-heart"></i>
+                <ion-icon name="book-outline"></ion-icon>
               </span>
               <span class="title">감정일기</span>
             </a>
@@ -197,7 +195,7 @@
             <div id="edit_form-box">
               <form
                 action="${cpath}/CounUpdate"
-                post="post" class="sign-in-form"
+                method="post" class="sign-in-form"
                 style="margin-top: 30px; gap: 10px"
               >
                 <div class="input-field">

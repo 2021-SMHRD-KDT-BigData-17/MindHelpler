@@ -53,7 +53,7 @@
           <li>
             <a href="survey">
               <span class="icon">
-                <ion-icon name="people-outline"></ion-icon>
+                <i class="fa-solid fa-list-check"></i>
               </span>
               <span class="title">간편 설문 테스트</span>
             </a>
@@ -62,7 +62,7 @@
           <li>
             <a href="emotion">
               <span class="icon">
-                <ion-icon name="chatbubble-outline"></ion-icon>
+                <ion-icon name="happy-outline"></ion-icon>
               </span>
               <span class="title">간편 이미지 표정 테스트</span>
             </a>
@@ -71,7 +71,7 @@
           <li>
             <a href="emotionDiary">
               <span class="icon">
-                <ion-icon class="fa-solid fa-book-heart"></ion-icon>
+                <ion-icon name="book-outline"></ion-icon>
               </span>
               <span class="title">감정일기</span>
             </a>
@@ -123,7 +123,7 @@
         <div id="channel-introduce">
           <img src="resources/assets/img/UFXURTRJHA5K6RKPEGCZDZFTO4.jpg" />
           <h3 id="channel-introduce-title">
-            신뢰성 높은 마인드 헬퍼의 우울 감정 테스트<br />
+           	 신뢰성 높은 마인드 헬퍼의 우울 감정 테스트<br />
             <p>당신의 우울 감정 지수는 몇 점 ?</p>
           </h3>
           <button id="start-channel">(우울 감정 자가진단) 검사 시작하기</button>
@@ -142,13 +142,10 @@
           </ul>
         </div>
         <div id="channel-finish" style="display: none">
-          <img
-            src="https://assets.trost.co.kr/images/service/emoji/happy.gif"
-            id="finish-image"
-          />
+        <img src="resources/assets/img/kero.png" id="finish-image" />
           <div class="finish-point-guide">
             <p id="finish-title">
-              우울증 자가진단 테스트 결과<br />나의 우울증 지수
+          	    우울증 자가진단 테스트 결과<br />나의 우울증 지수
             </p>
             <p id="finish-point"><span></span>점</p>
             <p id="finish-point-content"></p>

@@ -38,16 +38,16 @@ public class UserController {
 			session.setAttribute("loginUser", loginUser);
 			return "redirect:/";
 		} else {
-			return "redirect:/login";
+			return "redirect:/Main";
 		}
 	}
 	
 	// 회원정보수정
-	@PutMapping("/Update")
+	@PostMapping("/Update")
 	public String Update(T_USER user) {
 		System.out.println("Controller Update : " + user.getUserId());
 		usermapper.updateUser(user);
-		return "redirect:/Login";
+		return "redirect:/login";
 	}
 
 	// 로그아웃

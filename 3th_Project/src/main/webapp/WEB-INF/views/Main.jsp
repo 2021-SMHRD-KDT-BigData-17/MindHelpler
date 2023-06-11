@@ -56,7 +56,7 @@
           <li style="display: none">
             <a href="survey">
               <span class="icon">
-                <ion-icon name="people-outline"></ion-icon>
+                <i class="fa-solid fa-list-check"></i>
               </span>
               <span class="title">간편 설문 테스트</span>
             </a>
@@ -65,7 +65,7 @@
           <li style="display: none">
             <a href="emotion">
               <span class="icon">
-                <ion-icon name="chatbubble-outline"></ion-icon>
+                <ion-icon name="happy-outline"></ion-icon>
               </span>
               <span class="title">간편 이미지 표정 테스트</span>
             </a>
@@ -74,7 +74,7 @@
           <li style="display: none">
             <a href="emotionDiary">
               <span class="icon">
-                <i class="fa-solid fa-book-heart"></i>
+                <ion-icon name="book-outline"></ion-icon>
               </span>
               <span class="title">감정일기</span>
             </a>
@@ -142,8 +142,8 @@
               <div>
                 <h1>마인드 헬퍼 <br />Emotion analyzer</h1>
                 <p class="section__subtitle">
-                  당신의 곁에서 24시간, 365일<br />
-                  그 누구에게도 털어놓지 못했던 감정, 고민들을 들어드립니다.
+			                  당신의 곁에서 24시간, 365일<br />
+			                  그 누구에게도 털어놓지 못했던 감정이나 고민들을 들어드립니다.
                 </p>
               </div>
             </div>
@@ -155,10 +155,9 @@
             <div>
               <h2 class="section__title">Mind Helper's Identity</h2>
               <p class="section__subtitle">
-                마인드 헬퍼는 간단한 설문을 통해 사용자의 현재의 감정을
-                분석하고<br />
-                사용자만의 고민을 해소하기 위한 공간을 제공하기 위해
-                태어났습니다.
+		                마인드 헬퍼는 간단한 설문을 통해 사용자의 현재의 감정을 분석하고
+		                사용자만의 고민을 해소하기 위한 공간을 제공하기 위해
+		                태어났습니다.
               </p>
             </div>
             <div class="i_header__image">
@@ -175,12 +174,11 @@
               />
             </div>
             <div>
-              <h2 class="section__title">Mind Helper's Identity</h2>
+              <h2 class="section__title">감정데이터에 기반한 전문 심리상담</h2>
               <p class="section__subtitle">
-                마인드 헬퍼는 간단한 설문을 통해 사용자의 현재의 감정을
-                분석하고<br />
-                사용자만의 고민을 해소하기 위한 공간을 제공하기 위해
-                태어났습니다.
+		                공인된 상담학회에 자격증을 보유한 상담가가<br />
+		                분석결과에 맞는 상담을 해드립니다.<br />
+		                자신도 몰랐던 감정을 알아보는 시간을 가져보세요.
               </p>
             </div>
           </div>
@@ -189,8 +187,8 @@
         <section class="trip">
           <div class="section__container trip__container">
             <h2 class="section__title">Our Service</h2>
-            <p class="section__subtitle">
-              마인드 헬퍼만의 서비스로 당신의 마음을 위로해 드리겠습니다.
+            <p class="section__subtitle" style="max-width: 1000px">
+              	마인드 헬퍼만의 서비스로 당신의 마음을 위로해 드리겠습니다.
             </p>
             <div class="trip__grid">
               <div class="trip__card">
@@ -201,9 +199,12 @@
                 <div class="trip__details">
                   <p>간편 설문</p>
                   <div class="booking__price">
-                    <a href="survey"
-                      ><button class="book__now">간편 설문 하러 가기</button></a
-                    >
+                  <a href="survey"><button class="book__now">간편 설문 하러 가기</button></a>
+<%-- 					<% if (loginUser != null) { %>
+						<a href="survey"><button class="book__now">간편 설문 하러 가기</button></a>
+					<% } else { %>
+					    <a href="login"><button class="book__now">로그인이 필요합니다.</button></a>
+					<% } %> --%>
                   </div>
                 </div>
               </div>
@@ -215,9 +216,12 @@
                 <div class="trip__details">
                   <p>이미지 표정 분석</p>
                   <div class="booking__price">
-                    <a href="emotion">
-                      <button class="book__now">표정 분석하러 가기</button>
-                    </a>
+                  <a href="emotion"><button class="book__now">표정 분석하러 가기</button></a>
+<%--                     <% if (loginUser != null) { %>
+						<a href="emotion"><button class="book__now">표정 분석하러 가기</button></a>
+					<% } else { %>
+					    <a href="login"><button class="book__now">로그인이 필요합니다.</button></a>
+					<% } %> --%>
                   </div>
                 </div>
               </div>
@@ -229,9 +233,12 @@
                 <div class="trip__details">
                   <p>감성일기</p>
                   <div class="booking__price">
-                    <a href="emotionDiary">
-                      <button class="book__now">오늘의 일기 쓰러 가기</button>
-                    </a>
+                  <a href="emotion"><button class="book__now">오늘의 일기 쓰러 가기</button></a>
+<%--                     <% if (loginUser != null) { %>
+						<a href="emotion"><button class="book__now">오늘의 일기 쓰러 가기</button></a>
+					<% } else { %>
+					    <a href="login"><button class="book__now">로그인이 필요합니다.</button></a>
+					<% } %> --%>
                   </div>
                 </div>
               </div>
@@ -244,7 +251,11 @@
                 <div class="trip__details">
                   <p>상담사와의 채팅</p>
                   <div class="booking__price">
-                    <button class="book__now">채팅하러 가기</button>
+                    <% if (loginUser != null) { %>
+						<a href="emotion"><button class="book__now">채팅하러 가기</button></a>
+					<% } else { %>
+					    <a href="login"><button class="book__now">로그인이 필요합니다.</button></a>
+					<% } %>
                   </div>
                 </div>
               </div>
@@ -256,7 +267,7 @@
           <div class="section__container footer__container">
             <div class="footer__col">
               <h3>Mind Helper<span>.</span></h3>
-              당신만을 위한 고민상담소, 마인드헬퍼
+             	 당신만을 위한 고민상담소, 마인드헬퍼
             </div>
             <div class="footer__col">
               <h4>Support</h4>

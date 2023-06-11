@@ -57,7 +57,7 @@
           <li>
             <a href="survey">
               <span class="icon">
-                <ion-icon name="people-outline"></ion-icon>
+                <i class="fa-solid fa-list-check"></i>
               </span>
               <span class="title">간편 설문 테스트</span>
             </a>
@@ -66,7 +66,7 @@
           <li>
             <a href="emotion">
               <span class="icon">
-                <ion-icon name="chatbubble-outline"></ion-icon>
+                <ion-icon name="happy-outline"></ion-icon>
               </span>
               <span class="title">간편 이미지 표정 테스트</span>
             </a>
@@ -75,7 +75,7 @@
           <li>
             <a href="emotionDiary">
               <span class="icon">
-                <i class="fa-solid fa-book-heart"></i>
+                <ion-icon name="book-outline"></ion-icon>
               </span>
               <span class="title">감정일기</span>
             </a>
@@ -216,7 +216,7 @@
                   <div class="chatbot_contents" contenteditable="false">
                     <div id="response"></div>
                     <div id="placeholder">
-                      마인드 헬퍼의 챗봇 '아쿠아'가 드리는 위로의 한마디
+                      	마인드 헬퍼의 챗봇 '아쿠아'가 드리는 위로의 한마디
                     </div>
                   </div>
                 </div>
@@ -240,7 +240,8 @@
                 <div class="emotion_Diary_Header">
                   <h2>분석 결과</h2>
                 </div>
-                <p>분석 결과입니다.</p>
+                <p id="result"></p>
+                <p id="score"></p>
               </div>
             </div>
           </div>
