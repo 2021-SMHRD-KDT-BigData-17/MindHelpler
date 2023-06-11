@@ -1810,8 +1810,8 @@ header {
 }
 .emotion_Diary_bottom .emotion_Diary_Header {
   display: flex;
-  justify-content: space-between;
   align-items: flex-start;
+  gap: 30px;
 }
 .emotion_Diary_bottom h2 {
   font-weight: 600;
@@ -2207,7 +2207,7 @@ textarea::-webkit-scrollbar {
   align-items: center;
   margin: 40px 10px;
   display: grid;
-  grid-template-columns: 50% auto;
+  grid-template-columns: 40% auto;
 }
 .res_img img {
   border-radius: 10px;

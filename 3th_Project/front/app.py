@@ -137,8 +137,6 @@ textAi = tf.keras.models.load_model('./NLP.h5')
 # 토크나이저 초기화
 tokenizer = Tokenizer()
 
-# 감정 분류 레이블
-labels = ['부정', '긍정']
 
 def remove_stopwords(text):
     words = text.split()
@@ -156,33 +154,29 @@ def analyze_sentiment(text):
     # 감정 예측
     predicted_probs = textAi.predict(input_data)[0]
     predicted_index = predicted_probs.argmax()
-    predicted_label = labels[predicted_index]
     confidence = predicted_probs[predicted_index]
     confidence = float(predicted_probs[predicted_index]) 
-    
-    if confidence > 0.5:
-        predicted_label = '긍정'
-    else:
-        predicted_label = '부정'
 
-    return predicted_label, confidence
+    return confidence
 
 @app.route('/analyze', methods=['POST'])
 def analyze():
     text = request.json['text']  # POST 요청에서 'text' 필드 값을 가져옴
+    if text:
+        # 텍스트를 학습 데이터로 추가
+        texts = [text]
 
-    # 텍스트를 학습 데이터로 추가
-    texts = [text]
+        # 텍스트로부터 토크나이저 학습
+        tokenizer.fit_on_texts(texts)
 
-    # 텍스트로부터 토크나이저 학습
-    tokenizer.fit_on_texts(texts)
+        # 감정 분석 수행
+        confidence = analyze_sentiment(text)
 
-    # 감정 분석 수행
-    sentiment, confidence = analyze_sentiment(text)
-
-    # 결과를 JSON 형식으로 반환
-    response = {'sentiment': sentiment, 'score': confidence}
-    return jsonify(response)
+        # 결과를 JSON 형식으로 반환 (소수점 한 자리로 반올림)
+        response = {'score': round(confidence, 2)}
+        return jsonify(response)
+    else:
+        return jsonify({'error': 'Error: Please provide a user input.'})
 
 if __name__ == '__main__':
     app.run()

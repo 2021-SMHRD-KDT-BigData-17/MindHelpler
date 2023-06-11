@@ -222,8 +222,9 @@
                 <div class="emotion_Diary_Header">
                   <h2>분석 결과</h2>
                 </div>
-                <p id="result"></p>
-                <p id="score"></p>
+                <div id="result">
+                  <div id="chart"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -767,7 +768,6 @@
         return time;
       }
     </script>
-    <!-- 달력 자바스크립트 -->
     <!-- 챗봇 플라스크 영역 -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -799,39 +799,99 @@
       });
     </script>
     <!-- 텍스트 ai 모델 결과값 출력 ajax -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script>
       $(document).ready(function () {
-        $(".diary_form").submit(function (event) {
-          event.preventDefault(); // 기본 폼 제출 동작 막기
+        var options = {
+          series: [
+            {
+              name: "긍정",
+              data: [0],
+            },
+            {
+              name: "부정",
+              data: [0],
+            },
+          ],
+          chart: {
+            type: "bar",
+            height: 200,
+            stacked: true,
+            toolbar: {
+              show: false,
+            },
+          },
+          plotOptions: {
+            bar: {
+              horizontal: true,
+            },
+          },
+          stroke: {
+            width: 1,
+            colors: ["#fff"],
+          },
+          xaxis: {
+            categories: ["감정지수"],
+            max: 1,
+          },
+          yaxis: {
+            labels: {
+              formatter: function (value) {
+                return value;
+              },
+            },
+            max: 1,
+          },
+          tooltip: {
+            y: {
+              formatter: function (val) {
+                return val;
+              },
+            },
+          },
+          fill: {
+            opacity: 1,
+          },
+          legend: {
+            position: "top",
+            horizontalAlign: "left",
+            offsetX: 40,
+          },
+        };
 
-          // 사용자 입력 데이터 가져오기
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+
+        $(".diary_form").submit(function (event) {
+          event.preventDefault();
+
           var user_input = $('textarea[name="user_input"]').val();
 
-          // "분석 중입니다" 메시지 출력
-          $("#result").text("분석 중입니다...");
+          $.ajax({
+            url: "/analyze",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ text: user_input }),
+            success: function (response) {
+              var score = response.score;
+              console.log(response);
+              var chartData = [
+                {
+                  name: "긍정",
+                  data: [score],
+                },
+                {
+                  name: "부정",
+                  data: [1 - score],
+                },
+              ];
 
-          // 2초 후에 AJAX 요청 보내기
-          setTimeout(function () {
-            $.ajax({
-              url: "/analyze",
-              type: "POST",
-              contentType: "application/json",
-              data: JSON.stringify({ text: user_input }),
-              success: function (response) {
-                // 예측 결과 출력
-                var predicted_label = response.sentiment;
-                var score = response.score;
-
-                $("#result").text(
-                  "마인드 헬퍼가 분석한 오늘 일기의 감정: " + predicted_label
-                );
-                $("#score").text("분석 스코어: " + score.toFixed(2));
-              },
-              error: function (error) {
-                alert("오류가 발생했습니다.");
-              },
-            });
-          }, 2000); // 2초(2000ms) 지연 실행
+              chart.updateSeries(chartData);
+            },
+            error: function (error) {
+              alert("오류가 발생했습니다.");
+            },
+          });
         });
       });
     </script>
