@@ -1,7 +1,10 @@
-from flask import Flask, jsonify, redirect, render_template, request, url_for
+from flask import Flask, jsonify, redirect, render_template, request, url_for,session
 import pandas as pd
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
+from flask_socketio import join_room,leave_room,send,SocketIO
+import random 
+from string import ascii_uppercase
 
 import json
 import tensorflow as tf
@@ -72,6 +75,7 @@ def login():
     return render_template('login.html')
 
 
+
 model = load_model()
 df = load_dataset()
 
@@ -127,16 +131,16 @@ stopwords = ['않다','되어다','되다','하다','어떻다','이렇다','이
              ,'혼자','자기','자기집','자신','우에 종합한것과같이','총적으로 보면','총적으로 말하면','총적으로','대로 하다','으로서','참','그만이다','할 따름이다','쿵','탕탕','쾅쾅','둥둥','봐','봐라','아이야','아니'
              ,'와아','응','아이','참나','년','월','일','령','영','일','이','삼','사','오','육','륙','칠','팔','구','이천육','이천칠','이천팔','이천구','하나','둘','셋','넷','다섯','여섯','일곱','여덟','아홉','령','영']
 
-
-
-
-
 # 모델 및 토크나이저 로드
 textAi = tf.keras.models.load_model('./NLP.h5')
 
 # 토크나이저 초기화
 tokenizer = Tokenizer()
 
+# 텍스트를 단어 단위로 토큰화하는 함수
+def tokenize_text(text):
+    words = text.split()
+    return words
 
 def remove_stopwords(text):
     words = text.split()
@@ -147,9 +151,10 @@ def analyze_sentiment(text):
     # 불용어 제거
     text = remove_stopwords(text)
     
-    # 텍스트를 시퀀스로 변환
-    sequences = tokenizer.texts_to_sequences([text])
-    input_data = pad_sequences(sequences, maxlen=128)
+    # 텍스트를 단어 시퀀스로 변환
+    words = tokenize_text(text)
+    sequences = tokenizer.texts_to_sequences([words])
+    input_data = pad_sequences(sequences, maxlen=200)
 
     # 감정 예측
     predicted_probs = textAi.predict(input_data)[0]
@@ -178,5 +183,103 @@ def analyze():
     else:
         return jsonify({'error': 'Error: Please provide a user input.'})
 
+
+
+# 채팅 코드
+socketio = SocketIO(app)
+app.config["SECRET_KEY"] = "mindhelper"
+rooms = {}
+
+def generate_unique_code(length):
+    while True:
+        code = ""
+        for _ in range(length):
+            code += random.choice(ascii_uppercase)
+        
+        if code not in rooms:
+            break
+    
+    return code
+
+@app.route('/chat', methods=["GET", "POST"])
+def chat():
+    session.clear()
+    if request.method == "POST":
+        name = request.form.get("name")
+        code = request.form.get("code")
+        join = request.form.get("join", False)
+        create = request.form.get("create", False)
+
+        if not name:
+            return render_template("chat.html", error="Please enter a name.", code=code, name=name)
+
+        if join != False and not code:
+            return render_template("chat.html", error="Please enter a room code.", code=code, name=name)
+        
+        room = code
+        if create != False:
+            room = generate_unique_code(4)
+            rooms[room] = {"members": 0, "messages": []}
+        elif code not in rooms:
+            return render_template("chat.html", error="Room does not exist.", code=code, name=name)
+        
+        session["room"] = room
+        session["name"] = name
+        return redirect(url_for("chatroom"))
+
+    return render_template('chat.html')
+    
+@app.route('/chatroom')
+def chatroom():
+    room = session.get("room")
+    if room is None or session.get("name") is None or room not in rooms:
+        return redirect(url_for("chat"))
+
+    return render_template("chatroom.html", code=room, messages=rooms[room]["messages"])
+
+
+@socketio.on("message")
+def message(data):
+    room = session.get("room")
+    if room not in rooms:
+        return 
+    
+    content = {
+        "name": session.get("name"),
+        "message": data["data"]
+    }
+    send(content, to=room)
+    rooms[room]["messages"].append(content)
+    print(f"{session.get('name')} said: {data['data']}")
+
+@socketio.on("connect")
+def connect(auth):
+    room = session.get("room")
+    name = session.get("name")
+    if not room or not name:
+        return
+    if room not in rooms:
+        leave_room(room)
+        return
+    
+    join_room(room)
+    send({"name": name, "message": "has entered the room"}, to=room)
+    rooms[room]["members"] += 1
+    print(f"{name} joined room {room}")
+
+@socketio.on("disconnect")
+def disconnect():
+    room = session.get("room")
+    name = session.get("name")
+    leave_room(room)
+
+    if room in rooms:
+        rooms[room]["members"] -= 1
+        if rooms[room]["members"] <= 0:
+            del rooms[room]
+    
+    send({"name": name, "message": "has left the room"}, to=room)
+    print(f"{name} has left the room {room}")
+
 if __name__ == '__main__':
-    app.run()
+    socketio.run(app,host='0.0.0.0', port=8080)

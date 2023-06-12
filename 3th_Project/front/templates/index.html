@@ -223,7 +223,9 @@
                 <div class="trip__details">
                   <p>상담사와의 채팅</p>
                   <div class="booking__price">
-                    <button class="book__now">채팅하러 가기</button>
+                    <a href="{{ url_for('chat') }}">
+                      <button class="book__now">채팅하러 가기</button>
+                    </a>
                   </div>
                 </div>
               </div>
