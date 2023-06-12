@@ -130,7 +130,7 @@
         </div>
         <div class="wrapper">
           <div class="upload">
-            <form action="#res_emotion">
+            <form action="${cpath}/UploadImg" method="post">
               <div class="upload-wrapper">
                 <div class="upload-img">
                   <!-- image here -->
@@ -152,11 +152,12 @@
                   type="file"
                   class="visually-hidden"
                   id="upload-input"
+                  name="imageFile"
                   multiple
                 />
               </div>
               <button class="btn" style="width: 200px; margin-top: 20px">
-                이미지 전송하기
+             	   이미지 전송하기
               </button>
             </form>
           </div>
@@ -170,11 +171,7 @@
               <div class="res_img">
                 <img src="resources/assets/static/img/trip-1.jpg" alt="" />
               </div>
-              <div id="chart">
-                <div class="chart_header">
-                  <span>종합 분석점수</span>
-                </div>
-              </div>
+              <div id="chart"></div>
             </div>
           </div>
           <div class="recentCustomers">
@@ -271,7 +268,7 @@
 
       sign_in_btn.addEventListener("click", () => {
         container.classList.remove("sign-up-mode");
-      }); 
+      });
     </script>
     <!-- ====== ionicons ======= -->
     <script
@@ -368,81 +365,64 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script>
       var options = {
-        series: [75],
+        series: [76, 67, 61, 90],
         chart: {
-          width: 350,
-          height: 350,
+          width: 500,
           type: "radialBar",
         },
         plotOptions: {
           radialBar: {
-            startAngle: -135,
-            endAngle: 225,
+            offsetY: 0,
+            startAngle: 0,
+            endAngle: 270,
             hollow: {
-              margin: 0,
-              size: "70%",
-              background: "#fff",
+              margin: 5,
+              size: "30%",
+              background: "transparent",
               image: undefined,
-              imageOffsetX: 0,
-              imageOffsetY: 0,
-              position: "front",
-              dropShadow: {
-                enabled: true,
-                top: 3,
-                left: 0,
-                blur: 4,
-                opacity: 0.24,
-              },
             },
-            track: {
-              background: "#fff",
-              strokeWidth: "67%",
-              margin: 0, // margin is in pixels
-              dropShadow: {
-                enabled: true,
-                top: -3,
-                left: 0,
-                blur: 4,
-                opacity: 0.35,
-              },
-            },
-
             dataLabels: {
-              show: true,
               name: {
-                offsetY: -10,
-                show: true,
-                color: "#888",
-                fontSize: "17px",
+                show: false,
               },
               value: {
-                formatter: function (val) {
-                  return parseInt(val);
-                },
-                color: "#111",
-                fontSize: "36px",
-                show: true,
+                show: false,
               },
             },
           },
         },
-        fill: {
-          type: "gradient",
-          gradient: {
-            shade: "dark",
-            type: "horizontal",
-            shadeIntensity: 0.5,
-            gradientToColors: ["#ABE5A1"],
-            inverseColors: true,
-            opacityFrom: 1,
-            opacityTo: 1,
-            stops: [0, 100],
+        colors: ["#1ab7ea", "#0084ff", "#39539E", "#0077B5"],
+        labels: ["Vimeo", "Messenger", "Facebook", "LinkedIn"],
+        legend: {
+          show: true,
+          floating: true,
+          fontSize: "16px",
+          position: "left",
+          offsetX: 50,
+          offsetY: 15,
+          labels: {
+            useSeriesColors: true,
+          },
+          markers: {
+            size: 0,
+          },
+          formatter: function (seriesName, opts) {
+            return seriesName + ":  " + opts.w.globals.series[opts.seriesIndex];
+          },
+          itemMargin: {
+            vertical: 3,
           },
         },
-        stroke: {
-          lineCap: "round",
-        },
-        labels: ["Percent"],
+        responsive: [
+          {
+            breakpoint: 480,
+            options: {
+              legend: {
+                show: false,
+              },
+            },
+          },
+        ],
       };
 
       var chart = new ApexCharts(document.querySelector("#chart"), options);
