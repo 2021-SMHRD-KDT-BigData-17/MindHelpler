@@ -97,21 +97,16 @@
             </a>
           </li>
           <li>
-            <a href="login">
-              <span class="icon">
-                <ion-icon name="log-in-outline"></ion-icon>
-              </span>
-              <span class="title">Sign in</span>
-            </a>
-          </li>
-          <li style="display: none">
-            <a href="#">
-              <span class="icon">
-                <ion-icon name="log-out-outline"></ion-icon>
-              </span>
-              <span class="title">Sign Out</span>
-            </a>
-          </li>
+			<li>
+			  <a href="${cpath}${loginUser != null ? '/Logout' : '/login'}">
+			    <span class="icon">
+			      <ion-icon name="log-in-outline"></ion-icon>
+			    </span>
+			    <span class="title">
+			      ${loginUser != null ? 'Sign Out' : 'Sign in'}
+			    </span>
+			  </a>
+			</li>
         </ul>
       </div>
 

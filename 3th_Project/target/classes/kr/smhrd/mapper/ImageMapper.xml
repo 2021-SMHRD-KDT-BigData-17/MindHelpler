@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.smhrd.mapper.ImageMapper">
+
+  <insert id="insertImage" parameterType="kr.smhrd.domain.T_IMAGE">
+    INSERT INTO T_IMAGE (imgUrl, userId) VALUES (#{imgUrl}, #{userId})
+  </insert>
+
+</mapper>

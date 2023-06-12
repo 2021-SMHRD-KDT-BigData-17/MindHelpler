@@ -785,7 +785,6 @@
         return time;
       }
     </script>
-    <!-- 달력 자바스크립트 -->
     <!-- 챗봇 플라스크 영역 -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -813,6 +812,142 @@
               $("#placeholder").css("display", "none");
             }
           },
+        });
+      });
+    </script>
+    <!-- 텍스트 ai 모델 결과값 출력 ajax -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script>
+      $(document).ready(function () {
+        var options = {
+          series: [
+            {
+              name: "긍정",
+              data: [0],
+            },
+            {
+              name: "부정",
+              data: [0],
+            },
+          ],
+          chart: {
+            type: "bar",
+            height: 150,
+            stacked: true,
+            toolbar: {
+              show: false,
+            },
+          },
+          plotOptions: {
+            bar: {
+              horizontal: true,
+            },
+          },
+          stroke: {
+            width: 1,
+            colors: ["#fff"],
+          },
+          xaxis: {
+            categories: ["감정지수"],
+            max: 1,
+          },
+          yaxis: {
+            labels: {
+              formatter: function (value) {
+                return value;
+              },
+            },
+            max: 1,
+          },
+          tooltip: {
+            y: {
+              formatter: function (val) {
+                return val;
+              },
+            },
+          },
+          fill: {
+            opacity: 1,
+          },
+          legend: {
+            position: "top",
+            horizontalAlign: "left",
+            offsetX: 40,
+          },
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+
+        $(".diary_form").submit(function (event) {
+          event.preventDefault();
+
+          var user_input = $('textarea[name="user_input"]').val();
+
+          $.ajax({
+            url: "/analyze",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ text: user_input }),
+            success: function (response) {
+              var score = response.score;
+              console.log(response);
+              var chartData = [
+                {
+                  name: "긍정",
+                  data: [score],
+                },
+                {
+                  name: "부정",
+                  data: [1 - score],
+                },
+              ];
+
+              chart.updateSeries(chartData);
+
+              // Reset 버튼 추가
+              $(".reset_button").remove();
+              $(".save_button").remove();
+              $(".btn_box").append(
+                '<button class="reset_button">초기화</button>'
+              );
+
+              // 저장하기 버튼 추가
+              $(".btn_box").append(
+                '<button class="save_button">저장하기</button>'
+              );
+            },
+            error: function (error) {
+              alert("오류가 발생했습니다.");
+            },
+          });
+        });
+
+        // Reset 버튼 클릭 이벤트
+        $(document).on("click", ".reset_button", function () {
+          chart.updateSeries([
+            {
+              name: "긍정",
+              data: [0],
+            },
+            {
+              name: "부정",
+              data: [0],
+            },
+          ]);
+
+          $('textarea[name="user_input"]').val(""); // 텍스트 입력란 초기화
+
+          $(this).remove(); // Reset 버튼 제거
+          $(".save_button").remove(); // 저장하기 버튼 제거
+        });
+
+        // 저장하기 버튼 클릭 이벤트
+        $(document).on("click", ".save_button", function () {
+          var user_input = $('textarea[name="user_input"]').val();
+          // 저장하기 로직 추가
+
+          // $(this).remove(); // 저장하기 버튼 제거
         });
       });
     </script>
