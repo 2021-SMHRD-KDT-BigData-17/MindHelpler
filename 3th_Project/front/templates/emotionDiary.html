@@ -225,6 +225,7 @@
                 <div id="result">
                   <div id="chart"></div>
                 </div>
+                <div class="btn_box"></div>
               </div>
             </div>
           </div>
@@ -815,7 +816,7 @@
           ],
           chart: {
             type: "bar",
-            height: 200,
+            height: 150,
             stacked: true,
             toolbar: {
               show: false,
@@ -887,11 +888,50 @@
               ];
 
               chart.updateSeries(chartData);
+
+              // Reset 버튼 추가
+              $(".reset_button").remove();
+              $(".save_button").remove();
+              $(".btn_box").append(
+                '<button class="reset_button">초기화</button>'
+              );
+
+              // 저장하기 버튼 추가
+              $(".btn_box").append(
+                '<button class="save_button">저장하기</button>'
+              );
             },
             error: function (error) {
               alert("오류가 발생했습니다.");
             },
           });
+        });
+
+        // Reset 버튼 클릭 이벤트
+        $(document).on("click", ".reset_button", function () {
+          chart.updateSeries([
+            {
+              name: "긍정",
+              data: [0],
+            },
+            {
+              name: "부정",
+              data: [0],
+            },
+          ]);
+
+          $('textarea[name="user_input"]').val(""); // 텍스트 입력란 초기화
+
+          $(this).remove(); // Reset 버튼 제거
+          $(".save_button").remove(); // 저장하기 버튼 제거
+        });
+
+        // 저장하기 버튼 클릭 이벤트
+        $(document).on("click", ".save_button", function () {
+          var user_input = $('textarea[name="user_input"]').val();
+          // 저장하기 로직 추가
+
+          // $(this).remove(); // 저장하기 버튼 제거
         });
       });
     </script>

@@ -1802,7 +1802,7 @@ header {
 .emotion_Diary_bottom .emotion_Diary {
   position: relative;
   display: grid;
-  min-height: 315px;
+  min-height: 350px;
   background: var(--white);
   padding: 20px;
   box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
@@ -1836,7 +1836,43 @@ textarea {
 textarea::-webkit-scrollbar {
   display: none;
 }
-
+.btn_box {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.btn_box .reset_button {
+  padding: 0.5rem 1.5rem;
+  color: var(--primary-color);
+  outline: none;
+  border: 1px solid var(--primary-color);
+  border-radius: 5rem;
+  background-color: transparent;
+  cursor: pointer;
+  transition: 0.3s;
+  font-family: "NanumBarunGothic";
+  font-size: 15px;
+}
+.btn_box .reset_button:hover {
+  color: var(--extra-light);
+  background-color: var(--primary-color);
+}
+.btn_box .save_button {
+  padding: 0.5rem 1.5rem;
+  color: var(--primary-color);
+  outline: none;
+  border: 1px solid var(--primary-color);
+  border-radius: 5rem;
+  background-color: transparent;
+  cursor: pointer;
+  transition: 0.3s;
+  font-family: "NanumBarunGothic";
+  font-size: 15px;
+}
+.btn_box .save_button:hover {
+  color: var(--extra-light);
+  background-color: var(--primary-color);
+}
 .dropdown {
   min-width: 15rem;
   position: relative;
