@@ -31,9 +31,20 @@
           </div>
         </div>
         <div class="online">
-          <h3 class="title">Online</h3>
+          <h3 class="title">현재 접속 중</h3>
           <div class="online-ids">
             <div class="recent-data">
+             {{names}}
+              <span
+                style="
+                  display: flex;
+                  font-size: 20px;
+                  margin-top: 50px;
+                  color: #fff;
+                  font-weight: bolder;
+                "
+                >상담 신청자</span
+              >
               <ul>
                 {% for member in room_members %}
                 <li>{{ member }}</li>
@@ -81,36 +92,26 @@
       <div class="Counselor-contact">
         <div class="contact-detail">
           <img src="resources/assets/img/destination1.jpg" alt="" />
-          <h3>{{names}}</h3>
-          <a href="@">info@maindhelper.com</a>
-          <div class="contact-icons">
-            <i class="fas fa-phone-alt"></i>
-            <i class="fas fa-video"></i>
-            <i class="fas fa-image"></i>
-          </div>
+	          {% for member in room_members %}
+	          	<h3>{{ member }}</h3>
+	          {% endfor %}
         </div>
         <div class="Counselor_spec">
-          <h3 class="title">주요경력</h3>
+          <h3 class="title">인적사항</h3>
           <div class="spec">
-            <div class="spec_data">
-              <li>
-                	임상심리사 2급 실습수련 1년
-                <span style="font-size: 10px">(한국종합심리상담교육센터)</span>
-              </li>
-              <li>psychology 심리학 학사 졸업</li>
+            <div class="user_info">
+              <ul>
+                <li>성별 : 여</li>
+                <li>나이 : 20세</li>
+              </ul>
             </div>
           </div>
         </div>
         <div class="Counselor_spec">
-          <h3 class="title">상담 가능시간</h3>
+          <h3 class="title">진단내역</h3>
           <div class="spec">
             <div class="spec_data">
-              <li>
-                	평일 - 9:00 ~ 18:00
-                <span style="font-size: 12px">(점심시간 12:00~ 14:00)</span>
-              </li>
-              <li>토요일 - 10:00 ~ 17:00</li>
-              <li>일요일, 공휴일 휴무</li>
+              <div id="chat_chart"></div>
             </div>
           </div>
         </div>
@@ -128,39 +129,54 @@
       src="https://kit.fontawesome.com/08d807a96c.js"
       crossorigin="anonymous"
     ></script>
+    
     <!-- 모달창 -->
     <script>
-      // Get the modal element
-      var modal = document.getElementById("modal");
+      var options = {
+        series: [
+          {
+            name: "series1",
+            data: [31, 40, 28, 51, 42, 109, 100],
+          },
+          {
+            name: "series2",
+            data: [11, 32, 45, 32, 34, 52, 41],
+          },
+        ],
+        chart: {
+          height: 350,
+          type: "area",
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        stroke: {
+          curve: "smooth",
+        },
+        xaxis: {
+          type: "datetime",
+          categories: [
+            "2018-09-19T00:00:00.000Z",
+            "2018-09-19T01:30:00.000Z",
+            "2018-09-19T02:30:00.000Z",
+            "2018-09-19T03:30:00.000Z",
+            "2018-09-19T04:30:00.000Z",
+            "2018-09-19T05:30:00.000Z",
+            "2018-09-19T06:30:00.000Z",
+          ],
+        },
+        tooltip: {
+          x: {
+            format: "dd/MM/yy HH:mm",
+          },
+        },
+      };
 
-      // Get the button that opens the modal
-      var openModalBtn = document.getElementById("openModal");
-
-      // Get the <span> element that closes the modal
-      var closeModalSpan = document.getElementsByClassName("close")[0];
-
-      // Function to open the modal
-      function openModal() {
-        modal.style.display = "block";
-      }
-
-      // Function to close the modal
-      function closeModal() {
-        modal.style.display = "none";
-      }
-
-      // Event listener to open the modal when the button is clicked
-      openModalBtn.addEventListener("click", openModal);
-
-      // Event listener to close the modal when the close button (x) is clicked
-      closeModalSpan.addEventListener("click", closeModal);
-
-      // Event listener to close the modal when the user clicks outside of it
-      window.addEventListener("click", function (event) {
-        if (event.target == modal) {
-          closeModal();
-        }
-      });
+      var chart = new ApexCharts(
+        document.querySelector("#chat_chart"),
+        options
+      );
+      chart.render();
     </script>
   </body>
 </html>
