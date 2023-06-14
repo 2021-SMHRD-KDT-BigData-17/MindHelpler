@@ -1,20 +1,5 @@
 {% extends 'chatbase.html' %} {% block content %}
-<div class="message-box">
-  <h2>Chat Room: {{code}}</h2>
-  <div class="chat_messages" id="messages"></div>
-  <div class="chat_inputs">
-    <input
-      type="text"
-      rows="3"
-      placeholder="Message"
-      name="message"
-      id="message"
-    />
-    <button type="button" name="send" id="send-btn" onClick="sendMessage()">
-      Send
-    </button>
-  </div>
-</div>
+
 <script type="text/javascript">
   var socketio = io();
 
@@ -22,15 +7,20 @@
 
   const createMessage = (name, msg) => {
     const content = `
-    <div class="chat_text">
-        <span>
-            <strong>${name}</strong>: ${msg}
-        </span>
-        <span class="chat_muted">
-            ${new Date().toLocaleString()}
-        </span>
-    </div>
+    <div class="sender">
+            <div class="recents">
+              <div class="recent-img">
+                <img src="../static/img/destination1.jpg" alt="" />
+              </div>
+              <div class="recent-data">
+                <h3>${name}<span class="time">${new Date().toLocaleString()}</span></h3>
+                <span>${msg}</span>
+              </div>
+            </div>
+          </div>
+          
     `;
+
     messages.innerHTML += content;
   };
 

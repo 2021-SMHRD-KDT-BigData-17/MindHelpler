@@ -55,24 +55,13 @@ body {
 .online-ids {
   padding: 0 10px;
 }
-.online-ids img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin-right: 10px;
-  cursor: pointer;
-}
+
 .messages .recents {
   display: flex;
   padding: 5px 10px;
   cursor: pointer;
 }
-.recents img {
-  width: 55px;
-  height: 55px;
-  border-radius: 50%;
-  margin-top: 5px;
-}
+
 .recent-data {
   padding: 10px;
 }
@@ -108,23 +97,14 @@ body {
 .message-box .recents:hover {
   background: none;
 }
-.call-actions {
+
+#openModal {
+  left: 95px;
+  border-radius: 10px;
   position: absolute;
-  right: 0;
-  top: 0;
-  padding: 15px 20px;
-}
-.action-icons {
-  margin-top: 10px;
-}
-.action-icons i {
-  margin: 10px;
-  color: rgb(99, 98, 98);
-}
-.sidebar_bottom {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
+  bottom: 10px;
+  width: 15%;
+  height: 60px;
 }
 /* chat box */
 .box {
@@ -175,12 +155,7 @@ body {
   bottom: 0;
   width: 100%;
 }
-.input-box img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin: 10px 20px;
-}
+
 .input-box input {
   background: transparent;
   margin-left: 20px;
@@ -251,4 +226,96 @@ body {
 .spec_data {
   line-height: 30px;
   padding: 10px;
+}
+
+/* ==================== */
+/* 채팅 css */
+.chat_content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat_message-box {
+  border-color: black;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 10px;
+  background-color: whitesmoke;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  width: 80vw;
+  align-items: stretch;
+}
+
+.chat_messages {
+  overflow-y: scroll;
+  flex: 1;
+  width: 100%;
+}
+
+.chat_inputs {
+  padding: 10px;
+  display: flex;
+}
+
+h2 {
+  text-align: center;
+}
+
+#chat_message {
+  flex: 1;
+}
+
+.chat_text {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: #fff;
+}
+
+.chat_muted {
+  font-size: 10px;
+  color: darkgray;
+}
+/* 모달창 */
+.modal {
+  display: none; /* Hide the modal by default */
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4); /* Black semi-transparent background */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
 }
