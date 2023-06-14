@@ -108,7 +108,12 @@ body {
 }
 /* chat box */
 .box {
+  height: 85vh;
   padding: 0px 20px;
+  overflow-y: scroll;
+}
+.box::-webkit-scrollbar {
+  display: none;
 }
 .box .recents {
   display: flex;
@@ -224,8 +229,11 @@ body {
   margin-top: 10px;
 }
 .spec_data {
-  line-height: 30px;
+  height: 390px;
+  width: 100%;
+
   padding: 10px;
+  background: #fff;
 }
 
 /* ==================== */
