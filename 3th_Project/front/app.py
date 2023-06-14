@@ -190,16 +190,18 @@ socketio = SocketIO(app)
 app.config["SECRET_KEY"] = "mindhelper"
 rooms = {}
 
+
 def generate_unique_code(length):
     while True:
         code = ""
         for _ in range(length):
             code += random.choice(ascii_uppercase)
-        
+
         if code not in rooms:
             break
-    
+
     return code
+
 
 @app.route('/chat', methods=["GET", "POST"])
 def chat():
@@ -215,35 +217,39 @@ def chat():
 
         if join != False and not code:
             return render_template("chat.html", error="Please enter a room code.", code=code, name=name)
-        
+
         room = code
         if create != False:
             room = generate_unique_code(4)
-            rooms[room] = {"members": 0, "messages": []}
+            rooms[room] = {"members": [], "messages": []}
         elif code not in rooms:
             return render_template("chat.html", error="Room does not exist.", code=code, name=name)
-        
+
         session["room"] = room
         session["name"] = name
         return redirect(url_for("chatroom"))
 
     return render_template('chat.html')
-    
+
+
 @app.route('/chatroom')
 def chatroom():
+    name = session.get("name")
     room = session.get("room")
     if room is None or session.get("name") is None or room not in rooms:
         return redirect(url_for("chat"))
 
-    return render_template("chatroom.html", code=room, messages=rooms[room]["messages"])
+    room_members = rooms[room]["members"]
+
+    return render_template("chatroom.html", code=room, messages=rooms[room]["messages"], names=name, room_members=room_members)
 
 
 @socketio.on("message")
 def message(data):
     room = session.get("room")
     if room not in rooms:
-        return 
-    
+        return
+
     content = {
         "name": session.get("name"),
         "message": data["data"]
@@ -251,6 +257,7 @@ def message(data):
     send(content, to=room)
     rooms[room]["messages"].append(content)
     print(f"{session.get('name')} said: {data['data']}")
+
 
 @socketio.on("connect")
 def connect(auth):
@@ -261,11 +268,12 @@ def connect(auth):
     if room not in rooms:
         leave_room(room)
         return
-    
+
     join_room(room)
     send({"name": name, "message": "has entered the room"}, to=room)
-    rooms[room]["members"] += 1
+    rooms[room]["members"].append(name)
     print(f"{name} joined room {room}")
+
 
 @socketio.on("disconnect")
 def disconnect():
@@ -274,10 +282,10 @@ def disconnect():
     leave_room(room)
 
     if room in rooms:
-        rooms[room]["members"] -= 1
-        if rooms[room]["members"] <= 0:
+        rooms[room]["members"].remove(name)
+        if len(rooms[room]["members"]) <= 0:
             del rooms[room]
-    
+
     send({"name": name, "message": "has left the room"}, to=room)
     print(f"{name} has left the room {room}")
 
