@@ -398,6 +398,10 @@
       nomodule
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
     ></script>
+    <script
+      src="https://kit.fontawesome.com/08d807a96c.js"
+      crossorigin="anonymous"
+    ></script>
     
     <!-- 드롭다운 메뉴 -->
     <script>

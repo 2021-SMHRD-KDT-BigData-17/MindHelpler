@@ -270,7 +270,7 @@
 
     <!-- ====== icons ======= -->
     <script
-      src="https://kit.fontawesome.com/369266d994.js"
+      src="https://kit.fontawesome.com/08d807a96c.js"
       crossorigin="anonymous"
     ></script>
     <script
