@@ -109,7 +109,7 @@
         </div>
         <div class="wrapper">
           <div class="upload">
-            <form action="#res_emotion">
+            <form id="uploadForm" enctype="multipart/form-data">
               <div class="upload-wrapper">
                 <div class="upload-img">
                   <!-- image here -->
@@ -131,10 +131,15 @@
                   type="file"
                   class="visually-hidden"
                   id="upload-input"
-                  multiple
+                  accept="image/*"
+                  required
                 />
               </div>
-              <button class="btn" style="width: 200px; margin-top: 20px">
+              <button
+                class="btn"
+                style="width: 200px; margin-top: 20px"
+                onclick="uploadImage()"
+              >
                 이미지 전송하기
               </button>
             </form>
@@ -156,22 +161,20 @@
             <div class="cardHeader">
               <h2>분석 결과 설명</h2>
             </div>
+            <div
+              id="result"
+              style="
+                display: grid;
+                text-align: center;
+                line-height: 40px;
+                margin-top: 20px;
+                margin-bottom: 20px;
+              "
+            >
+              <p>마인드 헬퍼의 이미지 AI가 분석 중입니다.</p>
+            </div>
 
             <div class="emotion_img_right_content">
-              <p class="header">
-                <span>Admin</span>님의 분석결과는 다음과 같습니다.
-              </p>
-              <p class="res_contents_text">불안: <span>40%</span></p>
-              <p class="res_contents_text">분노: <span>30%</span></p>
-              <p class="res_contents_text">중립: <span>20%</span></p>
-              <p class="res_contents_text">기쁨: <span>5%</span></p>
-              <p class="res_contents_text">슬픔: <span>5%</span></p>
-
-              <p class="res_contents_text_total">
-                <span>평소 </span
-                ><span style="font-weight: bold">부정</span>적인 표정일 확률이
-                높습니다.
-              </p>
               <a href="{{ url_for('emotion') }}">
                 <button class="btn" style="margin-top: 20px">
                   검사 다시하기
@@ -260,7 +263,7 @@
       integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
       crossorigin="anonymous"
     ></script>
-    <!-- 이미지 업로드 코드 -->
+    <!-- 분석 결과 부분에서 이미지 미리보기 -->
     <script>
       $(document).ready(function () {
         $(".upload-area").click(function () {
@@ -335,73 +338,124 @@
     <!-- 차트 코드 -->
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script>
-      var options = {
-        series: [40, 30, 20, 5, 5],
-        chart: {
-          width: 500,
-          type: "radialBar",
-        },
-        plotOptions: {
-          radialBar: {
-            offsetY: 0,
-            startAngle: 0,
-            endAngle: 270,
-            hollow: {
-              margin: 5,
-              size: "30%",
-              background: "transparent",
-              image: undefined,
-            },
-            dataLabels: {
-              name: {
-                show: false,
-              },
-              value: {
-                show: false,
-              },
-            },
-          },
-        },
-        colors: ["#1ab7ea", "#0084ff", "#39539E", "#0077B5", "#767268"],
-        labels: ["불안", "분노", "중립", "기쁨", "슬픔"],
-        legend: {
-          show: true,
-          floating: true,
-          fontSize: "16px",
-          position: "left",
-          offsetX: 50,
-          offsetY: 15,
-          labels: {
-            useSeriesColors: true,
-          },
-          markers: {
-            size: 0,
-          },
-          formatter: function (seriesName, opts) {
-            // 수정 시작
-            var percent = opts.w.globals.seriesPercent[opts.seriesIndex];
-            percent = parseFloat(percent).toFixed(2);
-            return seriesName + ":  " + percent + "%";
-            // 수정 끝
-          },
-          itemMargin: {
-            vertical: 3,
-          },
-        },
-        responsive: [
-          {
-            breakpoint: 480,
-            options: {
-              legend: {
-                show: false,
-              },
-            },
-          },
-        ],
-      };
+      function uploadImage() {
+        var fileInput = document.getElementById("upload-input");
+        var file = fileInput.files[0];
+        var formData = new FormData();
+        formData.append("file", file);
 
-      var chart = new ApexCharts(document.querySelector("#chart"), options);
-      chart.render();
+        $.ajax({
+          url: "/uploads",
+          type: "POST",
+          data: formData,
+          contentType: false,
+          processData: false,
+          beforeSend: function () {
+            var resultElement = document.getElementById("chart");
+            resultElement.innerHTML =
+              "<p>마인드 헬퍼의 이미지 AI가 분석 중입니다.</p>";
+          },
+          success: function (response) {
+            if (response.error) {
+              console.log("Error: " + response.error);
+            } else {
+              var emotions = response.result;
+              console.log(emotions);
+              var options = {
+                series: Object.values(emotions),
+                chart: {
+                  width: 500,
+                  type: "radialBar",
+                },
+                plotOptions: {
+                  radialBar: {
+                    offsetY: 0,
+                    startAngle: 0,
+                    endAngle: 270,
+                    hollow: {
+                      margin: 5,
+                      size: "30%",
+                      background: "transparent",
+                      image: undefined,
+                    },
+                    dataLabels: {
+                      name: {
+                        show: false,
+                      },
+                      value: {
+                        show: false,
+                      },
+                    },
+                  },
+                },
+                colors: ["#1ab7ea", "#0084ff", "#39539E", "#0077B5", "#767268"],
+                labels: Object.keys(emotions),
+                legend: {
+                  show: true,
+                  floating: true,
+                  fontSize: "16px",
+                  position: "left",
+                  offsetX: 50,
+                  offsetY: 15,
+                  labels: {
+                    useSeriesColors: true,
+                  },
+                  markers: {
+                    size: 0,
+                  },
+                  formatter: function (seriesName, opts) {
+                    return (
+                      seriesName +
+                      ":  " +
+                      opts.w.globals.series[opts.seriesIndex] +
+                      "%"
+                    );
+                  },
+                  itemMargin: {
+                    vertical: 3,
+                  },
+                },
+                responsive: [
+                  {
+                    breakpoint: 480,
+                    options: {
+                      legend: {
+                        show: false,
+                      },
+                    },
+                  },
+                ],
+              };
+
+              var chart = new ApexCharts(
+                document.querySelector("#chart"),
+                options
+              );
+              chart.render();
+
+              // Display result value and label
+              var resultElement = document.getElementById("result");
+              resultElement.innerHTML = ""; // Clear existing content
+
+              for (var emotion in emotions) {
+                var label = emotion;
+                var value = emotions[emotion];
+                var resultItem = document.createElement("p");
+                resultItem.innerHTML = label + ": " + value.toFixed(0) + "%";
+                resultElement.appendChild(resultItem);
+              }
+              // Remove the analysis in progress text
+              var analysisText = document.querySelector("#chart p");
+              if (analysisText) {
+                analysisText.remove();
+              }
+            }
+          },
+          error: function (xhr, status, error) {
+            alert("Error: " + xhr.responseText);
+          },
+        });
+      }
     </script>
   </body>
 </html>

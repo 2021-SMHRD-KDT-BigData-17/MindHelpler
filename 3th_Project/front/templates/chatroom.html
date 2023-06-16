@@ -8,18 +8,16 @@
   const createMessage = (name, msg) => {
     const content = `
     <div class="sender">
-            <div class="recents">
-              <div class="recent-img">
-                <img src="../static/img/destination1.jpg" alt="" />
-              </div>
-              <div class="recent-data">
-                <h3>${name}<span class="time">${new Date().toLocaleString()}</span></h3>
-                <span>${msg}</span>
-              </div>
-            </div>
-          </div>
-          
-    `;
+      <div class="recents">
+        <div class="recent-img">
+          <img src="../static/img/destination1.jpg" alt="" />
+        </div>
+        <div class="recent-data">
+          <h3>${name}<span class="time">${new Date().toLocaleString()}</span></h3>
+          <span>${msg}</span>
+        </div>
+      </div>
+    </div>`;
 
     messages.innerHTML += content;
   };
@@ -34,7 +32,19 @@
     socketio.emit("message", { data: message.value });
     message.value = "";
   };
+
+  const handleKeyPress = (event) => {
+    if (event.keyCode === 13) {
+      // 13 is the keycode for Enter key
+      sendMessage();
+    }
+  };
+
+  document
+    .getElementById("message")
+    .addEventListener("keypress", handleKeyPress);
 </script>
+
 {% for msg in messages %}
 <script type="text/javascript">
   createMessage("{{msg.name}}", "{{msg.message}}");
