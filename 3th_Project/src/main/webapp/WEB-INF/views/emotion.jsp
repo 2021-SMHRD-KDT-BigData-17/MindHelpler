@@ -130,7 +130,7 @@
         </div>
         <div class="wrapper">
           <div class="upload">
-            <form action="${cpath}/UploadImg" method="post">
+            <form action="${cpath}/UploadImg" method="">
               <div class="upload-wrapper">
                 <div class="upload-img">
                   <!-- image here -->
@@ -152,7 +152,6 @@
                   type="file"
                   class="visually-hidden"
                   id="upload-input"
-                  name="imageFile"
                   multiple
                 />
               </div>
@@ -193,9 +192,11 @@
 				    </c:otherwise>
 				 </c:choose>
               </p>
-              <p class="res_contents_text">긍정: <span>40%</span></p>
-              <p class="res_contents_text">부정: <span>60%</span></p>
-
+              <p class="res_contents_text">불안: <span>40%</span></p>
+              <p class="res_contents_text">분노: <span>30%</span></p>
+              <p class="res_contents_text">중립: <span>20%</span></p>
+              <p class="res_contents_text">기쁨: <span>5%</span></p>
+              <p class="res_contents_text">슬픔: <span>5%</span></p>
               <p class="res_contents_text_total">
               	<c:choose>
               		<c:when test="${not empty loginUser}">
@@ -280,7 +281,7 @@
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
     ></script>
     <script
-      src="https://kit.fontawesome.com/369266d994.js"
+      src="https://kit.fontawesome.com/08d807a96c.js"
       crossorigin="anonymous"
     ></script>
     <!-- JQuery -->
@@ -365,7 +366,7 @@
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script>
       var options = {
-        series: [76, 67, 61, 90],
+        series: [40, 30, 20, 5, 5],
         chart: {
           width: 500,
           type: "radialBar",
@@ -391,8 +392,8 @@
             },
           },
         },
-        colors: ["#1ab7ea", "#0084ff", "#39539E", "#0077B5"],
-        labels: ["Vimeo", "Messenger", "Facebook", "LinkedIn"],
+        colors: ["#1ab7ea", "#0084ff", "#39539E", "#0077B5", "#767268"],
+        labels: ["불안", "분노", "중립", "기쁨", "슬픔"],
         legend: {
           show: true,
           floating: true,
@@ -407,7 +408,11 @@
             size: 0,
           },
           formatter: function (seriesName, opts) {
-            return seriesName + ":  " + opts.w.globals.series[opts.seriesIndex];
+              // 수정 시작
+              var percent = opts.w.globals.seriesPercent[opts.seriesIndex];
+              percent = parseFloat(percent).toFixed(2);
+              return seriesName + ":  " + percent + "%";
+              // 수정 끝
           },
           itemMargin: {
             vertical: 3,

@@ -108,7 +108,7 @@
           <h3 class="title">진단내역</h3>
           <div class="spec">
             <div class="spec_data">
-              <div id="chat_chart"></div>
+              <div id="chart"></div>
             </div>
           </div>
         </div>
@@ -177,6 +177,7 @@
         chart: {
           height: 350,
           type: "area",
+          toolbar: false,
         },
         dataLabels: {
           enabled: false,
@@ -203,10 +204,7 @@
         },
       };
 
-      var chart = new ApexCharts(
-        document.querySelector("#chat_chart"),
-        options
-      );
+      var chart = new ApexCharts(document.querySelector("#chart"), options);
       chart.render();
     </script>
   </body>

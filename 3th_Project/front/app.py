@@ -19,6 +19,7 @@ from tensorflow.keras.models import load_model
 
 app = Flask(__name__)
 
+# 페이지 이동 및 데이터셋 로드
 
 def load_model():
     model = SentenceTransformer('jhgan/ko-sroberta-multitask')
@@ -69,7 +70,7 @@ def login():
     return render_template('login.html')
 
 
-
+#텍스트 모델 및 위로 메시지 챗봇"아쿠아"
 model = load_model()
 df = load_dataset()
 
@@ -91,7 +92,7 @@ def chatbot():
 
 
 
-# 모델 및 토크나이저 로드
+# 텍스트모델 및 토크나이저 로드
 textAi = tf.keras.models.load_model('./NLP.h5')
 
 def analyze_sentiment(text):
@@ -125,7 +126,7 @@ def analyze():
 
 
 
-# 채팅 코드
+# 채팅 
 socketio = SocketIO(app)
 app.config["SECRET_KEY"] = "mindhelper"
 rooms = {}
@@ -233,13 +234,13 @@ def disconnect():
     print(f"{name} has left the room {room}")
 
 
-
+# 이미지 모델 
 
 UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-MODEL_PATH = './IMGAI.h5'
+MODEL_PATH = './NEWIMGAI.h5'
 emotion_img_model = tf.keras.models.load_model(MODEL_PATH)
 
 def allowed_file(filename):
@@ -259,8 +260,8 @@ def analyze_image(file_path):
     (x, y, w, h) = faces[0]
     face_img = gray[y:y + h, x:x + w]
 
-    face_img = cv2.resize(face_img, (48, 48))
-    face_img = face_img.reshape(1, 48, 48, 1) / 255.0
+    face_img = cv2.resize(face_img, (64, 64))
+    face_img = face_img.reshape(1, 64, 64, 1) / 255.0
 
     predictions = emotion_img_model.predict(face_img)
     emotion_labels = ["불안", "분노", "중립", "기쁨", "슬픔"]

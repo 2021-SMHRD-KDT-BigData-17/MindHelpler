@@ -47,4 +47,19 @@ public class PageController {
 		return "counselorFile";
 	}
 	
+	@RequestMapping("/chat")
+	public String Chat() {
+		return "chat";
+	}
+	
+	@RequestMapping("/chatbase")
+	public String ChatBase() {
+		return "chatbase";
+	}
+	
+	@RequestMapping("/chatroom")
+	public String ChatRoom() {
+		return "chatroom";
+	}
+	
 }

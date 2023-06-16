@@ -246,11 +246,12 @@
                 <div class="trip__details">
                   <p>상담사와의 채팅</p>
                   <div class="booking__price">
-                    <% if (loginUser != null) { %>
+<%--                     <% if (loginUser != null) { %>
 						<a href="emotion"><button class="book__now">채팅하러 가기</button></a>
 					<% } else { %>
 					    <a href="login"><button class="book__now">로그인이 필요합니다.</button></a>
-					<% } %>
+					<% } %> --%>
+					<a href="chatbase"><button class="book__now">채팅하러 가기</button></a>
                   </div>
                 </div>
               </div>
@@ -349,7 +350,7 @@
 
     <!-- ====== icons ======= -->
     <script
-      src="https://kit.fontawesome.com/369266d994.js"
+      src="https://kit.fontawesome.com/08d807a96c.js"
       crossorigin="anonymous"
     ></script>
     <script
