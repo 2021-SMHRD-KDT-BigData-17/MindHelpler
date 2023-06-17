@@ -1,9 +1,9 @@
-from flask import Flask, jsonify, redirect, render_template, request, url_for,session
+from flask import Flask, jsonify, redirect, render_template, request, url_for, session
 import pandas as pd
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
-from flask_socketio import join_room,leave_room,send,SocketIO
-import random 
+from flask_socketio import join_room, leave_room, send, SocketIO
+import random
 from string import ascii_uppercase
 
 import json
@@ -17,19 +17,12 @@ from PIL import Image
 import numpy as np
 from tensorflow.keras.models import load_model
 
+import pymysql
+
 app = Flask(__name__)
 
-# 페이지 이동 및 데이터셋 로드
 
-def load_model():
-    model = SentenceTransformer('jhgan/ko-sroberta-multitask')
-    return model
-
-
-def load_dataset():
-    df = pd.read_csv('wellness_dataset.csv')
-    df['embedding'] = df['embedding'].apply(json.loads)
-    return df
+# 페이지 이동
 
 @app.route('/')
 def home():
@@ -44,6 +37,7 @@ def index():
 @app.route('/survey')
 def survey():
     return render_template('survey.html')
+
 
 @app.route('/emotionDiary')
 def emotionDiary():
@@ -65,15 +59,91 @@ def login_Counselor():
     return render_template('login_Counselor.html')
 
 
-@app.route('/login')
+# 회원가입
+def db_connector():
+    db = pymysql.connect(host='project-db-stu.smhrd.com', port=3307,
+                         user='smhrd', passwd='1234', db='smhrd', charset='utf8')
+    cursor = db.cursor()
+    return db, cursor
+
+
+def close_db(db):
+    db.close()
+
+
+def fetch_all(query, cursor):
+    cursor.execute(query)
+    result = cursor.fetchall()
+    return result
+
+
+def insert_user(id, username, email, password, date, gender, cursor, db):
+    sql = f"INSERT INTO T_USER (USERID, USERNAME, USEREMAIL, USERPW, USERBIRTHDATE, USERGENDER,ADMINYN) VALUES (%s, %s, %s, %s, %s, %s,'USER');"
+    cursor.execute(sql, (id, username, email, password, date, gender,))
+    db.commit()
+
+
+@app.route('/register', methods=['POST'])
+def register():
+    id = request.form['id']
+    username = request.form['username']
+    email = request.form['email']
+    password = request.form['password']
+    date = request.form['date']
+    gender = request.form['gender']
+
+    try:
+        db, cursor = db_connector()
+        insert_user(id, username, email, password, date, gender, cursor, db)
+        close_db(db)
+        return jsonify(success_message=True)
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return jsonify(success_message=False)
+
+
+#로그인
+def get_user(id, cursor):
+    sql = "SELECT USERID, USERPW FROM T_USER WHERE USERID = %s"
+    cursor.execute(sql, (id,))
+    return cursor.fetchone()
+
+
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template('login.html')
+    error = None
+    if request.method == 'POST':
+        db, cursor = db_connector()
+        user = get_user(request.form['login_ID'], cursor)
+        close_db(db)
+
+        if user is None:
+            error = 'Invalid ID.'
+        else:
+            user_id, user_pw = user
+            if request.form['login_PW'] != user_pw:
+                error = 'Invalid password.'
+            else:
+                session['logged_in'] = True
+                return redirect(url_for('index'))
+
+    return render_template('login.html', error=error)
 
 
 #텍스트 모델 및 위로 메시지 챗봇"아쿠아"
+def load_model():
+    model = SentenceTransformer('jhgan/ko-sroberta-multitask')
+    return model
+
+
+def load_dataset():
+    df = pd.read_csv('wellness_dataset.csv')
+    df['embedding'] = df['embedding'].apply(json.loads)
+    return df
+
+
 model = load_model()
 df = load_dataset()
-
 
 
 @app.route('/chatbot', methods=['POST'])
@@ -91,26 +161,27 @@ def chatbot():
         return "Error: Please provide a user input."
 
 
-
 # 텍스트모델 및 토크나이저 로드
 textAi = tf.keras.models.load_model('./NLP.h5')
+
 
 def analyze_sentiment(text):
     tokenizer = Tokenizer(char_level=True, oov_token='<OOV>')
     tokenizer.fit_on_texts([text])
     encoded = tokenizer.texts_to_sequences([text])
     pad_new = pad_sequences(encoded, maxlen=200)
-    
+
     predict = textAi.predict(pad_new)
 
     confidence = float(predict)
 
     if confidence >= 0.5:
-        label = 'Positive'
+        label = '긍정'
     else:
-        label = 'Negative'
+        label = '부정'
 
     return confidence, label
+
 
 @app.route('/analyze', methods=['POST'])
 def analyze():
@@ -125,8 +196,7 @@ def analyze():
         return jsonify({'error': 'Error: Please provide a user input.'})
 
 
-
-# 채팅 
+# 채팅
 socketio = SocketIO(app)
 app.config["SECRET_KEY"] = "mindhelper"
 rooms = {}
@@ -173,8 +243,6 @@ def chat():
     return render_template('chat.html')
 
 
-
-
 @app.route('/chatroom')
 def chatroom():
     name = session.get("name")
@@ -201,6 +269,7 @@ def message(data):
     rooms[room]["messages"].append(content)
     print(f"{session.get('name')} said: {data['data']}")
 
+
 @socketio.on("connect")
 def connect(auth):
     room = session.get("room")
@@ -217,8 +286,6 @@ def connect(auth):
     print(f"{name} joined room {room}")
 
 
-    
-
 @socketio.on("disconnect")
 def disconnect():
     room = session.get("room")
@@ -234,7 +301,7 @@ def disconnect():
     print(f"{name} has left the room {room}")
 
 
-# 이미지 모델 
+# 이미지 모델
 
 UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png'}
@@ -243,8 +310,10 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 MODEL_PATH = './NEWIMGAI.h5'
 emotion_img_model = tf.keras.models.load_model(MODEL_PATH)
 
+
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 def analyze_image(file_path):
     face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + './haarcascade_frontalface_default.xml')
@@ -265,7 +334,7 @@ def analyze_image(file_path):
 
     predictions = emotion_img_model.predict(face_img)
     emotion_labels = ["불안", "분노", "중립", "기쁨", "슬픔"]
-    result = {label:int(prediction * 100) for label, prediction in zip(emotion_labels, predictions[0])}
+    result = {label: int(prediction * 100) for label, prediction in zip(emotion_labels, predictions[0])}
 
     return result
 
@@ -273,6 +342,7 @@ def analyze_image(file_path):
 @app.route('/emotion')
 def emotion():
     return render_template('emotion.html')
+
 
 @app.route('/uploads', methods=['POST'])
 def upload():
@@ -293,9 +363,7 @@ def upload():
         return jsonify({'result': response})
     else:
         return jsonify({'error': 'Invalid file type'})
-    
-
 
 
 if __name__ == '__main__':
-    socketio.run(app,host='0.0.0.0', port=8080)
+    socketio.run(app, host='0.0.0.0', port=8080)

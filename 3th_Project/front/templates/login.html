@@ -105,14 +105,19 @@
           <div class="login_container">
             <div class="forms-container">
               <div class="signin-signup">
-                <form action="" class="sign-in-form">
+                <form class="sign-in-form">
                   <div class="input-field">
                     <i class="fas fa-user"></i>
-                    <input type="text" placeholder="Username" />
+                    <input type="text" placeholder="ID" id="login_ID" />
                   </div>
                   <div class="input-field">
                     <i class="fas fa-lock"></i>
-                    <input type="password" placeholder="Password" />
+                    <input
+                      type="password"
+                      placeholder="Password"
+                      id="login_PW"
+                      autocomplete="current-password"
+                    />
                   </div>
                   <input
                     type="submit"
@@ -136,27 +141,41 @@
                     </a>
                   </div>
                 </form>
-                <form action="#" class="sign-up-form">
+                <form class="sign-up-form" id="sign-up-form">
                   <div class="input-field">
                     <i class="fas fa-user"></i>
-                    <input type="text" placeholder="Username" />
+                    <input type="text" placeholder="ID" id="id" />
+                  </div>
+                  <div class="input-field">
+                    <i class="fas fa-user"></i>
+                    <input type="text" placeholder="Username" id="username" />
                   </div>
                   <div class="input-field">
                     <i class="fas fa-envelope"></i>
-                    <input type="email" placeholder="Email" />
+                    <input type="email" placeholder="Email" id="email" />
                   </div>
                   <div class="input-field">
                     <i class="fas fa-lock"></i>
-                    <input type="password" placeholder="Password" />
+                    <input
+                      type="password"
+                      placeholder="Password"
+                      id="password"
+                    />
                   </div>
                   <div class="input-field">
                     <i class="fa-solid fa-cake-candles"></i>
-                    <input type="date" />
+                    <input type="date" id="date" />
                   </div>
                   <fieldset class="checkbox-group">
                     <div class="checkbox">
                       <label class="checkbox-wrapper">
-                        <input type="checkbox" class="checkbox-input" />
+                        <input
+                          type="checkbox"
+                          class="checkbox-input"
+                          id="gender_male"
+                          name="gender"
+                          value="male"
+                        />
                         <span class="checkbox-tile">
                           <span class="checkbox-icon">
                             <i
@@ -172,7 +191,13 @@
                     </div>
                     <div class="checkbox">
                       <label class="checkbox-wrapper">
-                        <input type="checkbox" class="checkbox-input" />
+                        <input
+                          type="checkbox"
+                          class="checkbox-input"
+                          id="gender_woman"
+                          name="gender"
+                          value="female"
+                        />
                         <span class="checkbox-tile">
                           <span class="checkbox-icon" style="font-size: 20px">
                             <i
@@ -240,6 +265,12 @@
         </section>
       </div>
     </div>
+    <!-- JQuery -->
+    <script
+      src="https://code.jquery.com/jquery-3.7.0.js"
+      integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+      crossorigin="anonymous"
+    ></script>
     <!-- =========== Scripts =========  -->
     <script>
       // add hovered class to selected list item
@@ -296,6 +327,78 @@
 
       sign_in_btn.addEventListener("click", () => {
         container.classList.remove("sign-up-mode");
+      });
+    </script>
+    <script>
+      $(document).ready(function () {
+        $(".sign-up-form").submit(function (e) {
+          e.preventDefault(); // Prevents default form submission
+
+          let id = $("#id").val();
+          let username = $("#username").val();
+          let email = $("#email").val();
+          let password = $("#password").val();
+          let date = $("#date").val();
+          let gender = $("input[name='gender']:checked").val();
+
+          $.ajax({
+            url: "/register",
+            method: "POST",
+            data: {
+              id: id,
+              username: username,
+              email: email,
+              password: password,
+              date: date,
+              gender: gender,
+            },
+            success: function (response) {
+              if (response.success_message) {
+                // Show some message or redirect
+                alert("Registration successful!");
+              } else {
+                // Handle error
+                alert("Registration failed!");
+              }
+            },
+            error: function (error) {
+              console.log(error);
+              alert("An error occurred during the request.");
+            },
+          });
+        });
+      });
+    </script>
+    <script>
+      $(document).ready(function () {
+        $(".sign-in-form").submit(function (e) {
+          e.preventDefault(); // Prevents default form submission
+
+          let loginid = $("#login_ID").val();
+          let loginpw = $("#login_PW").val();
+
+          $.ajax({
+            url: "/login",
+            method: "POST",
+            data: {
+              login_ID: loginid, // 수정: 'loginid' -> 'login_ID'
+              login_PW: loginpw, // 수정: 'loginpw' -> 'login_PW'
+            },
+            success: function (response) {
+              if (response.logged_in) {
+                // Successfully logged in. You can redirect user to home page or update the UI as needed
+                window.location.href = "/index";
+              } else {
+                // Failed to log in. Display the error message
+                alert(response.error);
+              }
+            },
+            error: function (error) {
+              console.log(error);
+              alert("An error occurred during the request.");
+            },
+          });
+        });
       });
     </script>
 
