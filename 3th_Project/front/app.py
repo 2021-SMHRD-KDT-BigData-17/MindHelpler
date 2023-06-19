@@ -160,7 +160,7 @@ def login():
 
             else:
                 # User does not exist or password is incorrect.
-                return jsonify(error='Invalid login credentials.')
+                return jsonify(error='로그인 정보가 일치 하지 않습니다.')
 
         except Exception as e:
             print(f"An error occurred: {e}")
@@ -264,9 +264,8 @@ def generate_unique_code(length):
 
 @app.route('/chat', methods=["GET", "POST"])
 def chat():
-    session.clear()
     if request.method == "POST":
-        name = request.form.get("name")
+        name = session.get("username")
         code = request.form.get("code")
         join = request.form.get("join", False)
         create = request.form.get("create", False)
@@ -285,46 +284,43 @@ def chat():
             return render_template("chat.html", error="Room does not exist.", code=code, name=name)
 
         session["room"] = room
-        session["name"] = name
         return redirect(url_for("chatroom"))
-    
-    if 'username' not in session:
-        return redirect(url_for('login'))
-    if 'username' in session: 
-        return render_template('chat.html', username=session.get('username'))
+
+    return render_template('chat.html', username=session.get('username'))
 
 
 @app.route('/chatroom')
 def chatroom():
-    name = session.get("name")
+    name = session.get("username")
     room = session.get("room")
-    if room is None or session.get("name") is None or room not in rooms:
+    if room is None or name is None or room not in rooms:
         return redirect(url_for("chat"))
 
     room_members = rooms[room]["members"]
 
-    return render_template("chatroom.html", code=room, messages=rooms[room]["messages"], names=name, room_members=room_members)
+    return render_template("chatroom.html", code=room, messages=rooms[room]["messages"], room_members=room_members, name=name)
 
 
 @socketio.on("message")
 def message(data):
     room = session.get("room")
+    name = session.get("username")
     if room not in rooms:
         return
 
     content = {
-        "name": session.get("name"),
+        "name": name,
         "message": data["data"]
     }
     send(content, to=room)
     rooms[room]["messages"].append(content)
-    print(f"{session.get('name')} said: {data['data']}")
+    print(f"{name} said: {data['data']}")
 
 
 @socketio.on("connect")
 def connect(auth):
     room = session.get("room")
-    name = session.get("name")
+    name = session.get("username")
     if not room or not name:
         return
     if room not in rooms:
@@ -340,7 +336,7 @@ def connect(auth):
 @socketio.on("disconnect")
 def disconnect():
     room = session.get("room")
-    name = session.get("name")
+    name = session.get("username")
     leave_room(room)
 
     if room in rooms:

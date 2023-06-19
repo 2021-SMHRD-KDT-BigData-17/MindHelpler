@@ -138,10 +138,12 @@
             <p id="finish-content"></p>
           </div>
 
-          <!--    <div id="finish-program-content"></div>-->
-          <a href="{{ url_for('survey') }}">
-            <button class="re">검사 다시하기</button>
-          </a>
+          <div class="button-container">
+            <a href="{{ url_for('survey') }}">
+              <button class="re">검사 다시하기</button>
+            </a>
+            <!-- 버튼들을 여기에 추가 -->
+          </div>
         </div>
       </div>
     </div>
@@ -517,6 +519,12 @@
             "finish-point-content"
           );
           const finishContent = document.getElementById("finish-content");
+          const saveResultButton = document.createElement("button");
+          saveResultButton.classList.add("re");
+          saveResultButton.textContent = "결과 저장하기";
+          saveResultButton.addEventListener("click", function () {
+            alert("결과가 저장되었습니다.");
+          });
 
           channelQuestionDiv.style.display = "none";
           channelFinishDiv.style.display = "block";
@@ -525,6 +533,9 @@
           finishPoint.innerHTML = "<span>" + totalScore + "</span>점";
           finishPoint_status.textContent = status.status;
           finishContent.innerHTML = getMessageFromStatus(status.status);
+
+          const buttonContainer = document.createElement("div");
+          buttonContainer.classList.add("button-container");
 
           if (
             status.status === "중한 우울 상태" ||
@@ -537,12 +548,18 @@
               location.href = "./chat";
             };
 
-            // 상담사와 채팅하기 버튼을 가운데로 정렬하기
-            const centerDiv = document.createElement("div");
-            centerDiv.style.textAlign = "center";
-            centerDiv.style.marginTop = "20px";
-            centerDiv.appendChild(counselingButton);
-            finishContent.insertAdjacentElement("afterend", centerDiv);
+            buttonContainer.style.display = "grid";
+            buttonContainer.style.justifyContent = "center";
+            buttonContainer.style.marginTop = "20px";
+            buttonContainer.style.gap = "20px";
+            buttonContainer.appendChild(counselingButton);
+            buttonContainer.appendChild(saveResultButton);
+
+            // Add the button container after the result content
+            finishContent.insertAdjacentElement("afterend", buttonContainer);
+          } else {
+            // Add the "Save Result" button after the result content
+            finishContent.insertAdjacentElement("afterend", saveResultButton);
           }
         });
 

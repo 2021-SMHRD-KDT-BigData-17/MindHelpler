@@ -182,6 +182,13 @@
             </div>
 
             <div class="emotion_img_right_content">
+              <button
+                class="btn"
+                style="margin-top: 20px"
+                onclick="saveResult()"
+              >
+                결과 저장하기
+              </button>
               <a href="{{ url_for('emotion') }}">
                 <button class="btn" style="margin-top: 20px">
                   검사 다시하기
@@ -194,6 +201,15 @@
     </div>
 
     <!-- =========== Scripts =========  -->
+    <script>
+      function saveResult() {
+        // Perform the necessary actions to save the result
+        // For example, you can make an AJAX request to a server-side endpoint
+
+        // Display an alert message
+        alert("분석 결과가 저장 되었습니다.");
+      }
+    </script>
     <script>
       // add hovered class to selected list item
       let list = document.querySelectorAll(".navigation li");

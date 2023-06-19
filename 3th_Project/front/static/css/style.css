@@ -2110,7 +2110,7 @@ textarea::-webkit-scrollbar {
 #channel-finish button.re {
   cursor: pointer;
   display: block;
-  margin: 0 auto 40px;
+  margin: 0 auto -10px;
   border: 1px solid #fff;
   border-radius: 26px;
   height: 40px;
