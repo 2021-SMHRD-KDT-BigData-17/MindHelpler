@@ -36,7 +36,7 @@
             </a>
           </li>
 
-          <li>
+          <li style="display: none" id="survey">
             <a href="{{ url_for('survey') }}">
               <span class="icon">
                 <i class="fa-solid fa-list-check"></i>
@@ -45,7 +45,7 @@
             </a>
           </li>
 
-          <li>
+          <li style="display: none" id="emotion">
             <a href="{{ url_for('emotion') }}">
               <span class="icon">
                 <ion-icon name="happy-outline"></ion-icon>
@@ -54,7 +54,7 @@
             </a>
           </li>
 
-          <li>
+          <li style="display: none" id="emotionDiary">
             <a href="{{ url_for('emotionDiary') }}">
               <span class="icon">
                 <ion-icon name="book-outline"></ion-icon>
@@ -63,7 +63,7 @@
             </a>
           </li>
 
-          <li>
+          <li style="display: none" id="userprofile">
             <a href="{{ url_for('userprofile') }}">
               <span class="icon">
                 <ion-icon name="settings-outline"></ion-icon>
@@ -71,17 +71,24 @@
               <span class="title">마이페이지</span>
             </a>
           </li>
-          <li style="display: none">
-            <a href="{{ url_for('Counselorfile') }}">
+          <li id="Counselor">
+            <a href="{{ url_for('login_Counselor') }}">
               <span class="icon">
                 <ion-icon name="settings-outline"></ion-icon>
               </span>
-              <span class="title"> 상담사 전용 마이페이지</span>
+              <span class="title"> 상담사 전용페이지</span>
             </a>
           </li>
-
-          <li>
-            <a href="#">
+          <li id="login">
+            <a href="{{ url_for('login') }}">
+              <span class="icon">
+                <ion-icon name="log-in-outline"></ion-icon>
+              </span>
+              <span class="title">Sign in</span>
+            </a>
+          </li>
+          <li style="display: none" id="logout">
+            <a href="{{ url_for('logout') }}">
               <span class="icon">
                 <ion-icon name="log-out-outline"></ion-icon>
               </span>
@@ -94,8 +101,8 @@
       <!-- ========================= Main ==================== -->
       <div class="main">
         <div class="topbar">
-          <div class="user">
-            <p><span>Admin</span>님 환영합니다.</p>
+          <div class="user user-logged-in">
+            <p><span>{{ session.get('username') }}</span>님 환영합니다.</p>
           </div>
         </div>
 
@@ -456,6 +463,23 @@
           },
         });
       }
+    </script>
+    <script>
+      // Check if the user is logged in
+      {% if session.get('username') %}
+      document.addEventListener("DOMContentLoaded", function () {
+        // Show the user section
+        document.querySelector(".user").classList.add("user-logged-in");
+        document.querySelector(".user span").textContent = "{{ session.get('username') }}";
+        document.querySelector("#survey").style.display="block";
+        document.querySelector("#emotion").style.display="block";
+        document.querySelector("#emotionDiary").style.display="block";
+        document.querySelector("#userprofile").style.display="block";
+        document.querySelector("#Counselor").style.display="none";
+        document.querySelector("#login").style.display="none";
+        document.querySelector("#logout").style.display="block";
+      });
+      {% endif %}
     </script>
   </body>
 </html>

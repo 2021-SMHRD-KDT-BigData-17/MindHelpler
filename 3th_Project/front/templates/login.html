@@ -374,15 +374,16 @@
         $(".sign-in-form").submit(function (e) {
           e.preventDefault(); // Prevents default form submission
 
-          let loginid = $("#login_ID").val();
-          let loginpw = $("#login_PW").val();
+          let login_ID = $("#login_ID").val();
+          let login_PW = $("#login_PW").val();
 
           $.ajax({
             url: "/login",
             method: "POST",
             data: {
-              login_ID: loginid, // 수정: 'loginid' -> 'login_ID'
-              login_PW: loginpw, // 수정: 'loginpw' -> 'login_PW'
+              login_ID: login_ID,
+              login_PW: login_PW,
+              dataType: "jason",
             },
             success: function (response) {
               if (response.logged_in) {

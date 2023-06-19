@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, redirect, render_template, request, url_for, session
+from flask import Flask, jsonify, redirect, render_template, request, url_for, session, flash
 import pandas as pd
 from sentence_transformers import SentenceTransformer
 from sklearn.metrics.pairwise import cosine_similarity
@@ -18,45 +18,66 @@ import numpy as np
 from tensorflow.keras.models import load_model
 
 import pymysql
+from werkzeug.security import generate_password_hash
+from werkzeug.security import check_password_hash
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'mindhelper'
 
 
 # 페이지 이동
 
 @app.route('/')
 def home():
-    return redirect(url_for('index'))
+    return redirect(url_for('login'))
+
 
 
 @app.route('/index')
 def index():
-    return render_template('index.html')
+    if 'username' not in session:
+        flash('로그인이 필요합니다.')
+
+    return render_template('index.html', username=session.get('username'))
+
+
 
 
 @app.route('/survey')
 def survey():
-    return render_template('survey.html')
+    if 'username' not in session:
+        return redirect(url_for('login')) 
+    if 'username' in session:
+        return render_template('survey.html', username=session.get('username'))
 
 
 @app.route('/emotionDiary')
 def emotionDiary():
-    return render_template('emotionDiary.html')
+    if 'username' not in session:
+        return redirect(url_for('login')) 
+    if 'username' in session:
+        return render_template('emotionDiary.html', username=session.get('username'))
 
 
 @app.route('/userprofile')
 def userprofile():
-    return render_template('userprofile.html')
+    if 'username' not in session:
+        return redirect(url_for('login')) 
+    if 'username' in session:
+        return render_template('userprofile.html', username=session.get('username'))
 
 
 @app.route('/Counselorfile')
 def Counselorfile():
-    return render_template('Counselorfile.html')
+    if 'username' not in session:
+        return redirect(url_for('login')) 
+    if 'username' in session:
+        return render_template('Counselorfile.html', username=session.get('username'))
 
 
 @app.route('/login_Counselor')
 def login_Counselor():
-    return render_template('login_Counselor.html')
+    return render_template('login_Counselor.html', username=session.get('username'))
 
 
 # 회원가입
@@ -78,8 +99,9 @@ def fetch_all(query, cursor):
 
 
 def insert_user(id, username, email, password, date, gender, cursor, db):
-    sql = f"INSERT INTO T_USER (USERID, USERNAME, USEREMAIL, USERPW, USERBIRTHDATE, USERGENDER,ADMINYN) VALUES (%s, %s, %s, %s, %s, %s,'USER');"
-    cursor.execute(sql, (id, username, email, password, date, gender,))
+    hashed_password = generate_password_hash(password)  # Hash the password
+    sql = f"INSERT INTO T_USER (USERID, USERNAME, USEREMAIL, USERPW, USERBIRTHDATE, USERGENDER, ADMINYN) VALUES (%s, %s, %s, %s, %s, %s, 'USER');"
+    cursor.execute(sql, (id, username, email, hashed_password, date, gender,))
     db.commit()
 
 
@@ -103,32 +125,59 @@ def register():
 
 
 #로그인
+
 def get_user(id, cursor):
     sql = "SELECT USERID, USERPW FROM T_USER WHERE USERID = %s"
     cursor.execute(sql, (id,))
     return cursor.fetchone()
 
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    error = None
     if request.method == 'POST':
-        db, cursor = db_connector()
-        user = get_user(request.form['login_ID'], cursor)
-        close_db(db)
+        # Get login details from request
+        id = request.form['login_ID']
+        password = request.form['login_PW']
 
-        if user is None:
-            error = 'Invalid ID.'
-        else:
-            user_id, user_pw = user
-            if request.form['login_PW'] != user_pw:
-                error = 'Invalid password.'
+        try:
+            # Connect to the database
+            db, cursor = db_connector()
+
+            # Get the user from the database
+            user = get_user(id, cursor)
+            
+            # Close the database connection
+            close_db(db)
+
+            if user and check_password_hash(user[1], password):
+                # User exists and password is correct. Store user info in session.
+                session['userid'] = user[0]
+                session['username'] = user[0]  # Store the username in the session
+                session.modified = True  # Manually flag the session as modified
+                print(f"User {user[0]} logged in, session: {session}")  # Log the session
+
+                # Return success response
+                return jsonify(logged_in=True, username=user[0])
+
             else:
-                session['logged_in'] = True
-                return redirect(url_for('index'))
+                # User does not exist or password is incorrect.
+                return jsonify(error='Invalid login credentials.')
 
-    return render_template('login.html', error=error)
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            return jsonify(error='An error occurred during login.')
+    
+    else:  # GET request
+        return render_template('login.html', username=session.get('username'))
+    
 
+
+@app.route('/logout')
+def logout():
+    # Clear session data
+    session.clear()
+    
+    # Redirect to the login page
+    return redirect(url_for('login'))
 
 #텍스트 모델 및 위로 메시지 챗봇"아쿠아"
 def load_model():
@@ -161,7 +210,7 @@ def chatbot():
         return "Error: Please provide a user input."
 
 
-# 텍스트모델 및 토크나이저 로드
+# 텍스트모델 로드
 textAi = tf.keras.models.load_model('./NLP.h5')
 
 
@@ -198,7 +247,6 @@ def analyze():
 
 # 채팅
 socketio = SocketIO(app)
-app.config["SECRET_KEY"] = "mindhelper"
 rooms = {}
 
 
@@ -239,8 +287,11 @@ def chat():
         session["room"] = room
         session["name"] = name
         return redirect(url_for("chatroom"))
-
-    return render_template('chat.html')
+    
+    if 'username' not in session:
+        return redirect(url_for('login'))
+    if 'username' in session: 
+        return render_template('chat.html', username=session.get('username'))
 
 
 @app.route('/chatroom')
@@ -302,13 +353,13 @@ def disconnect():
 
 
 # 이미지 모델
+MODEL_PATH = './NEWIMGAI.h5'
+emotion_img_model = tf.keras.models.load_model(MODEL_PATH)
+
 
 UPLOAD_FOLDER = 'static/uploads'
 ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-MODEL_PATH = './NEWIMGAI.h5'
-emotion_img_model = tf.keras.models.load_model(MODEL_PATH)
 
 
 def allowed_file(filename):
@@ -341,7 +392,9 @@ def analyze_image(file_path):
 
 @app.route('/emotion')
 def emotion():
-    return render_template('emotion.html')
+    if 'username' not in session:
+        return redirect(url_for('login')) 
+    return render_template('emotion.html', username=session.get('username'))
 
 
 @app.route('/uploads', methods=['POST'])
