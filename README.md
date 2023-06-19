@@ -11,8 +11,8 @@
 
 ## Tech Stack
 
-
-### [DB Schema]
+## DB Schema
+![캡쳐](https://media.discordapp.net/attachments/1098416296321892412/1120189013605765200/2023-06-14_111254.png?width=1061&height=578)
 
 ## 💻 Final App View
 <details>
