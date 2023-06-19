@@ -1,7 +1,8 @@
 # Mind Helper
-우울증 감정 분석 서비스
+![캡쳐](https://cdn.discordapp.com/attachments/1098416296321892412/1120185975977553971/2023-06-19_115734.png)
 
 # 서비스 소개
+우울증 감정 분석 서비스
 
 ## Tech Stack
 
