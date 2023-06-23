@@ -9,12 +9,6 @@
 
 ***마인드 헬퍼와 함께 멘탈 케어 서비스를 활용해보세요!***
 
-## Tech Stack
-![캡쳐](https://cdn.discordapp.com/attachments/1098416296321892412/1121671965225271336/063d8a6bb0530fe5.png)
-
-## DB Schema
-![캡쳐](https://cdn.discordapp.com/attachments/1098416296321892412/1120241621917773924/DB_SCHEMA.png)
-
 ## 💻 Final App View
 <details>
 <summary>메인 페이지 (웹 소개)</summary>
@@ -41,9 +35,5 @@
 |팀원|김주형|Data-analyst|[wngud4232](https://github.com/wngud4232)|
 
 ## More Info
-💡 [API Documents]
-
-💡 [Team Notion]
-
 💡 [Wiki](https://github.com/2021-SMHRD-KDT-BigData-17/MindHelpler/wiki)
 
