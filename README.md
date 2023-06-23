@@ -81,6 +81,7 @@
 
 ## More Info
 💡 [Wiki](https://github.com/2021-SMHRD-KDT-BigData-17/MindHelpler/wiki) <br>
+💡 [Work-Log](https://github.com/2021-SMHRD-KDT-BigData-17/MindHelpler/wiki/Worklog) <br>
 💡 [Tech-Stack](https://github.com/2021-SMHRD-KDT-BigData-17/MindHelpler/wiki/Tech-Stack) <br>
 💡 [DB-Schema](https://github.com/2021-SMHRD-KDT-BigData-17/MindHelpler/wiki/DB-Schema) <br>
 💡 [Prototype](https://github.com/2021-SMHRD-KDT-BigData-17/MindHelpler/wiki/Prototype) <br>
