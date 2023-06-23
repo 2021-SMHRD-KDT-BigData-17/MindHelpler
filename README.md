@@ -63,7 +63,7 @@
 </details>
 ---
 <details>
-<summary>마이페이</summary>
+<summary>마이 페이지</summary>
 <div markdown="1">
   <img src='https://cdn.discordapp.com/attachments/1098416296321892412/1121685701063348284/KakaoTalk_20230623_151602014.jpg'/>
 </div>
