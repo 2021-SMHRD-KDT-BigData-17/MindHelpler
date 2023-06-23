@@ -34,7 +34,7 @@
 ## TEAM 선샤인즈 ✨
 |Role|Name|Position|Github|
 |----|----|--------|------|
-|팀장|박종환|Back-end|[jhpark9007](https://github.com/jhpark9007)|
+|팀장|박종환|Back-end|[jhpark9007](https://github.com/Dzeko9)|
 |팀원|조현영|Front-end|[chohyeonyoung](https://github.com/chohyeonyoung)|
 |팀원|김영효|Front-end|[asefr01](https://github.com/asefr01)|
 |팀원|김영재|Data-analyst|[hhccdd18](https://github.com/hhccdd18)|
