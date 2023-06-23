@@ -76,14 +76,7 @@
               <span class="title">마이페이지</span>
             </a>
           </li>
-          <li id="Counselor" style="display: none">
-            <a href="#">
-              <span class="icon">
-                <ion-icon name="settings-outline"></ion-icon>
-              </span>
-              <span class="title"> 상담사 전용페이지</span>
-            </a>
-          </li>
+
           <li id="login">
             <a href="{{ url_for('login') }}">
               <span class="icon">
@@ -351,7 +344,7 @@
         document.querySelector("#emotion").style.display="block";
         document.querySelector("#emotionDiary").style.display="block";
         document.querySelector("#userprofile").style.display="block";
-        document.querySelector("#Counselor").style.display="none";
+
         document.querySelector("#login").style.display="none";
         document.querySelector("#logout").style.display="block";
       });
