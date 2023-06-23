@@ -238,6 +238,15 @@
 
     <!-- =========== Scripts =========  -->
     <script>
+      function saveResult() {
+        // Perform the necessary actions to save the result
+        // For example, you can make an AJAX request to a server-side endpoint
+
+        // Display an alert message
+        alert("분석 결과가 저장 되었습니다.");
+      }
+    </script>
+    <script>
       // add hovered class to selected list item
       let list = document.querySelectorAll(".navigation li");
 
@@ -902,7 +911,7 @@
 
               // 저장하기 버튼 추가
               $(".btn_box").append(
-                '<button class="save_button">저장하기</button>'
+                '<button class="save_button" onclick="saveResult()">저장하기</button>'
               );
             },
             error: function (error) {

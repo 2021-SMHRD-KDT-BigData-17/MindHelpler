@@ -67,17 +67,7 @@ def userprofile():
         return render_template('userprofile.html', username=session.get('username'))
 
 
-@app.route('/Counselorfile')
-def Counselorfile():
-    if 'username' not in session:
-        return redirect(url_for('login')) 
-    if 'username' in session:
-        return render_template('Counselorfile.html', username=session.get('username'))
 
-
-@app.route('/login_Counselor')
-def login_Counselor():
-    return render_template('login_Counselor.html', username=session.get('username'))
 
 
 # 회원가입
@@ -122,7 +112,7 @@ def register():
     except Exception as e:
         print(f"An error occurred: {e}")
         return jsonify(success_message=False)
-
+    
 
 #로그인
 
@@ -169,7 +159,6 @@ def login():
     else:  # GET request
         return render_template('login.html', username=session.get('username'))
     
-
 
 @app.route('/logout')
 def logout():
@@ -245,109 +234,6 @@ def analyze():
         return jsonify({'error': 'Error: Please provide a user input.'})
 
 
-# 채팅
-socketio = SocketIO(app)
-rooms = {}
-
-
-def generate_unique_code(length):
-    while True:
-        code = ""
-        for _ in range(length):
-            code += random.choice(ascii_uppercase)
-
-        if code not in rooms:
-            break
-
-    return code
-
-
-@app.route('/chat', methods=["GET", "POST"])
-def chat():
-    if request.method == "POST":
-        name = session.get("username")
-        code = request.form.get("code")
-        join = request.form.get("join", False)
-        create = request.form.get("create", False)
-
-        if not name:
-            return render_template("chat.html", error="Please enter a name.", code=code, name=name)
-
-        if join != False and not code:
-            return render_template("chat.html", error="Please enter a room code.", code=code, name=name)
-
-        room = code
-        if create != False:
-            room = generate_unique_code(4)
-            rooms[room] = {"members": [], "messages": []}
-        elif code not in rooms:
-            return render_template("chat.html", error="Room does not exist.", code=code, name=name)
-
-        session["room"] = room
-        return redirect(url_for("chatroom"))
-
-    return render_template('chat.html', username=session.get('username'))
-
-
-@app.route('/chatroom')
-def chatroom():
-    name = session.get("username")
-    room = session.get("room")
-    if room is None or name is None or room not in rooms:
-        return redirect(url_for("chat"))
-
-    room_members = rooms[room]["members"]
-
-    return render_template("chatroom.html", code=room, messages=rooms[room]["messages"], room_members=room_members, name=name)
-
-
-@socketio.on("message")
-def message(data):
-    room = session.get("room")
-    name = session.get("username")
-    if room not in rooms:
-        return
-
-    content = {
-        "name": name,
-        "message": data["data"]
-    }
-    send(content, to=room)
-    rooms[room]["messages"].append(content)
-    print(f"{name} said: {data['data']}")
-
-
-@socketio.on("connect")
-def connect(auth):
-    room = session.get("room")
-    name = session.get("username")
-    if not room or not name:
-        return
-    if room not in rooms:
-        leave_room(room)
-        return
-
-    join_room(room)
-    send({f"name": name, "message": f"'{name}'님이 입장하셨습니다."}, to=room)
-    rooms[room]["members"].append(name)
-    print(f"{name} joined room {room}")
-
-
-@socketio.on("disconnect")
-def disconnect():
-    room = session.get("room")
-    name = session.get("username")
-    leave_room(room)
-
-    if room in rooms:
-        rooms[room]["members"].remove(name)
-        if len(rooms[room]["members"]) <= 0:
-            del rooms[room]
-
-    send({"name": name, "message": f"'{name}'님이 퇴장하셨습니다."}, to=room)
-    print(f"{name} has left the room {room}")
-
-
 # 이미지 모델
 MODEL_PATH = './NEWIMGAI.h5'
 emotion_img_model = tf.keras.models.load_model(MODEL_PATH)
@@ -415,4 +301,4 @@ def upload():
 
 
 if __name__ == '__main__':
-    socketio.run(app, host='0.0.0.0', port=8080)
+    app.run()

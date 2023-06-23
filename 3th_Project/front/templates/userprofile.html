@@ -146,45 +146,51 @@
 
               <tbody>
                 <tr>
-                  <td>긍정</td>
+                  <td><span>기쁨: 53%</span>/<span>긍정:82%</span></td>
                   <td>2023/05/29</td>
-                  <td>부정</td>
+                  <td><span>6</span>점 / <span>우울하지 않은 상태</span></td>
                   <td>2023/05/29</td>
                 </tr>
 
                 <tr>
-                  <td>긍정</td>
-                  <td>2023/05/30</td>
-                  <td>부정</td>
-                  <td>2023/05/30</td>
-                </tr>
-
-                <tr>
-                  <td>긍정</td>
+                  <td><span>슬픔: 63%</span>/<span>부정:84%</span></td>
                   <td>2023/05/31</td>
-                  <td>부정</td>
+                  <td><span>30</span>점 / <span>심한 우울 상태</span></td>
                   <td>2023/05/31</td>
                 </tr>
 
                 <tr>
-                  <td>긍정</td>
+                  <td><span>중립: 53%</span>/<span>긍정:65%</span></td>
+                  <td>2023/05/31</td>
+                  <td><span>10</span>점 / <span>우울하지 않은 상태</span></td>
+                  <td>2023/05/31</td>
+                </tr>
+
+                <tr>
+                  <td><span>중립: 62%</span>/<span>긍정:71%</span></td>
                   <td>2023/06/01</td>
-                  <td>부정</td>
+                  <td><span>4</span>점 / <span>우울하지 않은 상태</span></td>
                   <td>2023/06/01</td>
                 </tr>
 
                 <tr>
-                  <td>긍정</td>
-                  <td>2023/06/01</td>
-                  <td>부정</td>
-                  <td>2023/06/01</td>
+                  <td><span>기쁨: 45%</span>/<span>긍정:79%</span></td>
+                  <td>2023/06/07</td>
+                  <td><span>8</span>점 / <span>우울하지 않은 상태</span></td>
+                  <td>2023/06/07</td>
+                </tr>
+                <tr>
+                  <td><span>기쁨: 45%</span>/<span>부정:91%</span></td>
+                  <td>2023/06/20</td>
+                  <td><span>26</span>점 / <span>심한 우울 상태</span></td>
+                  <td>2023/06/20</td>
                 </tr>
               </tbody>
             </table>
             <canvas id="myChart"></canvas>
             <div id="edit_form-box">
               <form
-                action=""
+                id="updateProfileForm"
                 class="sign-in-form"
                 style="margin-top: 30px; gap: 10px"
               >
@@ -232,9 +238,9 @@
                 <td class="counselor_list">
                   <h4>
                     올리비아 <br />
-                    <span>Italy</span>
+                    <span>Online</span>
                   </h4>
-                  <a href="{{ url_for('chat') }}">
+                  <a href="#">
                     <div class="book__now">채팅하러가기</div>
                   </a>
                 </td>
@@ -243,34 +249,36 @@
               <tr>
                 <td width="60px">
                   <div class="imgBx">
-                    <img src="../static/img/trip-3.jpg" alt="" />
+                    <img
+                      src="../static/img/loona_flip_that_concept_hyunjin_1.jpg"
+                      alt=""
+                    />
                   </div>
                 </td>
                 <td class="counselor_list">
                   <h4>
-                    올리비아 <br />
-                    <span>India</span>
+                    현진 <br />
+                    <span>Offline</span> /
+                    <span>상담 가능 시간 : 월 수 금 오전 10시~</span>
                   </h4>
-                  <a href="{{ url_for('chat') }}">
-                    <div class="book__now">채팅하러가기</div>
-                  </a>
                 </td>
               </tr>
 
               <tr>
                 <td width="60px">
                   <div class="imgBx">
-                    <img src="../static/img/trip-3.jpg" alt="" />
+                    <img
+                      src="../static/img/loona_flip_that_concept_heejin_1.jpg"
+                      alt=""
+                    />
                   </div>
                 </td>
                 <td class="counselor_list">
                   <h4>
-                    올리비아 <br />
-                    <span>Italy</span>
+                    희진 <br />
+                    <span>Offline</span> /
+                    <span>상담 가능 시간 : 화 목 토 오전 10시~</span>
                   </h4>
-                  <a href="{{ url_for('chat') }}">
-                    <div class="book__now">채팅하러가기</div>
-                  </a>
                 </td>
               </tr>
             </table>
